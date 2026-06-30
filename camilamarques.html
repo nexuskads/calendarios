@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0d0d0b">
+<title>Calendário Estratégico 43 Dias — Camila Marques | NexusK Ads</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & TOKENS ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:   #0d0d0b;
+  --bg2:  #141412;
+  --bg3:  #1c1c18;
+  --bd:   rgba(255,255,255,0.07);
+  --bd2:  rgba(255,255,255,0.13);
+  --text: #f0ede6;
+  --mut:  #7a7870;
+  --faint:#3a3935;
+  --gold: #c9a84c;
+  --gold2:#e8c96e;
+  --goldf:rgba(201,168,76,0.10);
+  --green:#4caf7d;
+  --greenf:rgba(76,175,125,0.12);
+  --r7:   #9b7fe8; --r7f:rgba(155,127,232,0.12);
+  --r2:   #d4708a; --r2f:rgba(212,112,138,0.12);
+  --es:   #70a8d4; --esf:rgba(112,168,212,0.12);
+  --st:   #d4a870; --stf:rgba(212,168,112,0.12);
+  --at:   #5ab8d4; --atf:rgba(90,184,212,0.10);
+  --nu:   #4caf7d; --nuf:rgba(76,175,125,0.10);
+  --co:   #d4a84c; --cof:rgba(212,168,76,0.10);
+  --rad:  12px;
+  --radsm:8px;
+  --page: min(900px, 100%);
+}
+
+/* ── BASE ── */
+html { overflow-x: hidden; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── LAYOUT WRAPPER ── */
+.page {
+  width: 100%;
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ── HERO ── */
+.hero { padding: 2.5rem 0 1.5rem; }
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .75rem; font-weight: 500;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.15; color: var(--text); margin-bottom: .5rem;
+}
+.hero h1 em { font-style: italic; color: var(--gold2); }
+.hero-sub { font-size: 13px; color: var(--mut); max-width: 480px; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--bd);
+  border: 1px solid var(--bd);
+  border-radius: var(--rad);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.stat { background: var(--bg2); padding: 1.1rem .75rem; text-align: center; }
+.stat-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.9rem; color: var(--gold2);
+  display: block; line-height: 1;
+}
+.stat-label {
+  font-size: 10px; color: var(--mut);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-top: .3rem; display: block;
+}
+
+/* ── PROGRESS ── */
+.progress-wrap { margin-bottom: 1rem; }
+.progress-header {
+  display: flex; justify-content: space-between;
+  align-items: baseline; margin-bottom: .4rem;
+}
+.progress-label { font-size: 12px; color: var(--mut); }
+.progress-pct { font-size: 12px; color: var(--gold); font-weight: 500; }
+.progress-track { height: 4px; background: var(--faint); border-radius: 2px; overflow: hidden; }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 2px;
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+
+/* ── XP BAR ── */
+.xp-bar {
+  display: flex; align-items: center;
+  gap: .75rem; margin-bottom: 2rem; flex-wrap: wrap;
+}
+.level-badge {
+  background: var(--goldf);
+  border: 1px solid var(--gold);
+  border-radius: var(--radsm);
+  padding: .35rem .75rem;
+  font-size: 11px; font-weight: 500; color: var(--gold2);
+  white-space: nowrap; flex-shrink: 0;
+}
+.xp-track {
+  flex: 1; min-width: 60px;
+  height: 6px; background: var(--faint); border-radius: 3px; overflow: hidden;
+}
+.xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--r7), var(--gold2));
+  border-radius: 3px;
+  transition: width .8s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+.xp-text { font-size: 11px; color: var(--mut); white-space: nowrap; flex-shrink: 0; }
+
+/* ── FILTER TABS ── */
+.filter-wrap {
+  display: flex; gap: 5px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; padding-bottom: 4px;
+  margin-bottom: 1.5rem;
+}
+.filter-wrap::-webkit-scrollbar { display: none; }
+.filter-btn {
+  flex-shrink: 0;
+  font-size: 11.5px; font-family: 'DM Sans', sans-serif;
+  padding: 5px 13px; border-radius: 20px;
+  border: 1px solid var(--bd2);
+  background: transparent; color: var(--mut);
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+.filter-btn.active {
+  background: var(--goldf); border-color: var(--gold);
+  color: var(--gold2); font-weight: 500;
+}
+
+/* ── WEEK BLOCK ── */
+.week-block { margin-bottom: 2rem; }
+.week-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.05rem; color: var(--text);
+  margin-bottom: .75rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--bd);
+  display: flex; align-items: center;
+  gap: .6rem; flex-wrap: wrap;
+}
+.week-num {
+  font-size: 10px; font-family: 'DM Sans', sans-serif;
+  color: var(--gold); background: var(--goldf);
+  border: 1px solid rgba(201,168,76,.2);
+  padding: 2px 8px; border-radius: 20px;
+  font-weight: 500; letter-spacing: .05em; flex-shrink: 0;
+}
+.week-count {
+  font-size: 11px; font-family: 'DM Sans', sans-serif;
+  color: var(--mut); margin-left: auto;
+}
+
+/* ── DAY CARD ── */
+.day-card {
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: var(--rad);
+  margin-bottom: .5rem;
+  transition: border-color .2s;
+  overflow: hidden;
+  width: 100%;
+}
+.day-card:hover { border-color: var(--bd2); }
+.day-card.done { background: var(--bg3); border-color: rgba(76,175,125,.25); }
+.day-card.done .card-header { opacity: .75; }
+
+.card-header {
+  display: flex; align-items: flex-start;
+  gap: 8px; padding: .85rem 1rem;
+  cursor: pointer; user-select: none;
+  width: 100%;
+}
+
+.check-btn {
+  width: 26px; height: 26px; min-width: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--faint);
+  background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; color: transparent; font-size: 12px;
+  margin-top: 2px; flex-shrink: 0;
+}
+.check-btn:hover { border-color: var(--green); }
+.day-card.done .check-btn { background: var(--green); border-color: var(--green); color: #fff; }
+
+.day-info { flex: 1; min-width: 0; overflow: hidden; }
+.day-meta {
+  display: flex; align-items: center;
+  gap: 5px; flex-wrap: wrap; margin-bottom: 4px;
+}
+.day-num-label {
+  font-size: 11px; font-weight: 500;
+  color: var(--mut); flex-shrink: 0;
+}
+.badge {
+  font-size: 10px; font-weight: 500;
+  padding: 2px 7px; border-radius: 20px;
+  flex-shrink: 0;
+}
+.b-r7{ background:var(--r7f);color:var(--r7); }
+.b-r2{ background:var(--r2f);color:var(--r2); }
+.b-es{ background:var(--esf);color:var(--es); }
+.b-st{ background:var(--stf);color:var(--st); }
+.b-at{ background:var(--atf);color:var(--at); }
+.b-nu{ background:var(--nuf);color:var(--nu); }
+.b-co{ background:var(--cof);color:var(--co); }
+
+.card-gancho {
+  font-size: 13px; font-weight: 400;
+  color: var(--text); line-height: 1.45;
+  word-break: break-word; overflow-wrap: break-word;
+  /* NO white-space:nowrap — wraps naturally */
+}
+.day-card.done .card-gancho {
+  text-decoration: line-through; color: var(--mut);
+}
+
+.expand-icon {
+  color: var(--mut); font-size: 18px;
+  flex-shrink: 0; transition: transform .25s;
+  font-weight: 300; line-height: 1;
+  margin-top: 2px;
+}
+.day-card.open .expand-icon { transform: rotate(180deg); }
+
+/* ── CARD BODY ── */
+.card-body {
+  display: none;
+  padding: 0 1rem 1rem;
+  border-top: 1px solid var(--bd);
+}
+.day-card.open .card-body { display: block; }
+
+.body-sec { margin-top: .9rem; }
+.body-label {
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--gold);
+  font-weight: 500; margin-bottom: .3rem;
+}
+.body-text { font-size: 12.5px; color: var(--mut); line-height: 1.65; word-break: break-word; }
+.body-text.gancho-full {
+  font-size: 13.5px; color: var(--text);
+  font-style: italic; font-family: 'DM Serif Display', serif;
+}
+.legenda-box {
+  background: var(--bg3); border: 1px solid var(--bd);
+  border-radius: var(--radsm);
+  padding: .75rem .9rem;
+  font-size: 12px; color: var(--mut);
+  line-height: 1.75; white-space: pre-line;
+  word-break: break-word; overflow-wrap: break-word;
+  margin-top: .3rem;
+}
+.vis-box {
+  border-left: 2px solid var(--faint);
+  padding-left: .6rem;
+  font-size: 12px; color: var(--mut);
+  margin-top: .3rem; word-break: break-word;
+}
+.cta-pill {
+  display: inline-block; margin-top: .65rem;
+  font-size: 11px; font-weight: 500;
+  color: var(--gold2); background: var(--goldf);
+  border: 1px solid rgba(201,168,76,.25);
+  border-radius: 20px; padding: 3px 11px;
+  word-break: break-word;
+}
+
+/* ── ACHIEVEMENTS ── */
+.achievements { margin-bottom: 2.5rem; }
+.ach-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem; color: var(--text);
+  margin-bottom: .9rem;
+}
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: .5rem;
+}
+.ach-card {
+  background: var(--bg2); border: 1px solid var(--bd);
+  border-radius: var(--radsm);
+  padding: .75rem .9rem; text-align: center;
+  transition: border-color .2s;
+}
+.ach-card.unlocked { border-color: rgba(201,168,76,.35); background: var(--goldf); }
+.ach-icon { font-size: 1.4rem; display: block; margin-bottom: .35rem; filter: grayscale(1); opacity: .3; }
+.ach-card.unlocked .ach-icon { filter: none; opacity: 1; }
+.ach-name { font-size: 11px; font-weight: 500; color: var(--mut); }
+.ach-card.unlocked .ach-name { color: var(--gold2); }
+.ach-desc { font-size: 10px; color: var(--faint); margin-top: 2px; }
+.ach-card.unlocked .ach-desc { color: var(--mut); }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--bd);
+  padding: 2rem 1.25rem;
+  display: flex; flex-direction: column;
+  align-items: center; gap: .75rem;
+  text-align: center;
+}
+.footer-logo {
+  height: 72px; width: 72px;
+  transition: filter .2s;
+}
+.footer-logo:hover { filter: drop-shadow(0 0 20px rgba(155,127,232,0.8)) !important; }
+.footer-ig {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 500; color: #9b7fe8;
+  text-decoration: none; letter-spacing: .03em;
+  transition: color .2s;
+}
+.footer-ig:hover { color: #c4a8ff; }
+.footer-note { font-size: 11px; color: var(--faint); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  background: var(--bg2); border: 1px solid var(--gold);
+  border-radius: var(--rad);
+  padding: .9rem 1.1rem;
+  font-size: 13px; color: var(--text);
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  transform: translateY(120%);
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  z-index: 100; max-width: 280px;
+}
+.toast.show { transform: translateY(0); }
+.toast-title {
+  font-weight: 500; color: var(--gold2);
+  font-size: 11px; text-transform: uppercase;
+  letter-spacing: .08em; margin-bottom: 3px;
+}
+
+/* ── RESPONSIVE: TABLET ≤768px ── */
+@media (max-width: 768px) {
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .ach-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── RESPONSIVE: MOBILE ≤480px ── */
+@media (max-width: 480px) {
+  .page { padding: 0 .875rem; }
+  .hero { padding: 1.5rem 0 1rem; }
+  .hero h1 { font-size: 1.65rem; }
+  .hero-sub { font-size: 12px; }
+
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stat { padding: .9rem .6rem; }
+  .stat-val { font-size: 1.6rem; }
+  .stat-label { font-size: 9px; }
+
+  .xp-bar { gap: 5px; }
+  .level-badge { font-size: 10px; order: 1; }
+  .xp-track { order: 3; flex-basis: 100%; }
+  .xp-text { order: 2; margin-left: auto; font-size: 10px; }
+
+  .ach-grid { grid-template-columns: repeat(2, 1fr); }
+  .ach-icon { font-size: 1.2rem; }
+  .ach-name { font-size: 10px; }
+  .ach-desc { font-size: 9px; }
+
+  .card-header { padding: .75rem .875rem; gap: 7px; }
+  .check-btn { width: 24px; height: 24px; min-width: 24px; font-size: 11px; }
+  .card-gancho { font-size: 12.5px; }
+  .badge { font-size: 9px; padding: 1px 6px; }
+  .day-num-label { font-size: 10px; }
+  .expand-icon { font-size: 16px; }
+
+  .card-body { padding: 0 .875rem .875rem; }
+  .body-text { font-size: 12px; }
+  .legenda-box { font-size: 11.5px; padding: .65rem .75rem; }
+
+  .toast { right: .875rem; left: .875rem; max-width: none; bottom: 1rem; }
+
+  .footer-logo { height: 48px; }
+  .footer-ig { font-size: 12px; }
+}
+
+/* ── RESPONSIVE: SMALL ≤360px ── */
+@media (max-width: 360px) {
+  .page { padding: 0 .75rem; }
+  .hero h1 { font-size: 1.4rem; }
+  .stat-val { font-size: 1.4rem; }
+  .card-gancho { font-size: 12px; }
+}
+
+  .dual-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 0 0.5rem;
+  }
+  .dual-divider::before, .dual-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--faint);
+  }
+  .dual-divider span {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--r7);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .dual-divider:nth-of-type(2) span { color: var(--r2); }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow">NexusK Ads · Calendário Estratégico</p>
+    <h1>30 dias de conteúdo<br>com <em>intenção real</em></h1>
+    <p class="hero-sub">Camila Marques Vargas · Estrategista de Conteúdo Digital<br>30 dias · 43 conteúdos · Marque cada dia publicado e acompanhe seu progresso.</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-val" id="stat-done">0</span><span class="stat-label">Publicados</span></div>
+    <div class="stat"><span class="stat-val" id="stat-left">30</span><span class="stat-label">Restantes</span></div>
+    <div class="stat"><span class="stat-val" id="stat-xp">0</span><span class="stat-label">XP acumulado</span></div>
+    <div class="stat"><span class="stat-val" id="stat-streak">0</span><span class="stat-label">Sequência</span></div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <span class="progress-label">Progresso do calendário</span>
+      <span class="progress-pct" id="pct-text">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+  </div>
+
+  <!-- XP -->
+  <div class="xp-bar">
+    <div class="level-badge" id="level-badge">Nível 1 · Iniciante</div>
+    <div class="xp-track"><div class="xp-fill" id="xp-fill"></div></div>
+    <div class="xp-text" id="xp-text">0 / 100 XP</div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filter-wrap">
+    <button class="filter-btn active" onclick="filterCards('all',this)">Todos</button>
+    <button class="filter-btn" onclick="filterCards('r7',this)">Reel 7s</button>
+    <button class="filter-btn" onclick="filterCards('r2',this)">Reel 2min</button>
+    <button class="filter-btn" onclick="filterCards('es',this)">Estático</button>
+    <button class="filter-btn" onclick="filterCards('st',this)">Story</button>
+    <button class="filter-btn" onclick="filterCards('at',this)">Atrair</button>
+    <button class="filter-btn" onclick="filterCards('nu',this)">Nutrir</button>
+    <button class="filter-btn" onclick="filterCards('co',this)">Converter</button>
+    <button class="filter-btn" onclick="filterCards('done',this)">✓ Feitos</button>
+    <button class="filter-btn" onclick="filterCards('pending',this)">Pendentes</button>
+  </div>
+
+  <!-- CARDS ROOT -->
+  <div id="cards-root"></div>
+
+  <!-- ACHIEVEMENTS -->
+  <div class="achievements">
+    <p class="ach-title">Conquistas</p>
+    <div class="ach-grid" id="ach-grid"></div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" class="footer-logo" style="filter:drop-shadow(0 0 12px rgba(138,80,240,0.45))">
+  <defs>
+    <linearGradient id="gN" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6b3fc4"/>
+      <stop offset="100%" stop-color="#9b7fe8"/>
+    </linearGradient>
+    <linearGradient id="gX" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9b7fe8"/>
+      <stop offset="100%" stop-color="#c4a8ff"/>
+    </linearGradient>
+  </defs>
+  <!-- Circle arc -->
+  <circle cx="36" cy="32" r="22" stroke="url(#gX)" stroke-width="2.5" fill="none" stroke-dasharray="110 30"/>
+  <!-- N letter -->
+  <path d="M18 48 L18 16 L30 40 L30 16" stroke="url(#gN)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- K letter -->
+  <path d="M38 16 L38 48 M38 30 L52 16 M38 30 L52 48" stroke="url(#gX)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Bottom text -->
+  <text x="36" y="66" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="7" font-weight="500" letter-spacing="2" fill="#7a7870">NEXUSK ADS</text>
+</svg>
+  <a href="https://www.instagram.com/nexusk.ads" target="_blank" rel="noopener" class="footer-ig">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+    </svg>
+    @nexusk.ads
+  </a>
+  <span class="footer-note">Todos os dados são salvos localmente no seu navegador.</span>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title" id="toast-title">Conquista desbloqueada</div>
+  <div id="toast-msg"></div>
+</div>
+
+<script>
+const DAYS = [
+{
+  id:1,
+  week:1,
+  fmt:"r7+r2",
+  obj:"at",
+  gancho:"Seu Instagram parece que você não acredita no seu negócio.",
+  gancho2:"Trabalhei com brechó, pilates, drenagem e artesanato. O que aprendi sobre vender.",
+  objetivo:"Reel 7s: provocar identificação imediata · Reel 2min: conexão pela trajetória real",
+  visual:"📱 Reel 7s: close no rosto, expressão seca, texto sobreposto. Reel 2min: falando para câmera, tom casual, boa iluminação.",
+  legenda:"Não é falta de criatividade.\nÉ falta de estratégia.\n\nQuando o Instagram não tem personalidade, o cliente não confia.\nE cliente que não confia, não compra.\n\nConteúdo não é enfeite. É argumento de venda.\n\nSe o seu negócio é bom — e provavelmente é — o Instagram precisa parecer isso também.",
+  legenda2:"Não cheguei ao marketing pelo caminho óbvio.\n\nTive brechó, vendi palha italiana, trabalhei com drenagem, assumi estúdio de pilates, fui garçonete.\n\nEm cada um desses negócios, o que fazia a diferença não era o produto.\nEra a percepção de valor.\n\nHoje faço isso com estratégia e intenção.\nÉ exatamente isso que entrego para os meus clientes.",
+  cta:"Direct: diagnóstico gratuito de 15min",
+},
+{
+  id:2,
+  week:1,
+  fmt:"es",
+  obj:"at",
+  gancho:"3 sinais de que seu conteúdo está afastando clientes (sem você saber)",
+  objetivo:"Conteúdo de alto salvamento — diagnóstico rápido e reconhecível",
+  visual:"📱 Card escuro com lista numerada, fonte elegante. Leitura em menos de 10 segundos.",
+  legenda:"1. Você posta sem frequência nem lógica\n2. Cada post parece de um negócio diferente\n3. A legenda termina sem dizer o que fazer\n\nNenhum desses é erro de iniciante. São erros de quem nunca parou para pensar em estratégia.\n\nSalva esse post. Quando você olhar pro seu feed, vai entender o que quero dizer.",
+  cta:"Salva e me conta qual dos 3 é o seu",
+},
+{
+  id:3,
+  week:1,
+  fmt:"st",
+  obj:"at",
+  gancho:"Enquete: qual é o seu maior problema com conteúdo hoje?",
+  objetivo:"Pesquisa de dor + engajamento inicial com novos seguidores",
+  visual:"📱 Story com enquete do Instagram. Fundo simples. Duas opções curtas e reais.",
+  legenda:"Enquete: Seu maior problema com conteúdo agora é...\nA) Não sei o que postar\nB) Posto mas não converte\n\nResponde — vou usar isso pra criar conteúdo pra você.",
+  cta:"Comenta no story se nenhuma das duas serviu",
+},
+{
+  id:4,
+  week:1,
+  fmt:"r7+r2",
+  obj:"at",
+  gancho:"Não é o algoritmo. É o seu conteúdo que não convence.",
+  gancho2:"Por que negócios da saúde perdem clientes no Instagram antes de um boa tarde.",
+  objetivo:"Reel 7s: quebrar crença popular · Reel 2min: nicho saúde com dor reconhecível",
+  visual:"📱 Reel 7s: texto em tela + expressão seca, sem filtros. Reel 2min: postura de especialista, fundo clean, exemplos reais.",
+  legenda:"Todo mundo culpa o algoritmo.\nO algoritmo empurga o que as pessoas querem ver.\n\nSe o seu conteúdo não está indo longe, é porque ele ainda não convence ninguém de parar o scroll.\n\nIsso tem solução.\nMas começa em aceitar onde está o problema.",
+  legenda2:"Clínicas e consultórios têm um problema específico.\n\nSão bons no que fazem.\nPéssimos em parecer bons no que fazem.\n\nO cliente não entra no consultório antes de passar pelo Instagram.\nSe o perfil não inspira confiança — ele não chega nem a marcar consulta.\n\nConheço esse mercado por dentro. Trabalhei nele.",
+  cta:"Marca alguém que ainda culpa o algoritmo",
+},
+{
+  id:5,
+  week:1,
+  fmt:"es",
+  obj:"at",
+  gancho:"A diferença entre parecer bom e ser bom — e por que só um vende.",
+  objetivo:"Introduzir a filosofia central da marca em formato salvável",
+  visual:"📱 Card clean, frase principal grande, complemento menor embaixo. Pode ser carrossel.",
+  legenda:"Não basta ser bom.\nPrecisamos parecer bons.\n\nIsso não é superficialidade — é comunicação.\n\nO cliente não tem como entrar no seu negócio antes de decidir confiar nele.\nEssa decisão acontece no feed, em menos de 3 segundos.\n\nO que o seu Instagram comunica antes de você abrir a boca?",
+  cta:"Me conta: o que você quer que sintam ao ver seu perfil?",
+},
+{
+  id:6,
+  week:1,
+  fmt:"st",
+  obj:"at",
+  gancho:"Bastidores: como é um diagnóstico de marca na prática.",
+  objetivo:"Humanizar o processo, reduzir medo do primeiro contato",
+  visual:"📱 Tela de trabalho ou caderno. Voz firme explicando o que você olha num diagnóstico.",
+  legenda:"Quando recebo um cliente novo, as primeiras perguntas são sempre as mesmas:\n— O que você vende e pra quem?\n— O que você quer que as pessoas pensem quando veem seu perfil?\n— O que está acontecendo que te fez me procurar?\n\nA maioria não sabe responder a segunda pergunta.\nE é exatamente aí que começa o trabalho.",
+  cta:"Você saberia responder essas 3 perguntas? Me conta.",
+},
+{
+  id:7,
+  week:2,
+  fmt:"r7+r2",
+  obj:"nu",
+  gancho:"SWOT não é para empresa grande. É para quem trabalha sozinho e não pode errar.",
+  gancho2:"O que eu analiso antes de criar qualquer conteúdo para um cliente.",
+  objetivo:"Reel 7s: democratizar ferramenta estratégica · Reel 2min: mostrar método com profundidade",
+  visual:"📱 Reel 7s: quadrante SWOT rabiscado no papel, voz firme. Reel 2min: câmera, listar com dedos, caderno como prop.",
+  legenda:"Quando faço SWOT com cliente solo, a primeira reação é: isso é coisa de empresa grande.\n\nNão é.\n\nÉ exatamente para quem não tem time, orçamento infinito ou energia sobrando.\n\nQuando você sabe onde está forte e onde está exposto, cada post tem razão de existir.\n\nEstratégia não é luxo. É o que te poupa de postar no vazio.",
+  legenda2:"Antes de criar um único post, eu olho 5 coisas:\n\n1. O que o negócio vende de verdade (não o que o dono acha que vende)\n2. Quem é o cliente que paga sem reclamar do preço\n3. O que os concorrentes fazem — e fazem errado\n4. Qual tom de voz combina com essa marca específica\n5. Que conteúdo vai gerar ação, não só curtida\n\nSó depois disso, a gente escreve a primeira legenda.",
+  cta:"Quer fazer um SWOT do seu negócio comigo? Me chama.",
+},
+{
+  id:8,
+  week:2,
+  fmt:"es",
+  obj:"nu",
+  gancho:"A diferença entre conteúdo que informa e conteúdo que vende.",
+  objetivo:"Ensinar o conceito central — conteúdo como argumento de venda",
+  visual:"📱 Card dividido: esquerda informa, direita vende. Exemplo concreto nos dois lados.",
+  legenda:"Informa: Fizemos 50 atendimentos esse mês!\nVende: Uma cliente chegou travada no pescoço. Em 3 sessões, voltou a dormir.\n\nUm fala sobre você.\nO outro fala sobre o resultado que o cliente vai ter.\n\nNinguém compra serviço. Todo mundo compra transformação.\n\nEssa virada de perspectiva separa um Instagram bonito de um Instagram que gera caixa.",
+  cta:"Salva esse post — use ele na próxima legenda.",
+},
+{
+  id:9,
+  week:2,
+  fmt:"st",
+  obj:"nu",
+  gancho:"Quiz: você sabe qual é o tom de voz do seu negócio?",
+  objetivo:"Engajamento ativo + educar sobre branding de voz de forma leve",
+  visual:"📱 Caixa de perguntas no story. Responder as melhores nos próximos stories com análise rápida.",
+  legenda:"Caixa de perguntas: Como você descreveria a personalidade do seu negócio em 3 palavras?\n\nVou responder as melhores nos próximos stories com uma análise rápida de tom de voz.\n\nÉ mais sério do que parece.",
+  cta:"Responde agora — demora 10 segundos.",
+},
+{
+  id:10,
+  week:2,
+  fmt:"r7+r2",
+  obj:"nu",
+  gancho:"Conteúdo sem estratégia é decoração cara.",
+  gancho2:"O que um técnico em administração enxerga que um criativo de conteúdo não vê.",
+  objetivo:"Reel 7s: frase de impacto para compartilhar · Reel 2min: diferencial da formação híbrida",
+  visual:"📱 Reel 7s: só texto em tela, fundo escuro, silêncio antes da fala. Reel 2min: tom professoral com ironia leve, planilha como prop.",
+  legenda:"Você pode contratar o melhor fotógrafo da cidade.\nEditar com os melhores filtros.\nPostar no melhor horário.\n\nE ainda assim não vender nada.\n\nPorque sem estratégia, cada post é só mais um objeto bonito no feed de alguém que vai seguir em frente.\n\nBonito não paga boleto. Estratégico, sim.",
+  legenda2:"Criatividade sem número é arte.\nNúmero sem criatividade é relatório.\n\nO que eu faço é diferente.\n\nQuando olho para um negócio, enxergo ao mesmo tempo: o que precisa ser dito, como deve ser dito e se vai fechar o mês.\n\nEsse cruzamento é raro.\nÉ o que torna uma estratégia de conteúdo algo além de postar todo dia.",
+  cta:"Compartilha nos stories se fez sentido.",
+},
+{
+  id:11,
+  week:2,
+  fmt:"es",
+  obj:"nu",
+  gancho:"5 erros de conteúdo que ainda vejo todo dia em negócios sérios.",
+  objetivo:"Alto salvamento — diagnóstico que gera identificação e compartilhamento",
+  visual:"📱 Lista numerada, fonte grande, leitura em 20 segundos. Fundo clean, sem poluição.",
+  legenda:"1. Foto boa, legenda vazia\n2. CTA genérico (confira nosso trabalho)\n3. Postar quando lembra, não quando a estratégia manda\n4. Falar de si mesmo o tempo todo sem falar do cliente\n5. Tratar o Instagram como vitrine e não como canal de vendas\n\nNenhum desses é erro de iniciante.\nSão erros de quem nunca parou para pensar em estratégia.\n\nSalva. Você vai voltar aqui.",
+  cta:"Qual dos 5 você já fez? Comenta o número.",
+},
+{
+  id:12,
+  week:2,
+  fmt:"r7+r2",
+  obj:"nu",
+  gancho:"Personalidade de marca não é estética. É o que você faz quando ninguém está olhando.",
+  gancho2:"Como crio um calendário de conteúdo que realmente funciona — passo a passo.",
+  objetivo:"Reel 7s: diferenciar superficial de substancial · Reel 2min: método de calendário com transparência",
+  visual:"📱 Reel 7s: falar como pensamento em voz alta, sem roteiro aparente. Reel 2min: mostrar tela ou falar para câmera com calma.",
+  legenda:"Muita gente confunde marca com logotipo.\nOu com paleta de cores.\nOu com feed bonito.\n\nMarca é o que as pessoas falam sobre o seu negócio quando você não está na sala.\n\nÉ a sensação que fica depois da compra.\nÉ a razão pela qual indicam sem que ninguém peça.\n\nEstética comunica. Mas personalidade convence.",
+  legenda2:"Um calendário de conteúdo que funciona tem quatro camadas:\n\n1. Pilar estratégico — o tema central de cada semana\n2. Objetivo por peça — atrair, nutrir ou converter\n3. Formato certo para o objetivo — não existe reel bom para todo caso\n4. Revisão mensal — o que funcionou e o que vai ser ajustado\n\nSem essas camadas, calendário é só uma grade de datas sem intenção.",
+  cta:"Quer um calendário assim para o seu negócio? Me chama.",
+},
+{
+  id:13,
+  week:3,
+  fmt:"r7+r2",
+  obj:"nu",
+  gancho:"Gestão de redes é caro. Caro comparado com o quê, exatamente?",
+  gancho2:"Um cliente com 8 meses de posts diários e zero conversões. O que mudou em 30 dias.",
+  objetivo:"Reel 7s: quebrar objeção de preço · Reel 2min: prova social com case real",
+  visual:"📱 Reel 7s: tom seco, câmera parada, sem sorrir nos primeiros 2 segundos. Reel 2min: contar o case sem revelar identidade, foco em resultado.",
+  legenda:"Manter um Instagram sem estratégia também tem custo.\nCusta seu tempo. Sua energia. Sua credibilidade.\n\nE além disso — não gera retorno.\n\nA pergunta certa não é quanto custa contratar alguém?\nÉ quanto estou perdendo por não ter estratégia?\n\nEsse número costuma ser bem mais alto.",
+  legenda2:"Um cliente chegou com 8 meses de posts diários e zero conversões.\n\nO problema não era volume. Era ausência de intenção.\n\nCada post parecia de um negócio diferente.\nNão havia lógica de funil, de voz, de oferta.\n\nEm 30 dias, reorganizamos posicionamento, reescrevemos CTAs e definimos pilares.\n\nO Instagram não virou viral.\nMas começou a trabalhar. É exatamente isso que ele deveria fazer desde o início.",
+  cta:"Me chama para calcularmos isso juntos.",
+},
+{
+  id:14,
+  week:3,
+  fmt:"st",
+  obj:"nu",
+  gancho:"Respondendo as dúvidas mais comuns sobre gestão de conteúdo.",
+  objetivo:"FAQ em stories — reduzir fricção antes do primeiro contato",
+  visual:"📱 Série de 3-4 stories respondendo perguntas. Pode usar respostas da caixa do Dia 9.",
+  legenda:"Story 1: Você atende fora do Brasil? — Sim. É um dos meus focos agora.\nStory 2: Quanto tempo para ver resultado? — Com estratégia bem aplicada: 60 a 90 dias.\nStory 3: Você cria o conteúdo ou só orienta? — As duas coisas, dependendo do que o negócio precisa.\nStory 4: Direct aberto para mais perguntas.",
+  cta:"Direct aberto para quem quiser conversar.",
+},
+{
+  id:15,
+  week:3,
+  fmt:"es",
+  obj:"nu",
+  gancho:"Você consegue fazer sozinho. Mas vai demorar 3x mais e custar o dobro de energia.",
+  objetivo:"Quebrar objeção do faço eu mesmo com honestidade — sem tom condescendente",
+  visual:"📱 Card com contraste forte. Frase principal grande, desenvolvimento menor embaixo.",
+  legenda:"Não vou mentir: dá para fazer sozinho.\n\nCom tempo, tentativa e erro, pesquisa e mais tempo — você eventualmente descobre o que funciona.\n\nA pergunta é: você tem esse tempo?\n\nE mais importante: você quer gastar essa energia com isso — ou com o que você realmente faz bem?\n\nEspecialista não é luxo. É otimização.",
+  cta:"Salva esse post para quando alguém te disser que é simples.",
+},
+{
+  id:16,
+  week:3,
+  fmt:"r7+r2",
+  obj:"nu",
+  gancho:"Já tentou antes e não deu certo? Me conta o que aconteceu.",
+  gancho2:"Por que meu trabalho funciona diferente de uma agência tradicional.",
+  objetivo:"Reel 7s: empatia com quem já tentou · Reel 2min: diferenciação competitiva direta",
+  visual:"📱 Reel 7s: câmera próxima, tom confidencial, falar mais devagar. Reel 2min: direto, listar diferenças sem roteiro engessado.",
+  legenda:"Já ouvi isso muitas vezes.\nContratei agência e não funcionou.\nPaguei por um curso e continuei perdida.\nTentei sozinha e desisti.\n\nCada caso tem uma razão específica.\nE quase sempre, o problema não era a ferramenta — era ausência de estratégia personalizada.\n\nO que funciona para um negócio não funciona para outro.\nIsso não é frase de efeito. É o motivo pelo qual eu analiso antes de criar.",
+  legenda2:"Agência: você é mais um cliente numa carteira de 30.\nEu: você é o único no seu horário de atendimento.\n\nAgência: entregam o que foi combinado em contrato.\nEu: entrego o que o negócio precisa — mesmo que mude pelo caminho.\n\nAgência: equipe que rotaciona e não conhece sua marca de verdade.\nEu: uma pessoa que estudou o seu negócio antes de escrever a primeira palavra.\n\nIsso não é para todos. Mas para quem precisa, faz toda a diferença.",
+  cta:"Me conta o que aconteceu. Sem compromisso.",
+},
+{
+  id:17,
+  week:3,
+  fmt:"st",
+  obj:"nu",
+  gancho:"Bastidores: processo de criação de estratégia para um cliente novo.",
+  objetivo:"Transparência no processo — reduzir medo do desconhecido",
+  visual:"📱 Mostrar tela de trabalho (doc, planilha, mapa mental) sem revelar dados do cliente.",
+  legenda:"Hoje estou finalizando o planejamento de um cliente novo.\nO processo:\n→ Análise SWOT do negócio\n→ Definição de público e dores\n→ Pilares de conteúdo com lógica de funil\n→ Calendário com intenção por peça\n\nNada de postar todo dia e ver o que acontece.\nCada peça tem uma função específica.",
+  cta:"Quer ver como ficaria o seu? Me chama.",
+},
+{
+  id:18,
+  week:3,
+  fmt:"r7+r2",
+  obj:"nu",
+  gancho:"O que eu faria diferente se começasse hoje do zero — com o que sei agora.",
+  gancho2:"Depoimento de cliente — resultado real, sem edição excessiva.",
+  objetivo:"Reel 7s: conexão emocional com empreendedores em início · Reel 2min: prova social direta",
+  visual:"📱 Reel 7s: tom reflexivo, lugar diferente, sem pressa. Reel 2min: print ou vídeo do cliente (com permissão).",
+  legenda:"Se eu começasse hoje, com o que sei agora:\n\nDefiniria meu posicionamento antes de criar qualquer conteúdo.\nPararia de tentar agradar todo mundo.\nEscolheria um nicho e seria a melhor naquele espaço.\nInvestiria em estratégia antes de investir em produção.\n\nCada um desses aprendizados custou tempo real.\nNão tem atalho — mas dá para encurtar o caminho.",
+  legenda2:"Deixa quem já passou pelo processo falar.\n\n[Depoimento real do cliente]\n\nEsse é o tipo de resultado que acontece quando estratégia e execução andam juntas.\n\nO próximo passo é uma conversa.",
+  cta:"O que você faria diferente? Me conta nos comentários.",
+},
+{
+  id:19,
+  week:4,
+  fmt:"r7+r2",
+  obj:"co",
+  gancho:"Tem uma vaga disponível essa semana. Só uma.",
+  gancho2:"Meus serviços, o que está incluso e para quem cada um faz sentido.",
+  objetivo:"Reel 7s: urgência real com oferta direta · Reel 2min: clareza de oferta para facilitar decisão",
+  visual:"📱 Reel 7s: fundo escuro, luz séria, sem sorrir, sem música animada. Reel 2min: falar para câmera como explicando para amigo.",
+  legenda:"Trabalho com um número limitado de clientes para garantir qualidade.\n\nEssa semana abriu uma vaga.\n\nSe você acompanhou os últimos dias de conteúdo e ainda está aqui — você já sabe o que eu faço e como faço.\n\nA próxima etapa é uma conversa de 30 minutos para ver se faz sentido trabalharmos juntos.\n\nLink na bio. Ou me chama no direct.",
+  legenda2:"Três formatos de trabalho:\n\n1. Diagnóstico estratégico — análise SWOT + mapa de conteúdo. Para quem quer entender antes de agir.\n2. Gestão de conteúdo — criação, publicação e análise mensal. Para quem quer delegar.\n3. Curadoria criativa — olhar externo e direcionamento. Para quem já tem time mas precisa de estratégia.\n\nMe conta o que você está vivendo — e eu indico o que faz mais sentido.",
+  cta:"Me chama no direct — respondo em ordem.",
+},
+{
+  id:20,
+  week:4,
+  fmt:"es",
+  obj:"co",
+  gancho:"Antes e depois: como um feed sem estratégia vira canal de vendas.",
+  objetivo:"Prova visual de transformação — gerar desejo e confiança ao mesmo tempo",
+  visual:"📱 Split: caótico vs organizado. Mockup ou caso real com permissão do cliente.",
+  legenda:"À esquerda: posts aleatórios, sem conexão, legenda vazia, zero CTA.\nÀ direita: posicionamento claro, voz definida, cada post com propósito.\n\nNão é filtro. Não é design novo.\nÉ estratégia.\n\nEsse é o tipo de mudança que eu faço.\nE que começa antes de qualquer foto ser tirada.",
+  cta:"Me chama — vamos conversar sobre o seu.",
+},
+{
+  id:21,
+  week:4,
+  fmt:"r7+r2",
+  obj:"co",
+  gancho:"Se você chegou até aqui, você já sabe o que precisa fazer.",
+  gancho2:"Por que negócios do exterior escolhem trabalhar comigo sendo eu do Brasil.",
+  objetivo:"Reel 7s: ativar quem acompanhou · Reel 2min: quebrar objeção geográfica para público internacional",
+  visual:"📱 Reel 7s: câmera próxima, tom calmo e seguro. Reel 2min: ambiente diferente, mostrar mobilidade do trabalho remoto.",
+  legenda:"Você leu. Assistiu. Salvou.\n\nEm algum momento pensou isso é exatamente o que eu preciso.\n\nEsse momento foi suficiente.\nNão é impulso. É reconhecimento.\n\nMe chama quando estiver pronto.",
+  legenda2:"A distância não é o problema.\n\nO problema é falta de estratégia — e isso não tem fronteira.\n\nTrabalho 100% remoto.\nEntrego em português, espanhol ou inglês dependendo do cliente.\n\nO que clientes do exterior valorizam: atenção individualizada, método claro e alguém que entende tanto de negócio quanto de comunicação.\n\nEsse perfil é raro em qualquer mercado.",
+  cta:"Direct: estou pronto — ou link na bio.",
+},
+{
+  id:22,
+  week:4,
+  fmt:"st",
+  obj:"co",
+  gancho:"Bastidores: como é meu processo de onboarding de um cliente novo.",
+  objetivo:"Humanizar e detalhar o início do trabalho — remover medo do primeiro passo",
+  visual:"📱 Story mostrando checklist de onboarding ou tela de briefing sem dados do cliente.",
+  legenda:"Quando um cliente fecha comigo, os primeiros passos são:\n→ Briefing completo do negócio\n→ Análise SWOT do posicionamento atual\n→ Definição de público, dores e desejos\n→ Primeiros pilares de conteúdo\n→ Calendário do primeiro mês\n\nTudo isso antes de uma única postagem.\nPorque estratégia vem antes de execução.",
+  cta:"Quer começar assim? Me chama.",
+},
+{
+  id:23,
+  week:4,
+  fmt:"es",
+  obj:"co",
+  gancho:"O que está incluso numa parceria com a Camila Marques — sem letras miúdas.",
+  objetivo:"Transparência total — facilitar decisão final de compra com lista clara",
+  visual:"📱 Card elegante com lista de bullets. Fonte legível. Sem poluição visual.",
+  legenda:"Quando trabalhamos juntos, você recebe:\n→ Análise do seu negócio e posicionamento atual\n→ Definição de público, voz e pilares de conteúdo\n→ Calendário com intenção estratégica por peça\n→ Acompanhamento e ajustes mensais\n→ Acesso direto para tirar dúvidas\n\nSem pacote fechado que não faz sentido para o seu momento.\nSem promessa de viral.\nCom resultado construído.",
+  cta:"Link na bio para conhecer os formatos disponíveis.",
+},
+{
+  id:24,
+  week:4,
+  fmt:"r7+r2",
+  obj:"co",
+  gancho:"Não vendo resultado rápido. Vendo construção real. Se isso te afasta, tudo bem.",
+  gancho2:"Como funciona trabalhar comigo — do primeiro contato à primeira entrega.",
+  objetivo:"Reel 7s: filtrar cliente ideal · Reel 2min: eliminar dúvidas operacionais para quem está quase decidido",
+  visual:"📱 Reel 7s: câmera fixa, sem sorrir, olhar direto para a lente. Reel 2min: tom leve mas preciso, detalhar sem enrolar.",
+  legenda:"Não tenho fórmula milagrosa.\nNão prometo 10 mil seguidores em 30 dias.\nNão vendo viralização.\n\nO que eu ofereço é posicionamento real, conteúdo com intenção e resultados que fazem sentido para o seu negócio específico.\n\nIsso demora mais do que um atalho.\nE dura muito mais também.\n\nSe isso é o que você procura — me chama.",
+  legenda2:"Como é o processo na prática:\n\n1. Você me manda um direct ou preenche o formulário no link da bio\n2. Agendamos uma conversa de 30 minutos para eu entender o seu negócio\n3. Apresento o diagnóstico e o formato mais adequado\n4. Se fizer sentido dos dois lados, a gente começa\n\nSem contrato de 12 meses no primeiro encontro.\nSem promessa impossível.\nCom clareza do que vai acontecer e do que eu vou entregar.",
+  cta:"Direct: quero construir de verdade.",
+},
+{
+  id:25,
+  week:4,
+  fmt:"st",
+  obj:"co",
+  gancho:"Últimas vagas do mês — contagem real, não recurso de marketing.",
+  objetivo:"Urgência genuína de fechamento de mês — converter indecisos",
+  visual:"📱 Story simples com texto direto. Pode usar countdown nativo do Instagram.",
+  legenda:"Trabalho com no máximo [X] clientes simultâneos para manter a qualidade que entrego.\n\nEsse mês fechou com [X] vagas — restam [X].\n\nSe você estava esperando o momento certo, esse é um candidato razoável.\n\nMe manda uma mensagem antes que eu precise fechar novamente.",
+  cta:"Direct: quero a vaga — respondo em ordem de chegada.",
+},
+{
+  id:26,
+  week:5,
+  fmt:"r7+r2",
+  obj:"co",
+  gancho:"Tudo que aprendi sobre conteúdo trabalhando em 7 negócios diferentes.",
+  gancho2:"O que separa um empreendedor que cresce de um que fica no lugar.",
+  objetivo:"Reel 7s: consolidar autoridade pela experiência real · Reel 2min: conectar estratégia com crescimento do negócio",
+  visual:"📱 Reel 7s: tom reflexivo, lugar diferente, sem pressa. Reel 2min: falar com convicção, tom de quem viu isso acontecer na prática.",
+  legenda:"Vendi pão de queijo e aprendi que embalagem é posicionamento.\nTive brechó e aprendi que curadoria é estratégia de marca.\nTrabalhei em saúde e aprendi que confiança se constrói antes da consulta.\n\nCada negócio me ensinou algo diferente sobre percepção de valor.\n\nE é tudo isso que está por trás de cada estratégia que entrego hoje.\nNão é teoria. É campo.",
+  legenda2:"Não é o nicho.\nNão é o produto.\nNão é o algoritmo.\n\nO que separa quem cresce de quem fica no lugar é a clareza sobre o que o negócio representa e a consistência em comunicar isso.\n\nVocê pode ter o melhor serviço da cidade.\nSe ninguém sabe disso, não importa.\n\nComunicação não é opcional para negócios. É operacional.",
+  cta:"Me conta: qual foi seu maior aprendizado de negócio?",
+},
+{
+  id:27,
+  week:5,
+  fmt:"es",
+  obj:"co",
+  gancho:"O que ninguém conta sobre gestão de conteúdo para negócios pequenos.",
+  objetivo:"Desmistificar expectativas — posicionar como especialista honesta",
+  visual:"📱 Card com duas colunas: o que prometem vs o que é real. Tipografia forte.",
+  legenda:"O que prometem: seguidores, viral, resultado imediato.\nO que é real: posicionamento consistente, confiança construída ao longo do tempo, conversões que fazem sentido.\n\nConteúdo não é campanha de publicidade.\nÉ relacionamento com quem ainda não comprou de você.\n\nQuando você entende isso, para de postar no desespero e começa a postar com intenção.",
+  cta:"Salva — e me conta o que você já foi prometido que não se cumpriu.",
+},
+{
+  id:28,
+  week:5,
+  fmt:"r7+r2",
+  obj:"co",
+  gancho:"Reativação: voltei com vagas. Prioridade para quem já me acompanha.",
+  gancho2:"3 perguntas que todo empreendedor deveria conseguir responder sobre o próprio negócio.",
+  objetivo:"Reel 7s: reativar base existente com exclusividade genuína · Reel 2min: evergreen de alto valor para novos seguidores",
+  visual:"📱 Reel 7s: tom de voltei, casual e direto. Reel 2min: falar para câmera, uma pergunta por vez, deixar pausas.",
+  legenda:"Sumiu um pouco? Eu também.\n\nEstou de volta com algumas vagas disponíveis para o próximo mês.\n\nPrioridade para quem já me acompanha aqui.\n\nSe você estava esperando o momento certo — esse é um bom candidato.\nMe chama antes que eu precise fechar de novo.",
+  legenda2:"1. O que o cliente compra de verdade quando contrata você?\n2. Por que ele deveria escolher você e não o concorrente?\n3. O que o seu Instagram comunica antes de você abrir a boca?\n\nSe você travou em alguma dessas — é por aí que o trabalho começa.\n\nSalva esse post. Responde as perguntas no papel.\nE quando quiser ajuda com as respostas, me chama.",
+  cta:"Direct: quero uma vaga — respondo em ordem de chegada.",
+},
+{
+  id:29,
+  week:5,
+  fmt:"st",
+  obj:"co",
+  gancho:"Bastidores do meu próprio processo de criação de conteúdo.",
+  objetivo:"Humanizar — mostrar que a especialista também tem processo real por trás",
+  visual:"📱 Mostrar como você planejou sua própria semana de conteúdo. Tela do celular, caderno ou computador.",
+  legenda:"Esse é meu próprio planejamento da semana.\n\nRepara: tem objetivo por peça, formato escolhido com intenção e CTA diferente para cada post.\n\nFaço exatamente isso para os meus clientes.\nE funciona porque não é intuição — é método.\n\nQualquer negócio pode ter isso. Inclusive o seu.",
+  cta:"Me chama para conversar sobre o seu planejamento.",
+},
+{
+  id:30,
+  week:5,
+  fmt:"r7+r2",
+  obj:"co",
+  gancho:"Esse mês termina. O próximo começa do jeito que você decidir agora.",
+  gancho2:"Fechamento: onde você está agora — e o próximo passo.",
+  objetivo:"Reel 7s: senso de virada com ancoragem temporal · Reel 2min: encerramento do ciclo com duas opções honestas",
+  visual:"📱 Reel 7s: câmera estável, fundo simples, tom sereno e firme. Reel 2min: falar olhando direto para câmera, sem pressa.",
+  legenda:"Todo início de mês é uma decisão.\n\nContinuar fazendo o que sempre fez — e esperar resultado diferente.\nOu mudar a abordagem com intenção real.\n\nNão estou vendendo milagre.\nEstou oferecendo método, consistência e um olhar de fora para o que você está dentro demais para ver.\n\nSe é isso que você precisa — o próximo mês começa com essa mensagem.",
+  legenda2:"Esse foi o ciclo completo.\n\nVocê aprendeu sobre posicionamento, estratégia e conteúdo que converte.\n\nAgora tem duas opções:\nA) Aplicar tudo isso sozinho — e eu torço genuinamente para que funcione.\nB) Trabalhar comigo e ter alguém que já fez esse percurso por você.\n\nQualquer que seja a escolha, obrigada por estar aqui.\n\nSe for a B — você sabe onde me achar.",
+  cta:"Direct: quero começar o próximo mês diferente.",
+},
+]
+
+const WEEKS = {
+  1:'Semana 1 — Atrair e gerar identificação',
+  2:'Semana 2 — Educar e construir autoridade',
+  3:'Semana 3 — Quebrar objeções e nutrir confiança',
+  4:'Semana 4 — Converter e fidelizar',
+  5:'Bloco final — Consolidar e reativar',
+};
+const FMT = { r7:'Reel 7s', r2:'Reel 2min', es:'Estático', st:'Story' };
+const OBJ = { at:'Atrair', nu:'Nutrir', co:'Converter' };
+const XP_PER = { r7:10, r2:25, 'r7+r2':35, es:15, st:12 };
+const LEVELS = [
+  {min:0,   max:100, label:'Nível 1 · Iniciante'},
+  {min:100, max:250, label:'Nível 2 · Constante'},
+  {min:250, max:450, label:'Nível 3 · Consistente'},
+  {min:450, max:700, label:'Nível 4 · Estrategista'},
+  {min:700, max:9999,label:'Nível 5 · Referência'},
+];
+const ACHIEVEMENTS = [
+  {id:'first',    icon:'🎯', name:'Primeiro post',       desc:'Publique a primeira peça',        check:(d)=>d>=1},
+  {id:'week1',    icon:'🌱', name:'Semana 1 completa',   desc:'7 peças publicadas',              check:(d)=>d>=7},
+  {id:'halfway',  icon:'⚡', name:'Metade do caminho',   desc:'21 peças publicadas',             check:(d)=>d>=21},
+  {id:'reels',    icon:'🎬', name:'Reels master',        desc:'10 Reels publicados',             check:(d,s)=>s.reelsDone>=10},
+  {id:'stories',  icon:'📱', name:'Story teller',        desc:'Todos os 8 stories publicados',   check:(d,s)=>s.storiesDone>=8},
+  {id:'converter',icon:'💰', name:'Modo conversão',      desc:'Semana 4 completa',               check:(d,s)=>s.week4Done},
+  {id:'full',     icon:'🏆', name:'Calendário completo', desc:'43 peças publicadas',             check:(d)=>d>=43},
+  {id:'streak5',  icon:'🔥', name:'Sequência de 5',      desc:'5 posts consecutivos',            check:(d,s)=>s.maxStreak>=5},
+];
+
+let state = JSON.parse(localStorage.getItem('cm_cal')||'{"done":[]}');
+let shownAchs = new Set(JSON.parse(localStorage.getItem('cm_ach')||'[]'));
+
+function getDone(){ return new Set(state.done); }
+
+function calcStats(){
+  const done = getDone();
+  let xp=0, reelsDone=0, storiesDone=0, week4Done=true, streak=0, maxStreak=0;
+  DAYS.forEach(d=>{
+    const ok = done.has(d.id);
+    if(ok){
+      xp += XP_PER[d.fmt]||10;
+      if(d.fmt==='r7'||d.fmt==='r2'||d.fmt==='r7+r2') reelsDone += (d.fmt==='r7+r2'?2:1);
+      if(d.fmt==='st') storiesDone++;
+      streak++; if(streak>maxStreak) maxStreak=streak;
+    } else {
+      streak=0;
+      if(d.week===4) week4Done=false;
+    }
+  });
+  return {xp,reelsDone,storiesDone,week4Done,maxStreak,streak};
+}
+
+function getLevel(xp){
+  for(let i=LEVELS.length-1;i>=0;i--){
+    if(xp>=LEVELS[i].min) return LEVELS[i];
+  }
+  return LEVELS[0];
+}
+
+function updateUI(){
+  const done = getDone();
+  const total = DAYS.length;
+  const doneCount = done.size;
+  const stats = calcStats();
+  const pct = Math.round((doneCount/total)*100);
+
+  document.getElementById('stat-done').textContent = doneCount;
+  document.getElementById('stat-left').textContent = total-doneCount;
+  document.getElementById('stat-xp').textContent = stats.xp;
+  document.getElementById('stat-streak').textContent = stats.streak;
+  document.getElementById('pct-text').textContent = pct+'%';
+  document.getElementById('prog-fill').style.width = pct+'%';
+
+  const level = getLevel(stats.xp);
+  const li = LEVELS.indexOf(level);
+  const next = LEVELS[li+1];
+  const xpIn = stats.xp - level.min;
+  const xpFor = (next ? next.min : level.min+100) - level.min;
+  const xpPct = Math.min(100, Math.round((xpIn/xpFor)*100));
+
+  document.getElementById('level-badge').textContent = level.label;
+  document.getElementById('xp-fill').style.width = xpPct+'%';
+  document.getElementById('xp-text').textContent = stats.xp+(next?' / '+next.min+' XP':' XP · MAX');
+
+  DAYS.forEach(d=>{
+    const card = document.getElementById('card-'+d.id);
+    if(!card) return;
+    done.has(d.id) ? card.classList.add('done') : card.classList.remove('done');
+  });
+
+  ACHIEVEMENTS.forEach(a=>{
+    const el = document.getElementById('ach-'+a.id);
+    if(!el) return;
+    a.check(doneCount,stats) ? el.classList.add('unlocked') : el.classList.remove('unlocked');
+  });
+}
+
+function toggleDone(id, e){
+  e.stopPropagation();
+  const done = getDone();
+  const prev = done.size;
+  done.has(id) ? done.delete(id) : done.add(id);
+  state.done = [...done];
+  localStorage.setItem('cm_cal', JSON.stringify(state));
+  if(done.size > prev) checkAchievements(done.size, calcStats());
+  updateUI();
+}
+
+function checkAchievements(doneCount, stats){
+  ACHIEVEMENTS.forEach(a=>{
+    if(!shownAchs.has(a.id) && a.check(doneCount,stats)){
+      shownAchs.add(a.id);
+      localStorage.setItem('cm_ach', JSON.stringify([...shownAchs]));
+      showToast(a.icon+' '+a.name, a.desc);
+    }
+  });
+}
+
+let toastTimer;
+function showToast(title, msg){
+  clearTimeout(toastTimer);
+  const t = document.getElementById('toast');
+  document.getElementById('toast-title').textContent = title;
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+function toggleOpen(id){
+  document.getElementById('card-'+id).classList.toggle('open');
+}
+
+function filterCards(type, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const done = getDone();
+  DAYS.forEach(d=>{
+    const wrap = document.getElementById('wrap-'+d.id);
+    if(!wrap) return;
+    let show = false;
+    if(type==='all') show=true;
+    else if(type==='done') show=done.has(d.id);
+    else if(type==='pending') show=!done.has(d.id);
+    else if(type==='r7') show = d.fmt==='r7'||d.fmt==='r7+r2';
+    else if(type==='r2') show = d.fmt==='r2'||d.fmt==='r7+r2';
+    else show = d.fmt===type || d.obj===type;
+    wrap.style.display = show ? '' : 'none';
+  });
+  document.querySelectorAll('.week-block').forEach(wb=>{
+    const visible = [...wb.querySelectorAll('[id^="wrap-"]')].some(el=>el.style.display!=='none');
+    wb.style.display = visible ? '' : 'none';
+  });
+}
+
+function render(){
+  const root = document.getElementById('cards-root');
+  let h = '';
+  let curWeek = null;
+  DAYS.forEach(d=>{
+    if(d.week !== curWeek){
+      if(curWeek!==null) h += '</div>';
+      curWeek = d.week;
+      const wk = DAYS.filter(x=>x.week===d.week);
+      h += '<div class="week-block" id="wb-'+d.week+'">'
+        +'<div class="week-title">'
+        +'<span class="week-num">'+(d.week===5?'Final':'Sem. '+d.week)+'</span>'
+        +WEEKS[d.week]
+        +'<span class="week-count">'+wk.length+' dias</span>'
+        +'</div>';
+    }
+    const isDual = d.fmt === 'r7+r2';
+    let bodyHtml = '';
+    bodyHtml += '<div class="body-sec"><div class="body-label">Objetivo estratégico</div><div class="body-text">'+d.objetivo+'</div></div>';
+    bodyHtml += '<div class="body-sec"><div class="body-label">Sugestão visual</div><div class="vis-box">'+d.visual+'</div></div>';
+    if(isDual && d.gancho2){
+      bodyHtml += '<div class="dual-divider"><span>Reel 7 segundos</span></div>';
+      bodyHtml += '<div class="body-sec"><div class="body-label">Gancho</div><div class="body-text gancho-full">'+d.gancho+'</div></div>';
+      bodyHtml += '<div class="body-sec"><div class="body-label">Legenda</div><div class="legenda-box">'+d.legenda+'</div></div>';
+      bodyHtml += '<div class="dual-divider"><span>Reel 2 minutos</span></div>';
+      bodyHtml += '<div class="body-sec"><div class="body-label">Gancho</div><div class="body-text gancho-full">'+(d.gancho2||'')+'</div></div>';
+      bodyHtml += '<div class="body-sec"><div class="body-label">Legenda</div><div class="legenda-box">'+(d.legenda2||'')+'</div></div>';
+    } else {
+      bodyHtml += '<div class="body-sec"><div class="body-label">Gancho</div><div class="body-text gancho-full">'+d.gancho+'</div></div>';
+      bodyHtml += '<div class="body-sec"><div class="body-label">Legenda de alta conversão</div><div class="legenda-box">'+d.legenda+'</div></div>';
+    }
+    bodyHtml += '<div class="cta-pill">CTA → '+d.cta+'</div>';
+
+    const fmtBadge = d.fmt==='r7+r2' ? 'r7' : d.fmt;
+    const fmtLabel = FMT[d.fmt] || d.fmt;
+    const dualTag = isDual ? ' <span style="opacity:.4;font-size:10px">+2min</span>' : '';
+
+    h += '<div id="wrap-'+d.id+'">'
+      +'<div class="day-card" id="card-'+d.id+'">'
+      +'<div class="card-header" onclick="toggleOpen('+d.id+')">'
+      +'<button class="check-btn" onclick="toggleDone('+d.id+',event)" title="Marcar como publicado">&#10003;</button>'
+      +'<div class="day-info">'
+      +'<div class="day-meta">'
+      +'<span class="day-num-label">Dia '+d.id+'</span>'
+      +'<span class="badge b-'+fmtBadge+'">'+fmtLabel+'</span>'
+      +'<span class="badge b-'+d.obj+'">'+OBJ[d.obj]+'</span>'
+      +'</div>'
+      +'<div class="card-gancho">'+d.gancho+dualTag+'</div>'
+      +'</div>'
+      +'<span class="expand-icon">&#8964;</span>'
+      +'</div>'
+      +'<div class="card-body">'+bodyHtml+'</div>'
+      +'</div>'
+      +'</div>';
+  });
+  if(curWeek!==null) h += '</div>';
+  root.innerHTML = h;
+
+  document.getElementById('ach-grid').innerHTML = ACHIEVEMENTS.map(a=>
+    '<div class="ach-card" id="ach-'+a.id+'">'
+    +'<span class="ach-icon">'+a.icon+'</span>'
+    +'<div class="ach-name">'+a.name+'</div>'
+    +'<div class="ach-desc">'+a.desc+'</div>'
+    +'</div>').join('');
+
+  updateUI();
+}
+
+render();
+</script>
+</body>
+</html>
