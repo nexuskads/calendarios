@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0d0d0b">
+<title>Calendário AF8 · Ana Flávia Paes · CF Performance Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0b;--bg2:#141412;--bg3:#1c1c18;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --text:#f0ede6;--muted:#7a7870;--faint:#3a3935;
+  --gold:#c9a84c;--gold2:#e8c96e;--goldf:rgba(201,168,76,.10);
+  --green:#4caf7d;--gf:rgba(76,175,125,.12);
+  --purple:#9b7fe8;--pf:rgba(155,127,232,.12);
+  --pink:#d4708a;--pkf:rgba(212,112,138,.12);
+  --blue:#70a8d4;--blf:rgba(112,168,212,.12);
+  --amber:#d4a870;--amf:rgba(212,168,112,.12);
+  --coral:#d4705a;--corf:rgba(212,112,90,.12);
+  --teal:#5ab8d4;--tf:rgba(90,184,212,.10);
+  --r:12px;--rs:8px;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;min-height:100vh;-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom)}
+
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(13,13,11,.96);backdrop-filter:blur(12px);position:sticky;top:0;z-index:99}
+.tb-left a{display:flex;align-items:center;gap:.55rem;text-decoration:none}
+.tb-left img{height:34px;width:auto;filter:drop-shadow(0 0 6px rgba(201,168,76,.3))}
+.tb-left span{font-size:13px;font-weight:500;color:var(--gold2);letter-spacing:.02em}
+.tb-right{font-size:11px;color:var(--muted)}
+.tb-right a{color:var(--gold);text-decoration:none;font-weight:500}
+.tb-right a:hover{color:var(--gold2)}
+
+/* ── HERO ── */
+.hero{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 1.25rem}
+.eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;font-weight:500}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.75rem,5vw,2.8rem);line-height:1.15;margin-bottom:.45rem}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero p{font-size:13px;color:var(--muted);max-width:500px;line-height:1.65}
+.htags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.65rem}
+.htag{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--border2);color:var(--muted)}
+
+/* ── STATS ── */
+.stats{max-width:880px;margin:0 auto 1.25rem;padding:0 1.5rem}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.sitem{background:var(--bg2);padding:.85rem .6rem;text-align:center}
+.sval{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--gold2);display:block;line-height:1}
+.slbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem;display:block}
+
+/* ── PROGRESS ── */
+.prog{max-width:880px;margin:0 auto .7rem;padding:0 1.5rem}
+.prog-hd{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:.3rem}
+.prog-pct{color:var(--gold);font-weight:500}
+.prog-tr{height:4px;background:var(--faint);border-radius:2px;overflow:hidden}
+.prog-fi{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .6s cubic-bezier(.4,0,.2,1);width:0%}
+
+/* ── XP ── */
+.xprow{max-width:880px;margin:0 auto 1.75rem;padding:0 1.5rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.lvlbdg{background:var(--goldf);border:1px solid var(--gold);border-radius:var(--rs);padding:.3rem .75rem;font-size:11px;font-weight:500;color:var(--gold2);white-space:nowrap;flex-shrink:0}
+.xp-tr{flex:1;min-width:80px;height:6px;background:var(--faint);border-radius:3px;overflow:hidden}
+.xp-fi{height:100%;background:linear-gradient(90deg,var(--purple),var(--gold2));border-radius:3px;transition:width .8s cubic-bezier(.4,0,.2,1);width:0%}
+.xptxt{font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+
+/* ── TABS ── */
+.tabnav{max-width:880px;margin:0 auto;padding:0 1.5rem;border-bottom:1px solid var(--border)}
+.tabrow{display:flex;overflow-x:auto;scrollbar-width:none;gap:0}
+.tabrow::-webkit-scrollbar{display:none}
+.tbtn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;padding:.6rem .9rem;border:none;background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;flex-shrink:0}
+.tbtn.on{color:var(--gold2);border-bottom-color:var(--gold);font-weight:500}
+.tbtn:hover{color:var(--text)}
+
+/* ── TAB PANELS ── */
+.tpanel{display:none;max-width:880px;margin:0 auto;padding:1.5rem}
+.tpanel.on{display:block}
+
+/* ── ANALYSIS ── */
+.stitle{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:.9rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
+.sh3{font-size:11px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:.09em;margin:.85rem 0 .3rem}
+.bp{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:.45rem}
+.acard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;margin-bottom:.6rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.65rem}
+.gi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem .95rem}
+.gi h4{font-size:11px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem}
+.gi ul{padding-left:1.1rem}
+.gi li,.gi p{font-size:12px;color:var(--muted);line-height:1.7}
+.pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:20px;margin:2px}
+.pg{background:var(--goldf);color:var(--gold2);border:1px solid rgba(201,168,76,.2)}
+.pp{background:var(--pf);color:var(--purple);border:1px solid rgba(155,127,232,.2)}
+.pc{background:var(--corf);color:var(--coral);border:1px solid rgba(212,112,90,.2)}
+.callout{background:var(--goldf);border:1px solid rgba(201,168,76,.2);border-radius:var(--r);padding:.85rem 1.1rem;font-size:13px;color:var(--gold2);line-height:1.65;margin:.65rem 0}
+.biobox{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:.95rem 1.1rem;font-size:13px;color:var(--text);line-height:1.9;font-style:italic;margin:.45rem 0}
+.objcard{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--coral);border-radius:var(--r);padding:.75rem .95rem;margin-bottom:.45rem}
+.objcard h4{font-size:12px;font-weight:500;color:var(--coral);margin-bottom:.2rem}
+.objcard p{font-size:12px;color:var(--muted);line-height:1.65}
+.pilar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:.8rem .95rem;margin-bottom:.45rem;display:flex;gap:.7rem;align-items:flex-start}
+.pico{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
+.pilar h4{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.15rem}
+.pilar p{font-size:12px;color:var(--muted);line-height:1.6}
+.fmtg{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.55rem}
+.fcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:.65rem .85rem}
+.fcard h5{font-size:11px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem}
+.fcard p{font-size:11px;color:var(--muted);line-height:1.55}
+
+/* ── FILTERS ── */
+.filts{max-width:880px;margin:0 auto .7rem;padding:0 1.5rem;display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.filts::-webkit-scrollbar{display:none}
+.fbtn{font-size:11px;font-family:'DM Sans',sans-serif;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.fbtn:hover{border-color:var(--gold);color:var(--gold)}
+.fbtn.on{background:var(--goldf);border-color:var(--gold);color:var(--gold2);font-weight:500}
+
+/* ── WEEK BLOCKS ── */
+.wblk{max-width:880px;margin:0 auto 1.4rem;padding:0 1.5rem}
+.wtitle{font-family:'DM Serif Display',serif;font-size:.92rem;color:var(--text);margin-bottom:.65rem;padding-bottom:.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.wnum{font-size:10px;font-family:'DM Sans',sans-serif;color:var(--gold);background:var(--goldf);border:1px solid rgba(201,168,76,.2);padding:2px 8px;border-radius:20px;font-weight:500}
+.wcnt{font-size:11px;font-family:'DM Sans',sans-serif;color:var(--muted);margin-left:auto}
+
+/* ── DAY CARDS ── */
+.dcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:.4rem;overflow:hidden;transition:border-color .2s,transform .15s}
+.dcard:hover{border-color:var(--border2);transform:translateY(-1px)}
+.dcard.done{background:var(--bg3);border-color:rgba(76,175,125,.25)}
+.dcard.done .chead{opacity:.7}
+.chead{display:flex;align-items:center;gap:7px;padding:.7rem .95rem;cursor:pointer;user-select:none}
+.chk{width:23px;height:23px;border-radius:50%;border:1.5px solid var(--faint);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;color:transparent;font-size:11px}
+.chk:hover{border-color:var(--green)}
+.dcard.done .chk{background:var(--green);border-color:var(--green);color:#fff}
+.cinfo{flex:1;min-width:0}
+.cmeta{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:2px}
+.cnum{font-size:11px;font-weight:500;color:var(--muted);min-width:30px}
+.bdg{font-size:9px;font-weight:500;padding:2px 7px;border-radius:20px}
+.breel{background:var(--pf);color:var(--purple)}
+.bcarr{background:var(--pkf);color:var(--pink)}
+.best{background:var(--blf);color:var(--blue)}
+.bat{background:var(--tf);color:var(--teal)}
+.bnu{background:var(--gf);color:var(--green)}
+.bco{background:var(--amf);color:var(--amber)}
+.bcan{background:var(--corf);color:var(--coral)}
+.cgancho{font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:460px}
+.dcard.done .cgancho{text-decoration:line-through;color:var(--muted)}
+.chevron{color:var(--muted);font-size:15px;flex-shrink:0;transition:transform .25s;line-height:1}
+.dcard.open .chevron{transform:rotate(180deg)}
+.cbody{display:none;padding:0 .95rem .95rem;border-top:1px solid var(--border)}
+.dcard.open .cbody{display:block}
+.csec{margin-top:.7rem}
+.clbl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:500;margin-bottom:.18rem}
+.ctxt{font-size:12.5px;color:var(--muted);line-height:1.65}
+.ctxt.gs{font-size:13px;color:var(--text);font-family:'DM Serif Display',serif;font-style:italic}
+.leg{background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:.55rem .8rem;font-size:12px;color:var(--muted);line-height:1.8;margin-top:.18rem;white-space:pre-line}
+.ctapill{display:inline-block;margin-top:.5rem;font-size:11px;font-weight:500;color:var(--gold2);background:var(--goldf);border:1px solid rgba(201,168,76,.25);border-radius:20px;padding:3px 10px}
+.vis{border-left:2px solid var(--faint);padding-left:.55rem;font-size:12px;color:var(--muted);margin-top:.18rem;line-height:1.6}
+
+/* ── ACHIEVEMENTS ── */
+.achsec{max-width:880px;margin:0 auto;padding:0}
+.achh{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text);margin-bottom:.7rem}
+.achgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.45rem}
+.achcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:.6rem .75rem;text-align:center;transition:border-color .2s}
+.achcard.un{border-color:rgba(201,168,76,.35);background:var(--goldf)}
+.achico{font-size:1.3rem;display:block;margin-bottom:.22rem;filter:grayscale(1);opacity:.22}
+.achcard.un .achico{filter:none;opacity:1}
+.achnm{font-size:10px;font-weight:500;color:var(--muted)}
+.achcard.un .achnm{color:var(--gold2)}
+.achdesc{font-size:9px;color:var(--faint);margin-top:2px}
+.achcard.un .achdesc{color:var(--muted)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:1.25rem;right:1.25rem;background:var(--bg2);border:1px solid var(--gold);border-radius:var(--r);padding:.8rem 1rem;font-size:12px;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,.5);transform:translateY(140%);transition:transform .4s cubic-bezier(.4,0,.2,1);z-index:200;max-width:250px}
+.toast.show{transform:translateY(0)}
+.tttl{font-weight:500;color:var(--gold2);font-size:11px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:2rem 1.5rem 3rem;border-top:1px solid var(--border);max-width:880px;margin:0 auto}
+.flogo{height:52px;width:auto;opacity:.9;filter:drop-shadow(0 0 10px rgba(201,168,76,.3));transition:filter .2s;display:block;margin:0 auto}
+.flogo:hover{filter:drop-shadow(0 0 18px rgba(201,168,76,.6))}
+.fcr{font-size:12px;color:var(--muted);margin-top:.55rem}
+.fcr a{color:var(--gold);text-decoration:none;font-weight:500}
+.fcr a:hover{color:var(--gold2)}
+.fnote{font-size:10px;color:var(--faint);margin-top:.3rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .sgrid{grid-template-columns:repeat(2,1fr)}
+  .g2,.fmtg{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero,.stats,.prog,.xprow,.tabnav,.tpanel,.filts,.wblk,.achsec{padding-left:1rem;padding-right:1rem}
+  .hero h1{font-size:1.55rem}
+  .sval{font-size:1.4rem}
+  .cgancho{max-width:calc(100vw - 115px);white-space:normal;font-size:12px}
+  .xprow{gap:.35rem}
+  .lvlbdg{font-size:10px;width:100%;text-align:center}
+  .xptxt{width:100%;text-align:right;font-size:10px}
+  .xp-tr{width:100%;order:3}
+  .achgrid{grid-template-columns:repeat(2,1fr)}
+  .toast{right:.75rem;left:.75rem;max-width:none}
+}
+@media(max-width:360px){.hero h1{font-size:1.3rem}.sval{font-size:1.2rem}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="tb-left">
+    <a href="https://www.instagram.com/carolfilippeof/" target="_blank">
+      <img src="data:image/png;base64,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" alt="CF Performance Digital">
+      <span>Carol Filipe</span>
+    </a>
+  </div>
+  <div class="tb-right">CF Performance Digital &middot; <a href="https://www.instagram.com/carolfilippeof/" target="_blank">@carolfilippeof</a></div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">Plano Editorial Estratégico · 2026</p>
+  <h1>Método AF8<br><em>Ana Flávia Paes</em></h1>
+  <p>Nutrição esportiva · Hipertrofia e Definição para mulheres · Diagnóstico completo + 30 dias de conteúdo estratégico.</p>
+  <div class="htags">
+    <span class="htag">Hipertrofia</span>
+    <span class="htag">Definição</span>
+    <span class="htag">Método AF8</span>
+    <span class="htag">3.998 seguidores</span>
+    <span class="htag">30% caneta emagrecedora</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="sgrid">
+    <div class="sitem"><span class="sval" id="sd">0</span><span class="slbl">Publicados</span></div>
+    <div class="sitem"><span class="sval" id="sl">30</span><span class="slbl">Restantes</span></div>
+    <div class="sitem"><span class="sval" id="sx">0</span><span class="slbl">XP</span></div>
+    <div class="sitem"><span class="sval" id="ss">0</span><span class="slbl">Sequência</span></div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="prog">
+  <div class="prog-hd"><span>Progresso do calendário</span><span class="prog-pct" id="pct">0%</span></div>
+  <div class="prog-tr"><div class="prog-fi" id="pfi"></div></div>
+</div>
+
+<!-- XP BAR -->
+<div class="xprow">
+  <div class="lvlbdg" id="lvl">Nível 1 · Iniciante</div>
+  <div class="xp-tr"><div class="xp-fi" id="xfi"></div></div>
+  <div class="xptxt" id="xtxt">0 / 100 XP</div>
+</div>
+
+<!-- TABS NAV -->
+<nav class="tabnav">
+  <div class="tabrow">
+    <button class="tbtn on" onclick="goTab('diag',this)">📊 Diagnóstico</button>
+    <button class="tbtn" onclick="goTab('pos',this)">🎯 Posicionamento</button>
+    <button class="tbtn" onclick="goTab('ed',this)">✏️ Editorial</button>
+    <button class="tbtn" onclick="goTab('cal',this)">📅 Calendário</button>
+    <button class="tbtn" onclick="goTab('ach',this)">🏆 Conquistas</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     TAB: DIAGNÓSTICO
+═══════════════════════════════════════════ -->
+<div id="tp-diag" class="tpanel on">
+  <p class="stitle">🔬 PARTE 1 — Diagnóstico Brutal do Perfil</p>
+
+  <div class="acard">
+    <p class="sh3">1. Posicionamento Atual</p>
+    <p class="bp">O perfil comunica uma transformação pessoal real ("fui a magrinha palito") e cria identificação emocional imediata. O design intimista gera proximidade. Porém o posicionamento está <strong>difuso</strong>: ora fala com a magra que quer volume, ora usa ironia leve, ora educa sobre alimentos sem fio condutor. O resultado é um perfil simpático que acumula seguidores por afinidade — mas não converte por convicção. Percepção atual: <em>nutricionista legal</em>, não <em>referência técnica premium</em>.</p>
+    <p class="bp">A bio usa prova social genérica ("+ 200 mulheres com curvas") sem ancoragem no problema central. O Método AF8 não tem descritivo de resultado concreto visível antes do clique. O CRN aparece, mas não é o que vende neste nicho.</p>
+  </div>
+
+  <div class="acard">
+    <p class="sh3">2. Pontos Críticos de Bloqueio</p>
+    <ul style="padding-left:1.1rem;font-size:13px;color:var(--muted);line-height:2.1">
+      <li><strong style="color:var(--coral)">Bio sem transformação mensurável:</strong> "Transforme seu shape" é vago. Quem? Em quanto tempo? Para qual resultado?</li>
+      <li><strong style="color:var(--coral)">Funil ausente:</strong> conteúdo educativo sem trilha topo→meio→fundo. A seguidora consume e não sabe o próximo passo.</li>
+      <li><strong style="color:var(--coral)">Oferta invisível:</strong> os 3 protocolos (Spark, Flow, Strive) não aparecem estrategicamente. Ninguém compra o que não sabe que existe.</li>
+      <li><strong style="color:var(--coral)">Público fragmentado:</strong> mix sem linha editorial que amarre magras + caneta + ironia + educativo sob território único.</li>
+      <li><strong style="color:var(--coral)">Cases sem narrativa:</strong> antes/depois existem sem contexto emocional, métrica de tempo e jornada — o que converte não é a foto, é a história.</li>
+    </ul>
+  </div>
+
+  <p class="sh3">3. Dores Visíveis do Público</p>
+  <div class="g2">
+    <div class="gi"><h4>Dores declaradas</h4><ul>
+      <li>Ser chamada de "palito" ou "magrela" como brincadeira</li>
+      <li>Treinar meses sem mudar o espelho</li>
+      <li>Não saber o que comer para ganhar músculo sem inchar</li>
+      <li>Usar caneta emagrecedora e ficar com flacidez</li>
+      <li>Sentir cansaço e indisposição crônica</li>
+    </ul></div>
+    <div class="gi"><h4>Comportamentos observados</h4><ul>
+      <li>Vergonha de biquíni e short no verão</li>
+      <li>Confusão entre cortar carbo ou aumentar proteína</li>
+      <li>Medo de engordar a barriga tentando ganhar curvas</li>
+      <li>Insegurança nos relacionamentos por não se sentir atraente</li>
+      <li>Paralisia: não saber por onde começar</li>
+    </ul></div>
+  </div>
+
+  <p class="sh3">4. Dores Ocultas (não verbalizadas)</p>
+  <div class="g2">
+    <div class="gi"><ul>
+      <li>Medo de que seu corpo seja "diferente" e nada funcione</li>
+      <li>Vergonha de contratar e não ter resultado — "jogar dinheiro fora"</li>
+      <li>Sentir que falta disciplina e que o problema é ela, não o método</li>
+      <li>Medo de virar refém de dieta para sempre</li>
+    </ul></div>
+    <div class="gi"><ul>
+      <li>Comparação constante com amigas que "comem de tudo e ficam bem"</li>
+      <li>Receio de que ganhar músculo deixe o corpo "masculinizado"</li>
+      <li>Culpa ao sair da dieta no fim de semana</li>
+      <li>Vergonha de pedir ajuda — parece que deveria resolver sozinha</li>
+    </ul></div>
+  </div>
+
+  <p class="sh3">5. Desejos Emocionais</p>
+  <div style="margin:.4rem 0 .7rem">
+    <span class="pill pg">Orgulho ao se olhar no espelho</span>
+    <span class="pill pg">Usar roupa sem pensar no corpo</span>
+    <span class="pill pg">Ser elogiada pela transformação</span>
+    <span class="pill pg">Confiança nos relacionamentos</span>
+    <span class="pill pg">Comer em paz sem culpa</span>
+    <span class="pill pg">Autonomia alimentar de verdade</span>
+    <span class="pill pg">Sentir que finalmente deu certo</span>
+  </div>
+
+  <p class="sh3">6. Desejos Práticos</p>
+  <div style="margin:.4rem 0 .7rem">
+    <span class="pill pp">+3–6kg de músculo sem barriga</span>
+    <span class="pill pp">Curvas definidas com cintura fina</span>
+    <span class="pill pp">Disposição e energia diária</span>
+    <span class="pill pp">Saber montar prato em qualquer situação</span>
+    <span class="pill pp">Resultado visível em 60–90 dias</span>
+    <span class="pill pp">Recuperar firmeza após caneta emagrecedora</span>
+  </div>
+
+  <p class="sh3">7. Objeções que Travam a Compra</p>
+  <div class="objcard"><h4>1. "É caro para mim agora"</h4><p>A dor não foi conectada ao custo real da inação. Quem tenta sozinha há meses sem resultado já gastou mais tempo e energia do que vale o investimento. A âncora de preço precisa ser contextualizada: R$350/mês vs. mais 6 meses no mesmo lugar.</p></div>
+  <div class="objcard"><h4>2. "Já tentei nutricionista e não funcionou"</h4><p>Experiência anterior com profissionais que entregam planilha e somem. A diferença do suporte contínuo e do Método AF8 precisa estar visível no conteúdo antes de qualquer contato.</p></div>
+  <div class="objcard"><h4>3. "Não tenho disciplina suficiente"</h4><p>A cliente acredita que o problema é ela. O conteúdo precisa deslocar a culpa do indivíduo para a ausência de método — e mostrar que o AF8 foi construído para a realidade dela, não para atleta.</p></div>
+  <div class="objcard"><h4>4. "Vou engordar a barriga se comer mais"</h4><p>Crença limitante enraizada. Precisa ser desconstruída com educação sobre composição corporal: como ganhar massa sem acumular gordura abdominal com estratégia nutricional específica.</p></div>
+  <div class="objcard"><h4>5. "Não tenho tempo para seguir dieta"</h4><p>O público trabalha, tem vida social, viaja. O método precisa comunicar flexibilidade real — restaurante, happy hour, fim de semana — como parte do protocolo, não como exceção permitida.</p></div>
+
+  <div class="acard" style="margin-top:.7rem">
+    <p class="sh3">8. Oportunidade de Mercado</p>
+    <p class="bp">A maioria dos nutricionistas vende <em>plano alimentar</em>. Ana Flávia pode vender <em>autonomia alimentar com curvas</em>. O Método AF8 tem diferenciais únicos que quase nenhum concorrente comunica de forma estruturada: comunidade Time AF8, kit físico de boas-vindas, personal incluso no Strive, suporte diário via WhatsApp e posicionamento anti-terrorismo nutricional.</p>
+    <p class="bp">O nicho de <strong>magras que querem hipertrofia sem perder a cintura</strong> é sub-explorado e de alta intenção de compra. O ângulo das canetas emagrecedoras abre uma <strong>audiência nova e urgente</strong>: mulheres que perderam massa magra com GLP-1 e precisam de recomposição especializada — dor latente, busca ativa, pouca oferta no mercado.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: POSICIONAMENTO
+═══════════════════════════════════════════ -->
+<div id="tp-pos" class="tpanel">
+  <p class="stitle">🎯 PARTE 2 — Novo Posicionamento de Marca</p>
+
+  <div class="acard">
+    <p class="sh3">1. Novo Posicionamento</p>
+    <p class="bp"><strong style="color:var(--gold2)">Território único:</strong> A única nutricionista especializada em transformar mulheres magras em mulheres com curvas definidas — sem cortar carboidrato, sem virar refém de dieta e sem perder a cintura. O Método AF8 não entrega um plano. Entrega autonomia alimentar com resultado.</p>
+    <div class="callout"><strong>Frase de posicionamento:</strong><br><br>
+    <span style="font-family:'DM Serif Display',serif;font-size:1.1rem;font-style:italic">"Comida vira músculo. Músculo vira curva. Curva vira confiança."</span></div>
+  </div>
+
+  <div class="acard">
+    <p class="sh3">2. Nova Bio Estratégica</p>
+    <div class="biobox">
+      Nutricionista especialista em hipertrofia para mulheres 🏋️‍♀️<br>
+      Comida vira músculo · Músculo vira curva · Curva vira confiança<br>
+      Criadora do Método AF8 · + 200 transformações reais<br>
+      Sem cortar carbo. Sem terrorismo. Com resultado.<br>
+      CRN 10924<br>
+      👇 Sua transformação começa aqui
+    </div>
+    <p class="bp" style="font-size:11px;margin-top:.35rem">Mudanças: nicho explícito na primeira linha, frase de posicionamento como marca, prova social ancorada em transformações e CTA com urgência implícita. Removida a voz na primeira pessoa que diminuía autoridade.</p>
+  </div>
+
+  <p class="sh3">3. Tom de Voz por Formato</p>
+  <div class="fmtg">
+    <div class="fcard"><h5>🎬 Reels</h5><p>Assertivo e direto. Gancho de choque nos 2 primeiros segundos. Voz de quem sabe e não pede licença para falar. Ironia leve quando oportuno. Máximo 15s.</p></div>
+    <div class="fcard"><h5>🖼️ Carrossel</h5><p>Professoral e estruturado. Tom de "deixa eu te explicar o que ninguém te contou". Educativo com autoridade. Até 10 slides.</p></div>
+    <div class="fcard"><h5>📌 Estático</h5><p>Impacto visual imediato. Frases curtas de alto compartilhamento. Pode ser irônico, provocador ou emocionalmente direto.</p></div>
+    <div class="fcard"><h5>📱 Stories</h5><p>Próximo, humano, bastidores. Onde a marca baixa a guarda com intenção estratégica. Pode ser informal e honesto.</p></div>
+  </div>
+
+  <div class="acard" style="margin-top:.5rem">
+    <p class="sh3">4. Arquétipo de Marca</p>
+    <p class="bp"><strong style="color:var(--gold2)">Sábio + Criador</strong> — O Sábio porque detém conhecimento técnico que transforma realidade; o Criador porque o Método AF8 é construção proprietária, não reprodução de fórmulas de mercado.</p>
+    <p class="bp"><strong>Como aplicar:</strong> nas legendas, mostrar que Ana entende o mecanismo (Sábio) e que o método foi desenvolvido por ela para um problema específico (Criador). Evitar posição de "guru" distante — o Sábio AF8 senta do lado, não no palco.</p>
+  </div>
+
+  <div class="callout" style="margin-top:.5rem">
+    <strong>Meta Mensal — Janeiro/Fevereiro 2026:</strong><br>
+    Seguidores: 3.998 → <strong>5.200+</strong> (orgânico + tráfego pago) ·
+    Conversões estimadas: <strong>8–12 novas pacientes</strong> ·
+    Faturamento projetado: <strong>R$ 9.600 – R$ 14.400</strong> (mix Spark + Flow + Strive)
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: EDITORIAL
+═══════════════════════════════════════════ -->
+<div id="tp-ed" class="tpanel">
+  <p class="stitle">✏️ PARTE 3 — Linha Editorial e Comunicação</p>
+
+  <p class="sh3">1. Pilares de Conteúdo</p>
+  <div class="pilar"><div class="pico">💪</div><div><h4>Pilar 1 — Educação Estratégica</h4><p>Explica mecanismos: como proteína constrói músculo, por que carboidrato não engorda a barriga, como funciona recomposição corporal. Objetivo: autoridade e salvamentos.</p></div></div>
+  <div class="pilar"><div class="pico">🪞</div><div><h4>Pilar 2 — Identificação e Dor</h4><p>Espelha a realidade do público: vergonha do espelho, apelidos, confusão nutricional. Faz o seguidor pensar "ela está falando de mim". Objetivo: engajamento e compartilhamento.</p></div></div>
+  <div class="pilar"><div class="pico">⭐</div><div><h4>Pilar 3 — Prova Social e Transformação</h4><p>Cases com contexto: antes/depois + tempo + dificuldade inicial + resultado específico. Histórias, não apenas fotos. Objetivo: confiança e conversão.</p></div></div>
+  <div class="pilar"><div class="pico">🚫</div><div><h4>Pilar 4 — Desconstrução de Mitos</h4><p>Desmonta crenças: "preciso cortar carbo", "músculo deixa masculinizada", "caneta resolve tudo". Posiciona Ana como antídoto ao terrorismo nutricional. Objetivo: debate e novos seguidores.</p></div></div>
+  <div class="pilar"><div class="pico">💉</div><div><h4>Pilar 5 — Caneta Emagrecedora e Recomposição</h4><p>Para mulheres que usam GLP-1 e perderam massa magra. Flacidez corporal e facial, perda de músculo, metabolismo lento. 30% dos conteúdos. Objetivo: captar público novo e urgente.</p></div></div>
+  <div class="pilar"><div class="pico">🍽️</div><div><h4>Pilar 6 — Estilo de Vida e Liberdade Alimentar</h4><p>Mostrar que é possível jantar fora, beber vinho e continuar evoluindo. Combate narrativa de privação. Objetivo: desejo, proximidade e diferenciação do método.</p></div></div>
+
+  <p class="sh3" style="margin-top:.9rem">2. Regras de Comunicação</p>
+  <div class="g2">
+    <div class="gi"><h4>✅ Sempre fazer</h4><ul>
+      <li>Nomear a dor antes de oferecer a solução</li>
+      <li>Usar dados reais (tempo, kg, percentual)</li>
+      <li>Mostrar o método, não só o resultado</li>
+      <li>Humanizar: mostrar rotina real da Ana</li>
+      <li>CTA claro e direto em todo conteúdo</li>
+      <li>Responder comentários com autoridade</li>
+    </ul></div>
+    <div class="gi"><h4>❌ Nunca fazer</h4><ul>
+      <li>Prometer resultado sem prazo realista</li>
+      <li>Antes/depois sem contexto emocional</li>
+      <li>Terrorismo alimentar (proibir grupos)</li>
+      <li>Conteúdo genérico que qualquer nutri postaria</li>
+      <li>Deixar direct sem resposta por mais de 24h</li>
+      <li>Comparar pacientes entre si publicamente</li>
+    </ul></div>
+  </div>
+
+  <p class="sh3" style="margin-top:.7rem">3. Paleta de Sentimentos por Funil</p>
+  <div class="g2">
+    <div class="gi"><h4>🔝 Topo — Atrair</h4><p>Identificação · Surpresa · Indignação leve · "Isso sou eu" · Curiosidade · Leveza irônica</p></div>
+    <div class="gi"><h4>⚡ Meio — Nutrir</h4><p>Esperança · Confiança crescente · Clareza técnica · Pertencimento · "Isso é possível para mim"</p></div>
+    <div class="gi"><h4>💰 Fundo — Converter</h4><p>Urgência suave · Desejo · Segurança · "Agora é a hora" · Prova social concreta</p></div>
+    <div class="gi"><h4>🔁 Fidelização</h4><p>Orgulho · Pertencimento ao Time AF8 · Conquista · Autonomia · Indicação natural</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: CALENDÁRIO
+═══════════════════════════════════════════ -->
+<div id="tp-cal" class="tpanel">
+  <div class="filts">
+    <button class="fbtn on" onclick="filt('all',this)">Todos</button>
+    <button class="fbtn" onclick="filt('reel',this)">Reel</button>
+    <button class="fbtn" onclick="filt('carr',this)">Carrossel</button>
+    <button class="fbtn" onclick="filt('est',this)">Estático</button>
+    <button class="fbtn" onclick="filt('can',this)">💉 Caneta</button>
+    <button class="fbtn" onclick="filt('at',this)">Atrair</button>
+    <button class="fbtn" onclick="filt('nu',this)">Nutrir</button>
+    <button class="fbtn" onclick="filt('co',this)">Converter</button>
+    <button class="fbtn" onclick="filt('done',this)">✓ Feitos</button>
+    <button class="fbtn" onclick="filt('pend',this)">Pendentes</button>
+  </div>
+  <div id="calroot"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB: CONQUISTAS
+═══════════════════════════════════════════ -->
+<div id="tp-ach" class="tpanel">
+  <div class="achsec">
+    <p class="achh">Conquistas desbloqueáveis</p>
+    <div class="achgrid" id="achgrid"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="data:image/png;base64,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" alt="CF Performance Digital" class="flogo">
+  <div class="fcr">Produzido por Carol Filipe — Estrategista Ads &middot; <a href="https://www.instagram.com/carolfilippeof/" target="_blank">@carolfilippeof</a></div>
+  <div class="fnote">Todos os dados são salvos localmente no seu navegador · 2026</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="tttl" id="tttl"></div>
+  <div id="tmsg"></div>
+</div>
+<script>
+// ── TAB SYSTEM ──
+function goTab(id, btn) {
+  document.querySelectorAll('.tpanel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.tbtn').forEach(function(b){ b.classList.remove('on'); });
+  document.getElementById('tp-' + id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// ── DAYS DATA ──
+var D = [
+  {id:1,wk:1,fmt:"reel",obj:"at",can:false,
+   g:"Você treina, treina e o espelho não muda. Eu sei exatamente o motivo.",
+   ob:"Identificação com dor do treino sem resultado · topo de funil",
+   vi:"📱 Câmera próxima ao rosto, olhar direto. Ambiente de academia ou espelho. 12–15s.",
+   le:"Você não é preguiçosa.\nVocê não tem metabolismo lento.\n\nVocê só nunca teve um plano feito para o seu corpo — de verdade.\n\nA mulher magra que quer músculo tem uma necessidade nutricional completamente diferente de quem quer emagrecer.\nE a maioria das dietas que circulam por aí foram feitas para outra pessoa.\n\nO Método AF8 existe exatamente pra isso.\n\nMe conta nos comentários: há quanto tempo você treina sem ver resultado?",
+   ct:"Comenta: há quanto tempo você treina sem mudar?"},
+
+  {id:2,wk:1,fmt:"carr",obj:"at",can:false,
+   g:"Por que você não consegue ganhar músculo mesmo comendo bem (e o que fazer)",
+   ob:"Educação estratégica · autoridade · alto salvamento",
+   vi:"📱 10 slides. Slide 1: título fundo escuro. Slides 2–8: um erro por slide com explicação. Slide 9: solução AF8. Slide 10: CTA.",
+   le:"Salvou esse carrossel porque se reconheceu em cada slide?\n\nSe você treina há meses e o espelho não muda, o problema provavelmente não é esforço.\nÉ estratégia nutricional.\n\nA mulher magra precisa de protocolo específico — não de dieta genérica feita para quem quer emagrecer.\n\nSalva esse post. Você vai precisar dele.",
+   ct:"Salva e me marca nos stories se você se identificou"},
+
+  {id:3,wk:1,fmt:"est",obj:"at",can:false,
+   g:"A barriga incha. A cintura some. O músculo não aparece. Isso tem nome — e tem solução.",
+   ob:"Identificação com dor específica · alto compartilhamento",
+   vi:"📱 Fundo escuro, texto grande em duas cores. Foto ao lado ou embaixo. Design limpo.",
+   le:"Se você vive nesse ciclo: come e incha, corta e murcha, treina e não muda —\n\nEssa não é falha sua. É ausência de método.\n\nO Método AF8 foi desenvolvido para a mulher que quer curvas definidas sem abrir mão da cintura fina.\n\nSem terrorismo nutricional. Sem planilha genérica.\nCom autonomia alimentar real.",
+   ct:"Me chama no direct: quero entender como funciona"},
+
+  {id:4,wk:1,fmt:"reel",obj:"at",can:true,
+   g:"Tomou caneta emagrecedora, emagreceu rápido e ficou com flacidez? Precisa ver isso.",
+   ob:"Captar público GLP-1 · topo de funil urgente",
+   vi:"📱 Reel direto ao ponto. Gancho escrito nos primeiros frames. 13–15s.",
+   le:"A caneta emagrecedora fez você perder peso rápido.\nMas junto com a gordura, você perdeu músculo.\n\nE músculo perdido = flacidez corporal e facial.\n\nIsso tem nome: síndrome do emagrecimento sem recomposição.\n\nA boa notícia? É reversível.\nMas não é com dieta comum.\n\nVocê precisa de protocolo específico de recomposição — que reconstrua o que foi perdido com estratégia nutricional e treino certo.\n\nÉ exatamente isso que o Método AF8 faz.\n\nMe chama no direct com a palavra CANETA.",
+   ct:"Direct: palavra CANETA — te explico o protocolo"},
+
+  {id:5,wk:1,fmt:"carr",obj:"nu",can:false,
+   g:"O que comer para ganhar músculo sem engordar a barriga (guia prático)",
+   ob:"Educação nutricional prática · autoridade · salvamentos",
+   vi:"📱 8 slides. Capa com título impactante. Alimentos por macronutriente. Dica prática por slide. Último slide CTA.",
+   le:"Esse é o guia que eu gostaria de ter visto quando comecei.\n\nGanhar músculo sem perder a cintura não é sorte — é estratégia alimentar.\n\nNão tem segredo: é proteína certa, carboidrato no momento certo, gordura boa na quantidade certa.\n\nSalva esse guia. Usa na próxima refeição pré-treino.",
+   ct:"Salva e me conta: o que você come antes do treino hoje?"},
+
+  {id:6,wk:1,fmt:"est",obj:"at",can:false,
+   g:"Você não precisa cortar carboidrato para ter cintura. Precisa aprender a comer.",
+   ob:"Desconstrução de mito · compartilhamento e debate",
+   vi:"📱 Estático minimalista. Frase grande centralizada. Fundo contrastante.",
+   le:"Passei anos achando que carboidrato era o inimigo da cintura.\n\nNão era.\nEra a minha relação com a comida que estava torta.\n\nHoje como arroz. Como pão. Saio para jantar.\nE meu shape continua evoluindo.\n\nO Método AF8 não te ensina o que cortar.\nTe ensina o que construir.",
+   ct:"Salva e marca uma amiga que ainda tem medo de carboidrato"},
+
+  {id:7,wk:1,fmt:"reel",obj:"nu",can:false,
+   g:"Minha paciente ganhou 4kg de músculo em 3 meses — sem parar de viver.",
+   ob:"Prova social + desconstrução de rigidez · nutrir",
+   vi:"📱 Falar para câmera com entusiasmo contido. Mostrar resultado de paciente com permissão. 12–15s.",
+   le:"Ela me chamou no direct achando que jamais conseguiria ganhar músculo.\n\nTinha tentado antes. Não deu certo.\n\nEm 3 meses com o Método AF8:\n✔ +4kg de massa muscular\n✔ Cintura reduzida\n✔ Come pizza sexta à noite\n\nResultado real. Vida real.\n\nSe você quer entender como esse processo funciona, me chama no direct.",
+   ct:"Direct: como funciona o Método AF8?"},
+
+  {id:8,wk:2,fmt:"carr",obj:"at",can:true,
+   g:"O que acontece com seu músculo quando você usa caneta emagrecedora",
+   ob:"Educação sobre GLP-1 e perda de massa · captar público caneta",
+   vi:"📱 8 slides. Capa com dado impactante. Mecanismo de perda muscular. Último slide: protocolo de recomposição.",
+   le:"Esse conteúdo vai salvar o shape de muita gente.\n\nAs canetas emagrecedoras (GLP-1) são eficazes para perda de peso — mas até 40% do peso perdido pode ser de massa muscular.\n\nE músculo perdido = metabolismo mais lento, flacidez, fraqueza.\n\nA recomposição após GLP-1 precisa de estratégia nutricional específica.\n\nSalva e compartilha com quem usa.",
+   ct:"Salva e compartilha com quem usa ou considera a caneta"},
+
+  {id:9,wk:2,fmt:"reel",obj:"at",can:false,
+   g:"Três coisas que eu mudaria na sua alimentação hoje — de graça.",
+   ob:"Valor gratuito · atrair novas seguidoras · topo de funil",
+   vi:"📱 Reel estilo lista rápida. Texto na tela + narração. Máximo 15s com cortes ágeis.",
+   le:"Não precisa de plano para começar a mudar.\n\nPrecisa parar de fazer três coisas que sabotam seu ganho de músculo sem você perceber.\n\nFui no reel contar quais são.\n\nE se quiser entender como isso funciona dentro de um método completo, me chama.",
+   ct:"Comenta: qual das 3 você faz hoje?"},
+
+  {id:10,wk:2,fmt:"est",obj:"nu",can:false,
+   g:"Você não é magra por genética. Você é magra por falta de protocolo.",
+   ob:"Identificação + desconstrução de crença limitante · compartilhamento",
+   vi:"📱 Frase de impacto em tipografia forte. Fundo contrastante. Foto sutil ao fundo.",
+   le:"Quantas vezes você já ouviu: você tem sorte de ser magrinha?\n\nSorte nada.\n\nMulher magra que não consegue ganhar músculo geralmente tem:\n— Déficit calórico crônico sem saber\n— Proteína muito abaixo do necessário\n— Treino sem periodização\n\nIsso não é genética. É ausência de método.\n\nE método é o que o AF8 entrega.",
+   ct:"Salva se isso te representa"},
+
+  {id:11,wk:2,fmt:"reel",obj:"at",can:true,
+   g:"Ficou com pele flácida após emagrecer rápido? É músculo perdido, não pele sobrando.",
+   ob:"Educar sobre flacidez pós-emagrecimento rápido · público caneta",
+   vi:"📱 Falar para câmera com seriedade técnica. Mostrar imagem de contexto na tela. 13–15s.",
+   le:"Quando o emagrecimento é muito rápido — seja com caneta, dieta restritiva ou cirurgia — o corpo não tem tempo de preservar o músculo.\n\nO resultado? Pele que parece sobrar.\n\nMas não é a pele que sobrou. É o músculo que foi embora.\n\nA solução não é cirurgia plástica.\nÉ recomposição corporal: reconstruir o músculo perdido com nutrição e treino estratégicos.\n\nIsso tem protocolo. Tem tempo. Tem resultado.\n\nMe chama se você está vivendo isso.",
+   ct:"Direct: quero entender o protocolo de recomposição"},
+
+  {id:12,wk:2,fmt:"carr",obj:"nu",can:false,
+   g:"Como montar seu prato para ganhar músculo (sem pesar nada)",
+   ob:"Conteúdo prático de alto salvamento · nutrir e educar",
+   vi:"📱 7 slides. Método do prato visual. Cada slide = parte do prato com explicação prática. Slide final: CTA.",
+   le:"Para quem me pede dica rápida antes de ter o plano:\n\nUse o método do prato.\nNão precisa de balança. Não precisa de app.\n\nÉ uma base para começar a pensar em composição — não substitui acompanhamento individualizado.\n\nSalva esse guia para usar hoje.",
+   ct:"Salva e usa no próximo almoço"},
+
+  {id:13,wk:2,fmt:"est",obj:"at",can:true,
+   g:"Você não tem falta de disciplina. Tem falta de um método que respeite o que a caneta fez no seu corpo.",
+   ob:"Desconstrução de culpa · público caneta + magras em geral",
+   vi:"📱 Frase em destaque. Foto ao fundo ou lateral. Cores da marca.",
+   le:"Para de se culpar.\n\nVocê tentou emagrecer com a caneta e ficou com flacidez.\nVocê tentou ganhar músculo e nada mudou.\nVocê cortou carbo e ficou cansada.\n\nNão é falta de força de vontade.\nÉ falta de um protocolo que funcione para a sua realidade.\n\nO Método AF8 foi construído exatamente para isso.",
+   ct:"Me conta: qual foi o método que você tentou que não funcionou?"},
+
+  {id:14,wk:2,fmt:"reel",obj:"nu",can:false,
+   g:"O que eu como em um dia para manter o shape sem neura",
+   ob:"Humanização + estilo de vida livre · nutrir e inspirar",
+   vi:"📱 Vlog rápido do dia alimentar. Mostrar refeições reais, sem rigidez. Tom leve e próximo. 15s com cortes.",
+   le:"Todo mundo quer saber se nutricionista come normal.\n\nEu como arroz, feijão, lanche no fim de semana, cafezinho com leite.\n\nO que eu não faço é deixar o dia sem estrutura.\n\nNão é sobre perfeição. É sobre consistência inteligente.\n\nIsso é o que o Método AF8 te ensina — comer com liberdade e resultado ao mesmo tempo.",
+   ct:"Salva se você quer esse estilo de vida"},
+
+  {id:15,wk:3,fmt:"carr",obj:"co",can:true,
+   g:"Protocolo de recomposição após caneta emagrecedora: o que você precisa saber",
+   ob:"Fundo de funil para público GLP-1 · gerar direct e conversão",
+   vi:"📱 8 slides. Capa com dado de impacto. Mecanismo de perda muscular. O que é recomposição. O que o protocolo inclui. Cases rápidos. Slide final CTA forte.",
+   le:"Se você usou ou usa caneta emagrecedora e está preocupada com flacidez, músculo sumindo ou metabolismo lento — esse carrossel foi feito pra você.\n\nA recomposição corporal pós-GLP-1 tem protocolo específico.\nNão é dieta comum. Não é personal genérico.\n\nÉ estratégia nutricional integrada com treino de força.\n\nTenho vagas abertas para acompanhamento especializado.\nMe chama no direct com a palavra RECOMPOSIÇÃO.",
+   ct:"Direct: RECOMPOSIÇÃO — te explico como funciona"},
+
+  {id:16,wk:3,fmt:"reel",obj:"co",can:false,
+   g:"Por que seu shape não mudou em 2026 ainda — e como mudar antes de fevereiro.",
+   ob:"Urgência temporal · converter seguidoras em pacientes",
+   vi:"📱 Tom firme e direto. Falar para câmera com postura de autoridade. 13s.",
+   le:"Janeiro é o mês das intenções.\nFevereiro é o mês da desistência.\n\nA diferença entre quem chega em junho com shape diferente e quem fica no mesmo lugar?\n\nMétodo.\n\nNão motivação. Não força de vontade. Método.\n\nTenho vagas abertas nos Protocolos Flow (trimestral) e Strive (semestral).\nSe você quer 2026 diferente no espelho, me chama hoje.",
+   ct:"Direct: quero começar em janeiro"},
+
+  {id:17,wk:3,fmt:"est",obj:"co",can:false,
+   g:"Vaga aberta · Protocolo Strive · Acompanhamento 210 dias",
+   ob:"Oferta direta · fundo de funil",
+   vi:"📱 Card de oferta elegante. Nome do protocolo em destaque. Lista do que inclui. CTA forte.",
+   le:"Protocolo Strive — 6 meses de transformação completa.\n\n✔ 6 consultas individuais\n✔ 210 dias de acompanhamento\n✔ Plano alimentar individualizado\n✔ Suporte diário via WhatsApp\n✔ Prescrição de treino com personal\n✔ Kit de boas-vindas físico\n✔ Acesso ao Time AF8\n\nPara a mulher que quer resultado real e duradouro.\n\nVagas limitadas. Me chama no direct.",
+   ct:"Direct: quero uma vaga no Strive"},
+
+  {id:18,wk:3,fmt:"carr",obj:"nu",can:false,
+   g:"5 sinais de que seu corpo está pronto para hipertrofia (mas você ainda não percebeu)",
+   ob:"Nutrir e preparar para conversão · identificação e esperança",
+   vi:"📱 7 slides. Capa instigante. Um sinal por slide com explicação curta. Slide final: próximo passo.",
+   le:"Muitas mulheres que me procuram acham que ainda não estão prontas para ganhar músculo.\n\nA maioria já está.\n\nO corpo manda sinais — é só saber ler.\n\nSalva esse carrossel e conta nos comentários quantos sinais você identificou.",
+   ct:"Comenta: quantos dos 5 sinais você tem?"},
+
+  {id:19,wk:3,fmt:"reel",obj:"at",can:true,
+   g:"Ozempic, Wegovy, Mounjaro: o que ninguém te conta sobre o músculo",
+   ob:"Educação sobre GLP-1 · captar público amplo · viralização",
+   vi:"📱 Reel educativo com dados na tela. Falar com autoridade técnica. 15s.",
+   le:"As canetas emagrecedoras viraram febre — e com razão, os resultados de perda de peso são reais.\n\nO que poucos falam: junto com a gordura, você perde músculo.\n\nE músculo é o que mantém seu metabolismo ativo, sua postura, sua firmeza e seu shape.\n\nPerdeu músculo = metabolismo mais lento + flacidez + reganho de peso quando parar.\n\nA solução não é parar a caneta. É ter suporte nutricional especializado enquanto usa.\n\nTenho protocolo específico para isso. Me chama.",
+   ct:"Salva e compartilha com quem usa ou quer usar caneta"},
+
+  {id:20,wk:3,fmt:"est",obj:"nu",can:false,
+   g:"Shape não é sorte. É rotina de segunda a sexta e liberdade no fim de semana.",
+   ob:"Estilo de vida · desejo e identificação",
+   vi:"📱 Frase forte em destaque. Foto de treino ou vida cotidiana ao fundo.",
+   le:"Para de acreditar que quem tem shape vive de dieta restrita.\n\nAs minhas pacientes jantam fora. Tomam vinho. Comem sobremesa.\n\nO que elas têm é estrutura de segunda a sexta e liberdade estratégica no fim de semana.\n\nIsso não é milagre. É método.\n\nO Método AF8 não te ensina a viver presa. Te ensina a viver livre — com resultado.",
+   ct:"Salva se esse é o estilo de vida que você quer"},
+
+  {id:21,wk:3,fmt:"reel",obj:"co",can:false,
+   g:"Minha paciente tinha desistido. Hoje ela não abre mão do shape.",
+   ob:"Prova social emocional · conversão",
+   vi:"📱 Contar a história com emoção contida. Mostrar resultado com permissão. 12–15s.",
+   le:"Ela entrou em contato dizendo que tinha tentado tudo e que não acreditava mais.\n\nEm 4 meses de Método AF8:\n✔ Perdeu 6% de gordura\n✔ Ganhou 3,5kg de músculo\n✔ Voltou a usar biquíni\n✔ Parou de pesar alimento\n\nEsse é o resultado de método — não de sacrifício.\n\nSe você se identificou com ela, me chama. Tenho vagas abertas.",
+   ct:"Direct: quero começar"},
+
+  {id:22,wk:4,fmt:"carr",obj:"at",can:true,
+   g:"Flacidez facial após emagrecer rápido: por que acontece e como reverter",
+   ob:"Educar sobre flacidez facial pós-GLP-1 · captar público caneta",
+   vi:"📱 8 slides. Capa com FLACIDEZ FACIAL em destaque. Mecanismo. Nutrientes. Protocolo. CTA.",
+   le:"A flacidez facial após emagrecimento rápido tem razão específica — e não é falta de colágeno.\n\nÉ perda de gordura estrutural + músculo facial + desidratação tecidual.\n\nA boa notícia: dá para reverter com tempo, nutrição certa e treino adequado.\n\nSalva esse carrossel e compartilha com quem está passando por isso.",
+   ct:"Salva e compartilha"},
+
+  {id:23,wk:4,fmt:"reel",obj:"at",can:true,
+   g:"Emagreceu com a caneta e agora não consegue ganhar músculo. Esse é o motivo.",
+   ob:"Educar mulheres pós-GLP-1 sobre perda de massa e recomposição",
+   vi:"📱 Reel explicativo. Tom didático mas dinâmico. Dado ou linha do tempo na tela. 13–15s.",
+   le:"Quando você usa caneta emagrecedora, o GLP-1 reduz o apetite.\n\nEfeito colateral: você come menos do que precisa — muito menos.\n\nE o corpo sem calorias suficientes não constrói músculo. Ele desmonta o que tem para se manter.\n\nResultado: peso cai, músculo some, flacidez aparece, metabolismo desacelera.\n\nA solução não é comer mais qualquer coisa. É comer o certo, na quantidade certa, para reconstruir.\n\nIsso tem protocolo. Me chama no direct.",
+   ct:"Direct: quero entender como reconstruir o músculo após a caneta"},
+
+  {id:24,wk:4,fmt:"est",obj:"co",can:false,
+   g:"Protocolo Flow · 3 meses · Para quem quer resultado sem pressa — mas com consistência.",
+   ob:"Oferta do protocolo trimestral · fundo de funil",
+   vi:"📱 Card de oferta. Layout clean. Nome do protocolo e diferenciais em destaque. CTA claro.",
+   le:"Protocolo Flow — 3 meses de acompanhamento completo.\n\n✔ 3 consultas individuais\n✔ Plano alimentar personalizado\n✔ Suporte semanal via WhatsApp\n✔ Acesso ao Time AF8\n✔ Kit de boas-vindas\n\nPara quem quer construir resultado com consistência — sem pressa, sem terrorismo.\n\nInvestimento: R$900 · Vagas limitadas.\n\nMe chama no direct.",
+   ct:"Direct: quero o Flow"},
+
+  {id:25,wk:4,fmt:"carr",obj:"nu",can:false,
+   g:"Por que você desiste da dieta no fim de semana — e como parar de se sabotar",
+   ob:"Nutrir · desconstrução de culpa · preparar para conversão",
+   vi:"📱 7 slides. Capa com frase provocativa. Mecanismo da sabotagem + solução. Slide final: Método AF8 como saída.",
+   le:"Toda semana a mesma coisa: segunda firme, sexta esqueceu o plano.\n\nIsso não é fraqueza.\nÉ seu cérebro respondendo a um protocolo muito restritivo.\n\nDieta que você segue de segunda a quinta e esquece sexta não é método. É tentativa.\n\nO Método AF8 foi construído para a vida real — com o fim de semana dentro do plano, não contra ele.\n\nSalva esse carrossel. Você vai precisar dele na próxima semana.",
+   ct:"Salva e me conta: qual é o seu gatilho de fim de semana?"},
+
+  {id:26,wk:4,fmt:"reel",obj:"nu",can:true,
+   g:"Quanto tempo leva para recuperar o músculo perdido com a caneta emagrecedora?",
+   ob:"Pergunta de alta busca · educar e criar expectativa realista",
+   vi:"📱 Responder como especialista. Tom técnico. Linha do tempo visual na tela. 13–15s.",
+   le:"Essa é a pergunta que mais recebo de quem usou GLP-1 e ficou preocupada com o músculo.\n\nA resposta honesta: depende de quanto você perdeu, há quanto tempo usa e qual é o seu protocolo.\n\nEm geral, com protocolo correto:\n— 30–60 dias: melhora de disposição e firmeza\n— 90 dias: ganho de massa mensurável\n— 180 dias: recomposição completa\n\nSe você está nesse processo, me chama. Tenho protocolo específico para isso.",
+   ct:"Direct: quero entender meu caso"},
+
+  {id:27,wk:4,fmt:"est",obj:"at",can:false,
+   g:"A dieta que funcionou para sua amiga não vai funcionar para você — e está tudo bem.",
+   ob:"Identificação individual · posicionamento anti-genérico",
+   vi:"📱 Frase de impacto. Layout simples e forte. Tipografia grande.",
+   le:"Corpos diferentes. Metabolismos diferentes. Rotinas diferentes.\n\nO que funciona para uma não funciona para outra — e a maioria das pessoas tenta o método da amiga em vez de construir o próprio.\n\nO Método AF8 existe para isso: construir um protocolo que funcione para o seu corpo, na sua rotina, com a sua realidade.\n\nNão existe plano certo. Existe plano certo para você.",
+   ct:"Me conta nos comentários: qual dieta você tentou que não funcionou?"},
+
+  {id:28,wk:5,fmt:"carr",obj:"co",can:false,
+   g:"Resultados reais de 3 pacientes do Método AF8 — tempo, processo e números",
+   ob:"Prova social estruturada · fundo de funil · conversão",
+   vi:"📱 9 slides. Capa com número de transformações. Um case por bloco de 2 slides. Slide final CTA com vaga aberta.",
+   le:"Deixei os números falarem.\n\nNão é propaganda. É documentação de método.\n\nCada case tem contexto, tempo real e resultado mensurável.\n\nSe você está considerando começar, esses cases são o mais próximo de entender o que esperar.\n\nVagas abertas. Me chama no direct.",
+   ct:"Direct: quero começar — me conta sobre as vagas"},
+
+  {id:29,wk:5,fmt:"reel",obj:"co",can:false,
+   g:"Se você ainda não começou sua hipertrofia, precisa ver isso antes de fevereiro.",
+   ob:"Urgência de fechamento · converter indecisos",
+   vi:"📱 Tom direto e urgente, sem pressão agressiva. Falar para câmera. 12–13s.",
+   le:"Janeiro está quase acabando.\n\nE quem começou o acompanhamento no dia 1 já está semanas à frente de quem está esperando o momento certo.\n\nNão existe momento perfeito.\nExiste decisão.\n\nTenho vagas abertas nos Protocolos Flow e Strive.\nSe você quer 2026 diferente no espelho, me chama hoje.",
+   ct:"Direct: quero começar ainda em janeiro"},
+
+  {id:30,wk:5,fmt:"est",obj:"co",can:false,
+   g:"Comida vira músculo. Músculo vira curva. Curva vira confiança. — Método AF8",
+   ob:"Fechamento de ciclo · posicionamento de marca · CTA final",
+   vi:"📱 Card de marca premium. Frase de posicionamento em destaque. Elemento visual forte. CTA elegante.",
+   le:"Esse é o princípio que guia cada protocolo que entrego.\n\nNão é sobre dieta perfeita.\nNão é sobre sacrifício.\nNão é sobre punição.\n\nÉ sobre usar a comida como ferramenta de construção — do corpo e da confiança.\n\nSe você quer esse resultado, o próximo passo é simples: me chama no direct.\n\nTenho vagas abertas para fevereiro.",
+   ct:"Direct: quero começar em fevereiro — me conta sobre as vagas"}
+];
+
+var WK = {
+  1:"Semana 1 — Atrair e Gerar Identificação",
+  2:"Semana 2 — Educar e Construir Autoridade",
+  3:"Semana 3 — Quebrar Objeções e Nutrir Confiança",
+  4:"Semana 4 — Converter e Fidelizar",
+  5:"Bloco Final — Consolidar e Reativar"
+};
+var FL = {reel:"Reel",carr:"Carrossel",est:"Estático"};
+var OL = {at:"Atrair",nu:"Nutrir",co:"Converter"};
+var XP = {reel:15,carr:20,est:12};
+var LVS = [
+  {m:0,l:"Nível 1 · Iniciante"},
+  {m:100,l:"Nível 2 · Consistente"},
+  {m:250,l:"Nível 3 · Estrategista"},
+  {m:450,l:"Nível 4 · Referência"},
+  {m:700,l:"Nível 5 · AF8 Expert"}
+];
+var ACS = [
+  {id:"first",ic:"🎯",nm:"Primeiro post",ds:"Publique a primeira peça",ck:function(d){return d>=1;}},
+  {id:"sem1",ic:"🌱",nm:"Semana 1 completa",ds:"7 peças publicadas",ck:function(d){return d>=7;}},
+  {id:"can5",ic:"💉",nm:"Especialista GLP-1",ds:"5 conteúdos caneta feitos",ck:function(d,s){return s.cn>=5;}},
+  {id:"half",ic:"⚡",nm:"Metade do caminho",ds:"15 peças publicadas",ck:function(d){return d>=15;}},
+  {id:"cv5",ic:"💰",nm:"Funil ativo",ds:"5 posts de conversão",ck:function(d,s){return s.cv>=5;}},
+  {id:"str7",ic:"🔥",nm:"7 dias seguidos",ds:"Sequência de 7 posts",ck:function(d,s){return s.ms>=7;}},
+  {id:"ca5",ic:"🖼️",nm:"Carrossel Master",ds:"5 carrosséis publicados",ck:function(d,s){return s.ca>=5;}},
+  {id:"full",ic:"🏆",nm:"Calendário completo",ds:"30 dias publicados",ck:function(d){return d>=30;}}
+];
+
+function gst(){try{return JSON.parse(localStorage.getItem('af8_v3')||'{"done":[]}')}catch(e){return{done:[]}}}
+function sst(s){localStorage.setItem('af8_v3',JSON.stringify(s))}
+function gdn(){return new Set(gst().done)}
+function gsh(){try{return new Set(JSON.parse(localStorage.getItem('af8_ah')||'[]'))}catch(e){return new Set()}}
+function ssh(s){localStorage.setItem('af8_ah',JSON.stringify([...s]))}
+
+function cst(){
+  var done=gdn(),xp=0,cn=0,cv=0,ca=0,ms=0,st=0;
+  for(var i=0;i<D.length;i++){
+    var d=D[i];
+    if(done.has(d.id)){xp+=XP[d.fmt]||10;if(d.can)cn++;if(d.obj==='co')cv++;if(d.fmt==='carr')ca++;st++;if(st>ms)ms=st;}
+    else{st=0;}
+  }
+  return{xp:xp,cn:cn,cv:cv,ca:ca,ms:ms};
+}
+
+function glv(xp){
+  var lv=LVS[0];
+  for(var i=0;i<LVS.length;i++){if(xp>=LVS[i].m)lv=LVS[i];}
+  return lv;
+}
+
+function upd(){
+  var done=gdn(),total=D.length,dc=done.size,st=cst(),pct=Math.round(dc/total*100);
+  document.getElementById('sd').textContent=dc;
+  document.getElementById('sl').textContent=total-dc;
+  document.getElementById('sx').textContent=st.xp;
+  document.getElementById('ss').textContent=st.ms;
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('pfi').style.width=pct+'%';
+  var lv=glv(st.xp),li=LVS.indexOf(lv),nx=LVS[li+1];
+  var xi=st.xp-lv.m,xf=(nx?nx.m:lv.m+100)-lv.m,xp2=Math.min(100,Math.round(xi/xf*100));
+  document.getElementById('lvl').textContent=lv.l;
+  document.getElementById('xfi').style.width=xp2+'%';
+  document.getElementById('xtxt').textContent=st.xp+(nx?' / '+nx.m+' XP':' XP · MAX');
+  for(var i=0;i<D.length;i++){
+    var c=document.getElementById('c'+D[i].id);
+    if(!c)continue;
+    if(done.has(D[i].id))c.classList.add('done');else c.classList.remove('done');
+  }
+  for(var j=0;j<ACS.length;j++){
+    var el=document.getElementById('a'+ACS[j].id);
+    if(!el)continue;
+    if(ACS[j].ck(dc,st))el.classList.add('un');else el.classList.remove('un');
+  }
+}
+
+function togDone(id,ev){
+  ev.stopPropagation();
+  var s=gst(),done=new Set(s.done),prev=done.size;
+  if(done.has(id))done.delete(id);else done.add(id);
+  s.done=[...done];sst(s);
+  if(done.size>prev)chkAch(done.size,cst());
+  upd();
+}
+
+function chkAch(dc,st){
+  var sh=gsh();
+  for(var i=0;i<ACS.length;i++){
+    var a=ACS[i];
+    if(!sh.has(a.id)&&a.ck(dc,st)){
+      sh.add(a.id);ssh(sh);toast(a.ic+' '+a.nm,a.ds);
+    }
+  }
+}
+
+function toast(ttl,msg){
+  var t=document.getElementById('toast');
+  document.getElementById('tttl').textContent=ttl;
+  document.getElementById('tmsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3500);
+}
+
+function togCard(id){
+  document.getElementById('c'+id).classList.toggle('open');
+}
+
+function filt(type,btn){
+  document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  var done=gdn();
+  for(var i=0;i<D.length;i++){
+    var d=D[i],w=document.getElementById('w'+d.id);
+    if(!w)continue;
+    var show=false;
+    if(type==='all')show=true;
+    else if(type==='done')show=done.has(d.id);
+    else if(type==='pend')show=!done.has(d.id);
+    else if(type==='can')show=d.can;
+    else show=(d.fmt===type||d.obj===type);
+    w.style.display=show?'':'none';
+  }
+  document.querySelectorAll('.wblk').forEach(function(b){
+    var vis=[...b.querySelectorAll('[id^="w"]')].some(function(e){return e.style.display!=='none';});
+    b.style.display=vis?'':'none';
+  });
+}
+
+function buildCal(){
+  var root=document.getElementById('calroot'),h='',cw=null;
+  for(var i=0;i<D.length;i++){
+    var d=D[i];
+    if(d.wk!==cw){
+      if(cw!==null)h+='</div>';
+      cw=d.wk;
+      var wc=D.filter(function(x){return x.wk===d.wk;}).length;
+      h+='<div class="wblk" id="wb'+d.wk+'">'
+        +'<div class="wtitle">'
+        +'<span class="wnum">'+(d.wk===5?'Final':'Sem. '+d.wk)+'</span>'
+        +WK[d.wk]
+        +'<span class="wcnt">'+wc+' dias</span>'
+        +'</div>';
+    }
+    var cb=d.can?'<span class="bdg bcan">💉 Caneta</span>':'';
+    var fb=d.fmt==='reel'?'breel':d.fmt==='carr'?'bcarr':'best';
+    var ob='b'+d.obj;
+    h+='<div id="w'+d.id+'">'
+      +'<div class="dcard" id="c'+d.id+'">'
+      +'<div class="chead" onclick="togCard('+d.id+')">'
+      +'<button class="chk" onclick="togDone('+d.id+',event)">&#10003;</button>'
+      +'<div class="cinfo">'
+      +'<div class="cmeta">'
+      +'<span class="cnum">Dia '+d.id+'</span>'
+      +'<span class="bdg '+fb+'">'+FL[d.fmt]+'</span>'
+      +'<span class="bdg '+ob+'">'+OL[d.obj]+'</span>'
+      +cb+'</div>'
+      +'<div class="cgancho">'+d.g+'</div>'
+      +'</div>'
+      +'<span class="chevron">&#8964;</span>'
+      +'</div>'
+      +'<div class="cbody">'
+      +'<div class="csec"><div class="clbl">Objetivo estratégico</div><div class="ctxt">'+d.ob+'</div></div>'
+      +'<div class="csec"><div class="clbl">Sugestão visual</div><div class="vis">'+d.vi+'</div></div>'
+      +'<div class="csec"><div class="clbl">Gancho</div><div class="ctxt gs">'+d.g+'</div></div>'
+      +'<div class="csec"><div class="clbl">Legenda de alta conversão</div><div class="leg">'+d.le+'</div></div>'
+      +'<div class="ctapill">CTA → '+d.ct+'</div>'
+      +'</div>'
+      +'</div>'
+      +'</div>';
+  }
+  if(cw!==null)h+='</div>';
+  root.innerHTML=h;
+}
+
+function buildAch(){
+  document.getElementById('achgrid').innerHTML=ACS.map(function(a){
+    return '<div class="achcard" id="a'+a.id+'">'
+      +'<span class="achico">'+a.ic+'</span>'
+      +'<div class="achnm">'+a.nm+'</div>'
+      +'<div class="achdesc">'+a.ds+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+buildCal();
+buildAch();
+upd();
+</script>
+</body>
+</html>
