@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Estratégico & Calendário · @leticiarnoble</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#07050c;
+    --bg-1:#0d0916;
+    --bg-2:#140f21;
+    --purple-900:#2b0f52;
+    --purple-700:#5b1fb8;
+    --purple-500:#8b3ff0;
+    --purple-400:#a855f7;
+    --purple-glow:#c084fc;
+    --ink-0:#f4f1fb;
+    --ink-1:#c9c2dc;
+    --ink-2:#8f88a8;
+    --line:rgba(168,85,247,0.18);
+    --card:rgba(255,255,255,0.03);
+    --gold:#e8c874;
+    --ok:#5fe3a1;
+    --radius:18px;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(60% 50% at 12% 0%, rgba(139,63,240,0.20), transparent 60%),
+      radial-gradient(50% 40% at 100% 10%, rgba(168,85,247,0.12), transparent 60%),
+      var(--bg-0);
+    color:var(--ink-1);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--purple-500);color:#fff;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(7,5,12,0.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:34px;border-radius:9px;display:block;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.05;}
+  .brand-text b{font-family:var(--display);font-size:13px;letter-spacing:0.04em;color:var(--ink-0);}
+  .brand-text span{font-size:10px;color:var(--ink-2);letter-spacing:0.06em;}
+  nav{display:none;gap:22px;font-size:13px;}
+  nav a{color:var(--ink-2);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:.2s;}
+  nav a:hover{color:var(--ink-0);border-color:var(--purple-400);}
+  @media(min-width:860px){nav{display:flex;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:920px;margin:0 auto;padding:64px 24px 40px;text-align:left;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--purple-glow);
+    border:1px solid var(--line);
+    padding:6px 12px;border-radius:100px;
+    background:rgba(139,63,240,0.08);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple-glow);box-shadow:0 0 10px var(--purple-glow);}
+  h1{
+    font-family:var(--display);
+    font-size:clamp(30px,6vw,52px);
+    line-height:1.05;
+    color:var(--ink-0);
+    margin:0 0 18px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  h1 em{font-style:normal;color:transparent;background:linear-gradient(100deg,var(--purple-glow),var(--purple-400) 60%);-webkit-background-clip:text;background-clip:text;}
+  .hero p.lead{font-size:16px;color:var(--ink-1);max-width:640px;line-height:1.65;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .chip{font-size:12px;color:var(--ink-2);border:1px solid var(--line);padding:7px 13px;border-radius:100px;background:var(--card);}
+  .chip b{color:var(--ink-0);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{max-width:920px;margin:0 auto;padding:70px 24px;border-top:1px solid var(--line);}
+  .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .kicker .num{font-family:var(--display);font-size:13px;color:var(--purple-glow);border:1px solid var(--line);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;}
+  .kicker h2{font-family:var(--display);font-size:clamp(22px,4vw,32px);color:var(--ink-0);margin:0;font-weight:600;}
+  .section-intro{color:var(--ink-2);font-size:14.5px;line-height:1.7;max-width:680px;margin-bottom:34px;}
+
+  .grid2{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:720px){.grid2{grid-template-columns:1fr 1fr;}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .card h3{font-family:var(--display);font-size:16px;color:var(--ink-0);margin:0 0 10px;font-weight:600;}
+  .card p{margin:0;font-size:13.8px;line-height:1.65;color:var(--ink-1);}
+  .card ul{margin:8px 0 0;padding-left:18px;}
+  .card li{font-size:13.8px;line-height:1.7;color:var(--ink-1);margin-bottom:4px;}
+
+  .tag{display:inline-block;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);background:rgba(139,63,240,0.1);border:1px solid var(--line);padding:4px 10px;border-radius:100px;margin-bottom:12px;}
+
+  .quote-block{border-left:2px solid var(--purple-500);padding:4px 0 4px 20px;margin:28px 0;font-family:var(--display);font-size:19px;color:var(--ink-0);line-height:1.5;font-weight:500;}
+
+  .objecoes{display:flex;flex-direction:column;gap:10px;}
+  .obj-item{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card);}
+  .obj-item .o-head{display:flex;justify-content:space-between;gap:12px;font-family:var(--display);color:var(--ink-0);font-size:14.5px;font-weight:600;margin-bottom:6px;}
+  .obj-item .o-num{color:var(--purple-glow);font-size:12px;}
+  .obj-item p{font-size:13.5px;color:var(--ink-1);line-height:1.6;margin:0;}
+
+  /* bio card */
+  .bio-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;background:linear-gradient(160deg,rgba(139,63,240,0.10),rgba(255,255,255,0.02));
+    margin-top:10px;
+  }
+  .bio-card .bio-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:10px;}
+  .bio-card pre{white-space:pre-wrap;font-family:var(--body);font-size:14.5px;color:var(--ink-0);line-height:1.75;margin:0;}
+
+  /* pillars grid */
+  .pillars{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.pillars{grid-template-columns:1fr 1fr;}}
+  .pillar{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--card);position:relative;overflow:hidden;}
+  .pillar::before{content:attr(data-n);position:absolute;right:14px;top:6px;font-family:var(--display);font-size:44px;color:rgba(168,85,247,0.10);font-weight:700;}
+  .pillar h4{font-family:var(--display);font-size:15px;color:var(--ink-0);margin:0 0 6px;font-weight:600;}
+  .pillar p{font-size:13.3px;color:var(--ink-1);margin:0;line-height:1.6;}
+  .pillar .fun{display:inline-block;margin-top:10px;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);}
+
+  .rules{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.rules{grid-template-columns:1fr 1fr;}}
+  .rule-do,.rule-dont{border-radius:16px;padding:18px 20px;border:1px solid var(--line);}
+  .rule-do{background:rgba(95,227,161,0.06);}
+  .rule-dont{background:rgba(255,90,90,0.05);}
+  .rule-do h4{color:var(--ok);} .rule-dont h4{color:#ff8a8a;}
+  .rule-do h4,.rule-dont h4{font-family:var(--display);font-size:14px;margin:0 0 10px;}
+  .rule-do ul,.rule-dont ul{margin:0;padding-left:18px;}
+  .rule-do li,.rule-dont li{font-size:13.3px;color:var(--ink-1);margin-bottom:6px;line-height:1.55;}
+
+  .funnel-strip{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;}
+  @media(min-width:720px){.funnel-strip{grid-template-columns:1fr 1fr 1fr;}}
+  .funnel-col{border-radius:14px;padding:16px;border:1px solid var(--line);}
+  .funnel-col.topo{background:rgba(168,85,247,0.06);}
+  .funnel-col.meio{background:rgba(168,85,247,0.10);}
+  .funnel-col.fundo{background:rgba(168,85,247,0.16);}
+  .funnel-col h5{font-family:var(--display);font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--purple-glow);margin:0 0 8px;}
+  .funnel-col p{font-size:13px;margin:0;color:var(--ink-1);line-height:1.6;}
+
+  /* ---------- CALENDAR ---------- */
+  .progress-wrap{
+    position:sticky;top:63px;z-index:40;
+    background:rgba(13,9,22,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;
+  }
+  .progress-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;}
+  .progress-track{flex:1;height:8px;border-radius:100px;background:rgba(255,255,255,0.06);overflow:hidden;}
+  .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple-700),var(--purple-glow));border-radius:100px;transition:width .5s ease;}
+  .progress-label{font-size:12px;color:var(--ink-2);white-space:nowrap;font-family:var(--display);}
+  .progress-label b{color:var(--ink-0);}
+  .badge-pill{font-size:11px;padding:5px 11px;border-radius:100px;border:1px solid var(--line);color:var(--gold);white-space:nowrap;background:rgba(232,200,116,0.06);}
+
+  .week-label{font-family:var(--display);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+  .week-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  .day-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .day-card.done{border-color:rgba(95,227,161,0.45);background:rgba(95,227,161,0.045);}
+  .day-head{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 18px;cursor:pointer;
+  }
+  .day-num{
+    font-family:var(--display);font-weight:700;font-size:15px;
+    width:42px;height:42px;border-radius:12px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,var(--purple-700),var(--purple-500));
+    color:#fff;
+  }
+  .day-card.done .day-num{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);}
+  .day-meta{flex:1;min-width:0;}
+  .day-meta .d-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:3px;}
+  .fmt-badge{font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line);color:var(--ink-2);}
+  .fmt-badge.reel{color:#ff9fd6;border-color:rgba(255,159,214,0.3);}
+  .fmt-badge.carrossel{color:#8fd0ff;border-color:rgba(143,208,255,0.3);}
+  .fmt-badge.estatico{color:var(--gold);border-color:rgba(232,200,116,0.3);}
+  .date-label{font-size:11.5px;color:var(--ink-2);}
+  .day-title{font-size:14.5px;color:var(--ink-0);font-weight:600;}
+  .chev{width:20px;height:20px;flex:none;color:var(--ink-2);transition:transform .25s;}
+  .day-card.open .chev{transform:rotate(180deg);}
+  .check-btn{
+    flex:none;width:26px;height:26px;border-radius:8px;
+    border:1.5px solid var(--line);background:transparent;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    color:transparent;transition:.2s;
+  }
+  .check-btn.checked{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);border-color:transparent;color:#0a1a12;}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .day-card.open .day-body{max-height:900px;}
+  .day-body-inner{padding:0 18px 20px;display:grid;gap:12px;}
+  .field{border-top:1px solid var(--line);padding-top:12px;}
+  .field .f-label{font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:5px;}
+  .field .f-value{font-size:13.6px;color:var(--ink-1);line-height:1.6;}
+  .field .f-value b{color:var(--ink-0);}
+  .cta-tag{display:inline-block;margin-top:4px;font-size:11.5px;color:var(--gold);border:1px solid rgba(232,200,116,0.3);padding:4px 10px;border-radius:100px;}
+
+  .goal-card{
+    margin-top:40px;border-radius:var(--radius);
+    padding:28px;background:linear-gradient(150deg,rgba(139,63,240,0.18),rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+  }
+  .goal-card .tag{margin-bottom:14px;}
+  .goal-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px;}
+  @media(min-width:720px){.goal-grid{grid-template-columns:repeat(3,1fr);}}
+  .goal-item .g-num{font-family:var(--display);font-size:28px;color:var(--ink-0);font-weight:700;}
+  .goal-item .g-lbl{font-size:12px;color:var(--ink-2);margin-top:2px;}
+
+  footer{
+    margin-top:60px;padding:70px 24px 50px;text-align:center;
+    border-top:1px solid var(--line);
+    background:radial-gradient(60% 60% at 50% 0%, rgba(139,63,240,0.14), transparent 70%);
+  }
+  footer img{height:64px;width:64px;border-radius:16px;margin-bottom:18px;}
+  footer .f-title{font-family:var(--display);font-size:15px;color:var(--ink-0);margin-bottom:6px;}
+  footer .f-link{display:inline-block;margin-top:8px;font-size:14px;color:var(--purple-glow);text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.4);padding-bottom:2px;}
+  footer .f-sub{font-size:11.5px;color:var(--ink-2);margin-top:22px;}
+
+  .reset-wrap{max-width:920px;margin:0 auto;padding:0 24px 10px;display:flex;justify-content:flex-end;}
+  .reset-btn{font-size:11.5px;color:var(--ink-2);background:none;border:1px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer;}
+  .reset-btn:hover{color:var(--ink-0);border-color:var(--purple-400);}
+
+  .save-toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--bg-2);border:1px solid var(--line);color:var(--ink-0);
+    font-size:12.5px;padding:10px 18px;border-radius:100px;opacity:0;
+    transition:.3s;pointer-events:none;z-index:100;
+  }
+  .save-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img src="data:image/webp;base64,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" alt="NexusK Ads">
+    <div class="brand-text"><b>NEXUS K</b><span>AGÊNCIA DE MARKETING</span></div>
+  </div>
+  <nav>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#posicionamento">Posicionamento</a>
+    <a href="#editorial">Linha Editorial</a>
+    <a href="#calendario">Calendário</a>
+  </nav>
+</div>
+
+<div class="hero">
+  <span class="eyebrow">Portfólio estratégico · Instagram · 2026</span>
+  <h1>Diagnóstico completo e <em>calendário de 30 dias</em> para @leticiarnoble</h1>
+  <p class="lead">Este documento reúne a análise do perfil, o novo posicionamento de marca de Letícia Ribeiro Noble e o plano editorial completo para os próximos 30 dias. Cada card do calendário é interativo: marque o que já foi produzido e acompanhe o progresso em tempo real.</p>
+  <div class="hero-meta">
+    <span class="chip">Cliente <b>Letícia Ribeiro Noble · Serviços Acadêmicos</b></span>
+    <span class="chip">Nicho <b>Educação · Escrita e Metodologia Científica</b></span>
+    <span class="chip">Perfil <b>@leticiarnoble</b></span>
+    <span class="chip">Período <b>30 dias · 2026</b></span>
+  </div>
+</div>
+
+<!-- ================= DIAGNÓSTICO ================= -->
+<section class="block" id="diagnostico">
+  <div class="kicker"><span class="num">01</span><h2>Diagnóstico brutal do perfil</h2></div>
+  <p class="section-intro">Análise sem filtro do que o perfil comunica hoje, com base no conteúdo publicado, na bio atual e no briefing enviado por Letícia.</p>
+
+  <div class="card" style="margin-bottom:16px;">
+    <span class="tag">Posicionamento atual</span>
+    <p>Diferente de um perfil em fase inicial, aqui já existe um trabalho consolidado: quase 5 mil seguidores, mais de 900 posts, uma metodologia batizada e um livro publicado. O feed comunica com muita clareza tudo o que envolve a vida acadêmica, TCC, artigo, dissertação, referencial teórico, banca. É um conteúdo forte e coerente com essa parte do trabalho. O problema é que o próprio briefing descreve um território bem maior: organização do pensamento, escrita, pesquisa e produção intelectual, conectando também mentoria pra escritores e ghostwriting. Hoje, quem chega no perfil só enxerga a metade acadêmica dessa história.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:32px;">
+    <span class="tag">Pontos críticos de bloqueio</span>
+    <ul>
+      <li><b>A frente autoral está invisível:</b> mentoria pra escritores e ghostwriting não aparecem no grid nem na bio, apesar de serem parte relevante do que Letícia descreve como seu trabalho.</li>
+      <li><b>Destaques com nome cortado:</b> "alunos 2.", "+ leve", "livro.", "vida." dificultam entender o conteúdo de cada destaque antes de abrir, o que atrapalha quem chega agora e ainda não conhece a marca.</li>
+      <li><b>"+1000 alunos aprovados" sem contexto:</b> a bio afirma esse número mas não deixa claro aprovados em quê, processo seletivo, defesa, banca, o que exige que quem já conhece o trabalho complete essa informação sozinho.</li>
+      <li><b>Um único link concentrando tudo:</b> o Linktree reúne metodologia, livro e ecossistema de pesquisa sem indicar qual é a porta de entrada certa pra quem está chegando com uma necessidade específica.</li>
+      <li><b>CTA genérico na bio:</b> "Saiba mais" não direciona pra uma ação clara, como agendar conversa, entrar na lista de espera ou conhecer o livro.</li>
+    </ul>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Dores visíveis do público</span>
+      <ul>
+        <li>"Sei o que eu quero dizer, mas não consigo colocar no papel."</li>
+        <li>"Já reescrevi a introdução várias vezes e não sai do lugar."</li>
+        <li>"Meu orientador não tem tempo de me explicar a estrutura."</li>
+        <li>"Não sei se meu referencial teórico está bom."</li>
+        <li>"Tenho a ideia de um livro há anos e nunca começo."</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Dores ocultas do público</span>
+      <ul>
+        <li>Medo de parecer incapaz numa área que exige tanto preparo intelectual.</li>
+        <li>Sensação estranha de ainda ter dificuldade com escrita depois de anos de estudo.</li>
+        <li>Ansiedade de decepcionar orientador ou banca.</li>
+        <li>Insegurança sobre se a própria voz e ideia merecem virar um livro.</li>
+        <li>Receio de investir tempo num mestrado ou doutorado sem saber se vai dar conta do processo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Desejos emocionais</span>
+      <ul>
+        <li>Sentir clareza sobre o próprio raciocínio antes de escrever qualquer linha.</li>
+        <li>Sentir orgulho de finalmente ver a ideia organizada em texto.</li>
+        <li>Sentir-se acompanhada no processo, não sozinha diante da tela em branco.</li>
+        <li>Sentir-se validada como alguém que tem algo relevante pra dizer.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Desejos práticos</span>
+      <ul>
+        <li>Terminar o TCC, artigo ou dissertação dentro do prazo.</li>
+        <li>Ser aprovada em processo seletivo de mestrado ou doutorado.</li>
+        <li>Ter um método replicável pra escrever com menos sofrimento.</li>
+        <li>Transformar a ideia de livro que já existe na cabeça num manuscrito real.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Objeções que seguram a decisão de compra</span>
+  <div class="objecoes" style="margin-bottom:32px;">
+    <div class="obj-item">
+      <div class="o-head"><span>"Já tentei sozinha e não consegui"</span><span class="o-num">01</span></div>
+      <p>A lógica por trás: a pessoa acredita que o problema foi falta de disciplina própria. Precisa entender que, na maioria dos casos, faltava organização do pensamento antes de escrever, não esforço.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Minha área é muito técnica, será que serve pra mim"</span><span class="o-num">02</span></div>
+      <p>A lógica por trás: existe a crença de que metodologia de escrita funciona só pra áreas mais subjetivas. Precisa mostrar exemplos reais de áreas técnicas já acompanhadas.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Não tenho tempo agora, o prazo já está em cima"</span><span class="o-num">03</span></div>
+      <p>A lógica por trás: a mentoria é vista como mais uma tarefa na rotina. Precisa comunicar que o método existe justamente pra encurtar o caminho até a entrega, não pra alongar o processo.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Ghostwriting parece antiético, é o meu nome no livro"</span><span class="o-num">04</span></div>
+      <p>A lógica por trás: falta de entendimento sobre como o processo preserva a voz e a autoria de quem contrata. Precisa explicar isso com clareza logo de início.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Será que ela entende da minha área específica"</span><span class="o-num">05</span></div>
+      <p>A lógica por trás: dúvida se um método de organização de pensamento serve pra qualquer campo do conhecimento. Precisa reforçar a variedade de áreas já acompanhadas ao longo dos anos.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Oportunidade de mercado</span>
+    <p>Poucas mentoras acadêmicas reúnem formação em metodologia científica, mais de 970 trabalhos acompanhados, um livro publicado e atuação também no universo autoral fora da academia. Esse conjunto abre um território maior do que "ajudar com TCC": Letícia pode se tornar referência em organização do pensamento pra qualquer tipo de produção intelectual, ampliando o público de estudantes pra qualquer pessoa que carregue conhecimento na cabeça sem conseguir colocar no papel, um público que também tende a investir mais em ghostwriting e mentoria autoral do que em acompanhamento pontual de TCC.</p>
+  </div>
+</section>
+
+<!-- ================= POSICIONAMENTO ================= -->
+<section class="block" id="posicionamento">
+  <div class="kicker"><span class="num">02</span><h2>Novo posicionamento de marca</h2></div>
+  <p class="section-intro">Uma marca só, um território maior: quem organiza o pensamento de gente que sabe mais do que consegue escrever.</p>
+
+  <div class="quote-block">"Organizar as janelinhas da tua cabeça é o que transforma conhecimento em texto."</div>
+
+  <div class="grid2" style="margin-bottom:10px;">
+    <div class="card">
+      <h3>Território de marca</h3>
+      <p>Enquanto o mercado de mentoria acadêmica compete só pelo "ajudo a fazer teu TCC", Letícia ocupa um território mais amplo: organização do pensamento, escrita, pesquisa e produção intelectual. Esse território conecta com naturalidade a atuação acadêmica, a mentoria pra escritores e o ghostwriting, sem transformar o perfil numa mistura de serviços desconexos. O nome comercial segue único: <b>Letícia Ribeiro Noble</b>, com a Metodologia Vida Acadêmica + Leve como assinatura do método.</p>
+    </div>
+    <div class="card">
+      <h3>Arquétipo de marca</h3>
+      <p>Arquétipo principal: <b>a Sábia</b>, sustentada pela formação em metodologia científica, pela atuação como mestranda e pesquisadora e por mais de 970 trabalhos acompanhados. Traço secundário: <b>a Guia</b>, presente no acompanhamento próximo, no tom gaúcho e direto, e na recusa a entregar aula gravada genérica. A comunicação equilibra profundidade técnica com proximidade real.</p>
+    </div>
+  </div>
+
+  <div class="bio-card">
+    <div class="bio-label">Nova bio estratégica</div>
+    <pre>📚 Letícia Ribeiro Noble
+Organizo o pensamento de quem sabe mais do que consegue escrever
+🎓 TCC, mestrado, doutorado e livros · Metodologia Vida Acadêmica + Leve
+👇 Vem organizar tuas ideias comigo</pre>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Frase de posicionamento</h3>
+    <p style="font-family:var(--display);font-size:17px;color:var(--ink-0);">"Organizar as janelinhas da tua cabeça é o que transforma conhecimento em texto."</p>
+  </div>
+</section>
+
+<!-- ================= LINHA EDITORIAL ================= -->
+<section class="block" id="editorial">
+  <div class="kicker"><span class="num">03</span><h2>Linha editorial e comunicação</h2></div>
+  <p class="section-intro">Seis pilares sustentam o conteúdo mensal. Nenhum deles compete com o outro: eles se revezam pra cobrir identificação, autoridade, prova social e decisão ao longo do mês, incluindo a frente autoral que hoje está fora do feed.</p>
+
+  <div class="pillars" style="margin-bottom:36px;">
+    <div class="pillar" data-n="01"><h4>Organização do pensamento</h4><p>O núcleo da autoridade da marca: como estruturar raciocínio antes de escrever qualquer linha.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="02"><h4>Bastidores acadêmicos</h4><p>Rotina real como mestranda, pesquisadora e escritora, aproximando quem segue do processo real.</p><span class="fun">Topo de funil</span></div>
+    <div class="pillar" data-n="03"><h4>Metodologia Vida Acadêmica + Leve</h4><p>Instrumentos do método em ação, como o Documento-Guia e o Ecossistema de Pesquisa.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="04"><h4>Universo autoral</h4><p>Mentoria pra escritores e ghostwriting, hoje ausente do feed, trazendo essa frente pra dentro do perfil.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="05"><h4>Prova social</h4><p>Relatos de quem já passou pelos mais de 970 trabalhos acompanhados, sempre com contexto do processo.</p><span class="fun">Fundo de funil</span></div>
+    <div class="pillar" data-n="06"><h4>Quebra de objeção</h4><p>Desmistifica ghostwriting, mostra que o método serve pra qualquer área e desconstrói a crença de falta de disciplina.</p><span class="fun">Fundo de funil</span></div>
+  </div>
+
+  <span class="tag">Tom por formato</span>
+  <div class="grid2" style="margin:12px 0 32px;">
+    <div class="card"><h3>Reels</h3><p>Direto e próximo, sempre em "tu", com o jeito gaúcho de falar que já é a voz natural de Letícia. Sem tom de aula.</p></div>
+    <div class="card"><h3>Carrossel</h3><p>Didático, passo a passo, um raciocínio por slide. Fecha sempre com uma pergunta ou convite de salvar.</p></div>
+    <div class="card"><h3>Estático</h3><p>Frase reflexiva ou dado concreto, tipografia forte, paleta terracota e preto e branco já usada no perfil.</p></div>
+    <div class="card"><h3>Stories</h3><p>Bastidor real, caderno, café, rotina de escrita. Enquetes e caixinha de pergunta sobre dúvidas de pesquisa ou escrita.</p></div>
+  </div>
+
+  <div class="rules" style="margin-bottom:32px;">
+    <div class="rule-do">
+      <h4>Sempre fazer</h4>
+      <ul>
+        <li>Falar em "tu", nunca em "você", em qualquer legenda ou roteiro.</li>
+        <li>Trazer exemplo real e anonimizado de estrutura de texto ou de trajetória acadêmica.</li>
+        <li>Separar com clareza quando o conteúdo fala pro público acadêmico e quando fala pro público autoral, sem misturar os dois numa mesma peça.</li>
+        <li>Reforçar a preservação de autoria sempre que o ghostwriting for tema do conteúdo.</li>
+      </ul>
+    </div>
+    <div class="rule-dont">
+      <h4>Nunca fazer</h4>
+      <ul>
+        <li>Prometer aprovação garantida em processo seletivo.</li>
+        <li>Tratar ghostwriting como "escrever o livro do zero sem a voz do autor".</li>
+        <li>Usar linguagem técnica fechada de metodologia científica sem traduzir pra quem ainda está aprendendo.</li>
+        <li>Reduzir o trabalho a "ajudo a fazer TCC" em qualquer peça de conteúdo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Paleta de sentimentos por etapa de funil</span>
+  <div class="funnel-strip">
+    <div class="funnel-col topo"><h5>Topo</h5><p>Identificação, alívio de perceber que outras pessoas sentem a mesma dificuldade.</p></div>
+    <div class="funnel-col meio"><h5>Meio</h5><p>Clareza, organização, confiança de que existe um método pra aplicar agora.</p></div>
+    <div class="funnel-col fundo"><h5>Fundo</h5><p>Segurança pra investir na mentoria, vontade de finalmente começar o projeto adiado.</p></div>
+  </div>
+</section>
+
+<!-- ================= CALENDÁRIO ================= -->
+<section class="block" id="calendario" style="padding-bottom:0;">
+  <div class="kicker"><span class="num">04</span><h2>Calendário de 30 dias</h2></div>
+  <p class="section-intro">3 reels · 2 carrosséis · 2 estáticos por semana. Toque em cada card pra abrir o roteiro completo, e marque o check quando publicar. Seu progresso fica salvo automaticamente.</p>
+</section>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">Progresso <b id="progress-count">0/30</b></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="badge-pill" id="badge-pill">Bronze</span>
+  </div>
+</div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" id="reset-btn">Reiniciar checklist</button>
+</div>
+
+<section class="block" style="padding-top:20px;" id="days-container"></section>
+
+<div class="block" id="meta-mensal-wrap">
+  <div class="goal-card">
+    <span class="tag">Meta mensal</span>
+    <h3 style="font-family:var(--display);color:var(--ink-0);font-size:20px;margin:0 0 8px;">Meta de crescimento pra este ciclo de 30 dias</h3>
+    <p style="font-size:13.8px;color:var(--ink-1);line-height:1.65;max-width:640px;">Com quase 5 mil seguidores já engajados na parte acadêmica, a meta deste ciclo foca em abrir espaço pro público autoral que hoje nem sabe que esse serviço existe, além de crescer em número. Publicando os 30 dias completos, o perfil passa a gerar contato qualificado pras duas frentes do trabalho, acadêmica e autoral.</p>
+    <div class="goal-grid">
+      <div class="goal-item"><div class="g-num">+15%</div><div class="g-lbl">alcance médio por publicação em 30 dias</div></div>
+      <div class="goal-item"><div class="g-num">25+</div><div class="g-lbl">contatos iniciados por WhatsApp ou direct</div></div>
+      <div class="goal-item"><div class="g-num">5+</div><div class="g-lbl">novos contatos específicos sobre mentoria de escritores ou ghostwriting</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="data:image/webp;base64,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" alt="NexusK Ads">
+  <div class="f-title">Produzido por NexusK Ads</div>
+  <a class="f-link" href="https://www.instagram.com/nexusk.ads/" target="_blank" rel="noopener">@nexusk.ads</a>
+  <div class="f-sub">Estratégia · Criatividade · Conexão · Resultados</div>
+</footer>
+
+<div class="save-toast" id="save-toast">Progresso salvo</div>
+
+<script>
+const CAL_DATA = [
+{"id":"d01","day":1,"week":1,"data":"10/08 · seg","formato":"Reel","pilar":"Organização do pensamento","tema":"As janelinhas abertas na tua cabeça","objetivo":"Gerar identificação imediata com a linguagem que já é assinatura da marca.","gancho":"Tu sabe muito mais do que consegue colocar no papel. Isso tem nome.","visual":"Letícia falando direto pra câmera, tom próximo, sem cortes agressivos, texto de apoio só no gancho inicial.","legenda":"Uma coisa que se repete nos mais de 970 trabalhos que já acompanhei: a pessoa chega achando que não sabe escrever, quando na real ela tem ideia, referência e repertório de sobra. O que falta é organizar tudo isso antes de tentar escrever a primeira frase. Escrita boa começa bem antes do texto, começa em organizar o raciocínio até as ideias fazerem sentido entre si. Se tu já sentiu isso, com várias janelinhas abertas na cabeça ao mesmo tempo, comenta aqui embaixo 'já vivi isso' que eu quero saber quantas pessoas se reconhecem nesse relato.","cta":"Comente 'já vivi isso'"},
+
+{"id":"d02","day":2,"week":1,"data":"11/08 · ter","formato":"Carrossel","pilar":"Metodologia Vida Acadêmica + Leve","tema":"3 perguntas do Documento-Guia que organizam tua pesquisa","objetivo":"Ensinar um instrumento real do método e gerar salvamento.","gancho":"O Documento-Guia que uso com quem mentora comigo, resumido em 3 perguntas.","visual":"7 slides mostrando a estrutura do Documento-Guia, com exemplo visual de um trecho preenchido, cores terracota e preto do perfil.","legenda":"Um dos instrumentos que mais uso na Mentoria Vida Acadêmica + Leve é o Documento-Guia. Ele existe pra responder três perguntas antes de qualquer linha de texto ser escrita: onde tu está agora na pesquisa, pra onde precisa ir, e por que cada etapa importa. Quando essas respostas ficam claras, a escrita vira consequência natural do raciocínio organizado, em vez de um obstáculo sem direção. Salva esse carrossel se tu quer aplicar essa lógica na tua própria pesquisa antes de escrever mais uma linha.","cta":"Salve este carrossel"},
+
+{"id":"d03","day":3,"week":1,"data":"12/08 · qua","formato":"Estático","pilar":"Bastidores acadêmicos","tema":"Mestranda escrevendo sobre como escrever","objetivo":"Criar conexão real através da vulnerabilidade compartilhada no topo de funil.","gancho":"Sou mestranda e ainda preciso aplicar meu próprio método às vezes.","visual":"Arte estática preto e branco com toque terracota, foto dela em tom intimista, frase do gancho em destaque.","legenda":"Fiz seis anos de acompanhamento acadêmico, escrevi um livro sobre escrita acadêmica e mesmo assim, quando sento pra escrever minha própria dissertação de mestrado, preciso aplicar o mesmo método que ensino. Isso é prova de que organizar o pensamento é processo, não um dom que algumas pessoas têm e outras não. Se tu também acha que devia 'já saber' escrever só porque estuda a área há anos, comenta aqui embaixo.","cta":"Comente sua experiência"},
+
+{"id":"d04","day":4,"week":1,"data":"13/08 · qui","formato":"Reel","pilar":"Prova social","tema":"Relato de aluna aprovada em processo seletivo","objetivo":"Construir confiança usando prova social recente no fundo de funil.","gancho":"+970 trabalhos acompanhados até aqui. Um relato de cada vez.","visual":"Texto de depoimento (anonimizado ou com autorização) animado na tela, fundo terracota, música instrumental suave.","legenda":"Recebo relatos como esse quase toda semana e cada um confirma a mesma coisa: o problema quase nunca tinha relação com falta de conteúdo ou de esforço, tinha relação com a falta de um jeito de organizar tudo que a pessoa já sabia. Uma orientanda recente me escreveu contando que passou no processo seletivo do mestrado depois de reescrever o projeto usando a lógica que trabalhamos juntas na mentoria. Se tu está se preparando pra um processo seletivo agora, comenta aqui embaixo que te conto como funciona o acompanhamento.","cta":"Comente e saiba como funciona o acompanhamento"},
+
+{"id":"d05","day":5,"week":1,"data":"14/08 · sex","formato":"Carrossel","pilar":"Universo autoral","tema":"O livro que tu carrega na cabeça há anos","objetivo":"Trazer a frente autoral pro feed pela primeira vez no mês, gerando reconhecimento de novo serviço.","gancho":"O livro que tu carrega na cabeça há anos pode começar a existir de um jeito mais simples do que tu imagina.","visual":"6 slides explicando a diferença entre mentoria pra escritores e ghostwriting, com passo a passo de como organizar a obra antes de escrever capítulos.","legenda":"Recebo bastante gente que carrega a ideia de um livro há anos e nunca sabe por onde começar. A lógica é parecida com a acadêmica: antes de exigir capítulo, é preciso organizar a obra que já existe na cabeça de quem escreve. Trabalho isso de dois jeitos. Na mentoria pra escritores, acompanho a pessoa escrevendo com a própria mão. No ghostwriting, componho o texto a partir do repertório e da voz de quem contrata, preservando a autoria de quem tem a história pra contar. Salva esse carrossel se esse é um projeto que tu ainda não deu o primeiro passo.","cta":"Salve este carrossel"},
+
+{"id":"d06","day":6,"week":1,"data":"15/08 · sab","formato":"Estático","pilar":"Organização do pensamento","tema":"Referencial teórico é diálogo, não decoreba de citação","objetivo":"Entregar clareza técnica rápida e gerar comentário no meio de funil.","gancho":"Um referencial teórico forte nasce do diálogo que tu constrói entre os autores.","visual":"Arte estática terracota, tipografia grande, sem foto.","legenda":"Grande parte de quem me procura acredita que o referencial teórico é só uma lista de citações organizadas por autor. Na prática, ele existe pra mostrar como os autores conversam entre si e onde a tua pesquisa se encaixa nessa conversa. Quando essa lógica fica clara, a escrita dessa parte do trabalho fica muito mais rápida e muito mais consistente na banca. Comenta aqui embaixo se esse é um ponto que ainda gera dúvida na tua pesquisa.","cta":"Comente sua dúvida"},
+
+{"id":"d07","day":7,"week":1,"data":"16/08 · dom","formato":"Reel","pilar":"Bastidores acadêmicos","tema":"Rotina real de um domingo escrevendo","objetivo":"Fechar a semana com conexão humana e preparar terreno pra semana de autoridade.","gancho":"Domingo de manhã escrevendo. Assim é minha rotina real, sem filtro.","visual":"Vídeo estilo vlog curto, café, caderno, notebook, ambiente aconchegante, tom intimista, legendas com pequenas reflexões.","legenda":"Fim de semana também é dia de escrever, pelo menos pra quem está em formação acadêmica junto com a rotina de trabalho, como eu. Não existe fórmula mágica de produtividade, existe rotina possível dentro da realidade de cada um. Se tu também tenta encaixar pesquisa e escrita numa rotina cheia, comenta aqui embaixo como está sendo essa fase pra ti.","cta":"Comente sobre tua rotina"},
+
+{"id":"d08","day":8,"week":2,"data":"17/08 · seg","formato":"Reel","pilar":"Quebra de objeção","tema":"Minha área é muito técnica, será que o método serve?","objetivo":"Responder diretamente uma objeção comum com exemplos concretos.","gancho":"Já ouvi isso de gente de Direito, Enfermagem, Engenharia e Educação Física. O método serve.","visual":"Letícia falando direto, exemplos de áreas diferentes aparecendo na tela, tom confiante.","legenda":"Uma dúvida recorrente é se a metodologia funciona só pra área de humanas, já que muita gente associa organização de pensamento a texto mais subjetivo. Já acompanhei trabalho de Direito, Enfermagem, Engenharia, Educação Física, entre tantas outras áreas, e a lógica se repete em todas: organizar o raciocínio antes de escrever. Muda o conteúdo técnico de cada área, mas o processo de estruturar ideia, relacionar referência e construir argumento é o mesmo. Comenta aqui embaixo qual é a tua área que eu te mostro como isso se aplica.","cta":"Comente sua área de estudo"},
+
+{"id":"d09","day":9,"week":2,"data":"18/08 · ter","formato":"Carrossel","pilar":"Organização do pensamento","tema":"5 sinais de que o problema nunca foi falta de capacidade","objetivo":"Gerar autodiagnóstico no público e alto salvamento do conteúdo.","gancho":"5 sinais de que o problema nunca foi falta de capacidade pra escrever.","visual":"8 slides, um sinal por slide (reescrever a introdução várias vezes, perder o fio ao explicar no papel, demorar pra decidir por onde começar, entre outros), último slide com convite pra comentar.","legenda":"Separei aqui alguns sinais que vejo repetir entre quem me procura achando que não sabe escrever. Reescrever a introdução várias vezes sem sair do lugar. Ter clareza na cabeça e perder o fio ao tentar explicar no papel. Levar horas pra decidir por onde começar um parágrafo. Sentir que sabe o conteúdo mas não sabe organizar a ordem das ideias. Nenhum desses sinais tem relação com talento de escrita, todos apontam pra organização de pensamento, e isso se aprende com método. Comenta aqui embaixo quantos desses sinais tu reconhece na tua rotina de escrita.","cta":"Comente quantos sinais tu reconhece"},
+
+{"id":"d10","day":10,"week":2,"data":"19/08 · qua","formato":"Estático","pilar":"Prova social","tema":"Mais de 970 trabalhos, um livro, uma missão","objetivo":"Reforçar autoridade consolidada com números concretos.","gancho":"Mais de 970 trabalhos acompanhados. Um livro publicado. Uma missão só: organizar pensamento.","visual":"Arte estática com número em destaque grande, fundo terracota, capa do livro em miniatura no canto.","legenda":"Seis anos acompanhando gente que sabia muito e não conseguia colocar no papel me ensinaram um padrão que virou até livro: a escrita boa nasce da organização do pensamento, muito mais do que de um talento natural. Esse aprendizado sustenta cada mentoria que faço hoje, seja pra quem está escrevendo um TCC ou pra quem está escrevendo o primeiro livro. Se tu quer entender melhor essa lógica, o livro 'O início é sempre agora' está linkado na bio.","cta":"Confira o livro no link da bio"},
+
+{"id":"d11","day":11,"week":2,"data":"20/08 · qui","formato":"Reel","pilar":"Universo autoral","tema":"O que é ghostwriting de verdade","objetivo":"Desmistificar a objeção sobre autoria e apresentar o serviço com clareza.","gancho":"Ghostwriting existe pra transformar tua história e tuas ideias num livro, na tua própria voz.","visual":"Letícia explicando o processo, mostrando etapas na tela (entrevista, estruturação, escrita, revisão conjunta), tom didático.","legenda":"Uma dúvida comum é se contratar ghostwriting significa abrir mão da própria voz no livro. Na prática, o processo começa ouvindo o repertório, as experiências e o jeito de falar de quem contrata, e só depois disso a escrita é desenvolvida a partir desse material. O nome no livro, a história e o posicionamento continuam sendo inteiramente de quem contrata. Meu papel é organizar e estruturar. Comenta aqui embaixo se esse era um receio que tu também já teve sobre esse tipo de trabalho.","cta":"Comente sua dúvida sobre ghostwriting"},
+
+{"id":"d12","day":12,"week":2,"data":"21/08 · sex","formato":"Carrossel","pilar":"Metodologia Vida Acadêmica + Leve","tema":"O Ecossistema de Pesquisa: pensando além da próxima entrega","objetivo":"Apresentar o segundo instrumento do método e ampliar percepção de valor.","gancho":"Tua trajetória acadêmica pode ser maior que só entregar o próximo trabalho.","visual":"6 slides explicando o conceito de Ecossistema de Pesquisa, identificando oportunidades de publicação, eventos e projetos que fortalecem o currículo com o tempo.","legenda":"Grande parte de quem me procura está pensando só na próxima entrega, seja um artigo, um projeto ou uma dissertação. O Ecossistema de Pesquisa nasceu pra olhar mais longe: identificar publicações, eventos e experiências que fortalecem tua trajetória acadêmica ao longo do tempo, não só resolvem o problema imediato. Pensar estrategicamente a trajetória muda completamente as oportunidades que aparecem depois. Salva esse carrossel se tu quer começar a olhar pra tua trajetória acadêmica de um jeito mais estratégico.","cta":"Salve este carrossel"},
+
+{"id":"d13","day":13,"week":2,"data":"22/08 · sab","formato":"Estático","pilar":"Bastidores acadêmicos","tema":"De fisioterapeuta a mentora acadêmica","objetivo":"Humanizar a marca com a trajetória profissional real, gerando conexão no topo de funil.","gancho":"Comecei como fisioterapeuta. Hoje organizo o pensamento de quem escreve ciência.","visual":"Arte estática preto e branco, foto dela, frase do gancho em destaque.","legenda":"Minha trajetória não seguiu uma linha reta. Comecei formada em fisioterapia, depois técnica em administração, e entrei de vez no universo da metodologia científica, da docência e da escrita. Cada uma dessas etapas construiu o jeito como enxergo a organização do pensamento hoje, porque aprendi na prática que conhecimento técnico e capacidade de comunicar esse conhecimento são coisas diferentes, e as duas podem ser desenvolvidas. Comenta aqui embaixo qual foi a tua trajetória até chegar onde tu está agora.","cta":"Comente sobre sua trajetória"},
+
+{"id":"d14","day":14,"week":2,"data":"23/08 · dom","formato":"Reel","pilar":"Prova social","tema":"Uma história guardada por 15 anos virou livro","objetivo":"Trazer prova social forte da frente autoral, com carga emocional sóbria.","gancho":"Ela carregava a história há 15 anos. O manuscrito ficou pronto em poucos meses de mentoria.","visual":"Texto de depoimento (anonimizado com autorização) animado, fundo terracota, tom emocional mas sóbrio.","legenda":"Um dos relatos que mais me marcou veio de uma pessoa que carregava a vontade de escrever um livro há mais de quinze anos e nunca conseguia organizar o material que já tinha em mãos. Em poucos meses de mentoria, organizando as ideias antes de exigir capítulo, o manuscrito começou a existir de verdade. Histórias assim mostram que o tempo que a ideia fica guardada não define se ela merece virar livro. Comenta aqui embaixo se tu também carrega uma história ou um projeto de livro há anos.","cta":"Comente sobre teu projeto de livro"},
+
+{"id":"d15","day":15,"week":3,"data":"24/08 · seg","formato":"Reel","pilar":"Organização do pensamento","tema":"Objetivo confuso deixa a pesquisa confusa também","objetivo":"Ensinar um ponto técnico fundamental e reforçar autoridade no meio de funil.","gancho":"Se o teu objetivo está confuso, tua pesquisa também vai ficar.","visual":"Letícia explicando com exemplo de objetivo mal formulado e bem formulado, tom didático e direto.","legenda":"Um dos primeiros pontos que reviso em qualquer orientação é o objetivo do trabalho, porque ele funciona como bússola pra tudo que vem depois: metodologia, referencial teórico e até a discussão dos resultados. Quando o objetivo está confuso ou genérico demais, cada etapa seguinte também fica sem direção clara. Ajustar essa base logo no início economiza meses de retrabalho lá na frente. Comenta aqui embaixo se tu já revisou teu objetivo de pesquisa recentemente ou se ainda sente que ele está confuso.","cta":"Comente sobre teu objetivo de pesquisa"},
+
+{"id":"d16","day":16,"week":3,"data":"25/08 · ter","formato":"Carrossel","pilar":"Quebra de objeção","tema":"Tentar sozinho e não sair do lugar tem uma explicação","objetivo":"Desconstruir a crença de falta de disciplina com argumento técnico.","gancho":"Tentar sozinho e não sair do lugar tem uma explicação bem específica.","visual":"6 slides desconstruindo a crença de falta de disciplina e mostrando que o esforço geralmente já estava lá, faltava método.","legenda":"Muita gente que me procura já tentou escrever sozinha várias vezes antes de pedir ajuda, e costuma chegar acreditando que o problema foi falta de disciplina. Na maioria dos casos que já acompanhei, o esforço estava lá, inteiro. O que faltava era um método pra organizar tudo que a pessoa já sabia antes de tentar escrever. Entender essa diferença muda completamente a forma como tu enxerga tua própria dificuldade com a escrita. Salva esse carrossel se tu já se cobrou por falta de disciplina numa fase da tua pesquisa.","cta":"Salve este carrossel"},
+
+{"id":"d17","day":17,"week":3,"data":"26/08 · qua","formato":"Estático","pilar":"Bastidores acadêmicos","tema":"O canto de escrever também é bagunçado às vezes","objetivo":"Humanizar rotina e reduzir pressão de perfeccionismo no público.","gancho":"Meu canto de escrever também é bagunçado às vezes.","visual":"Arte estática mostrando foto real de mesa de trabalho, café, caderno, notebook, tom despretensioso.","legenda":"Não existe cenário perfeito pra escrever, existe rotina possível dentro da realidade de cada fase. Às vezes meu espaço de trabalho está impecável, às vezes está cheio de caderno aberto, caneca fria e post-it espalhado. O que muda o resultado é a organização do raciocínio antes de sentar pra escrever, muito mais do que a organização da mesa. Comenta aqui embaixo como é o teu canto de escrever hoje.","cta":"Comente sobre seu espaço de escrita"},
+
+{"id":"d18","day":18,"week":3,"data":"27/08 · qui","formato":"Reel","pilar":"Universo autoral","tema":"Como nasceu o processo do meu próprio livro","objetivo":"Reforçar autoridade autoral mostrando vulnerabilidade real da própria autora.","gancho":"Assim nasceu o processo do meu próprio livro, do rascunho até a publicação.","visual":"Vídeo mostrando bastidor da escrita do livro dela, páginas rascunhadas, capa final, tom pessoal e transparente.","legenda":"Escrever 'O início é sempre agora' me colocou do outro lado do processo que ensino todos os dias. Passei pelas mesmas dúvidas que vejo em quem mentora comigo: por onde começar, como organizar o que já sabia, quando parar de revisar e simplesmente publicar. Foi justamente vivendo esse processo na pele que a metodologia que uso hoje ficou ainda mais clara pra mim. Comenta aqui embaixo se tu já pensou em escrever um livro sobre a tua área de conhecimento.","cta":"Comente se tu já pensou em escrever um livro"},
+
+{"id":"d19","day":19,"week":3,"data":"28/08 · sex","formato":"Carrossel","pilar":"Prova social","tema":"O que dizem sobre a Mentoria Vida Acadêmica + Leve","objetivo":"Reunir múltiplos relatos curtos pra reforçar credibilidade num único conteúdo.","gancho":"Reunimos 4 relatos reais de quem já passou pela mentoria.","visual":"6 slides, um relato por slide, fundo terracota, aspas em destaque, último slide convidando pra deixar relato próprio.","legenda":"Cada relato que recebo confirma o mesmo padrão: a dificuldade quase nunca tinha relação com saber a matéria, tinha relação com não conseguir organizar tudo que já sabia. Reuni aqui alguns relatos recentes de quem passou pela Mentoria Vida Acadêmica + Leve, em diferentes fases da trajetória acadêmica. Se tu também já passou pela mentoria e quer compartilhar tua experiência, comenta aqui embaixo ou manda mensagem que eu adoraria reunir teu relato também.","cta":"Comente sua experiência com a mentoria"},
+
+{"id":"d20","day":20,"week":3,"data":"29/08 · sab","formato":"Estático","pilar":"Organização do pensamento","tema":"Organizar as janelinhas da cabeça","objetivo":"Consolidar a frase de posicionamento da marca em formato salvável.","gancho":"Organizar as janelinhas da cabeça é o que transforma conhecimento em texto.","visual":"Arte estática minimalista, tipografia grande centralizada, fundo terracota ou preto.","legenda":"Essa frase resume boa parte do que ensino hoje. Conhecimento sozinho não vira texto automaticamente, ele precisa de organização, de relação entre ideias e de direção clara antes de qualquer parágrafo ser escrito. Quando essa etapa é pulada, a escrita fica mais difícil do que precisava ser. Salva essa frase pra lembrar disso na próxima vez que sentar pra escrever.","cta":"Salve esta reflexão"},
+
+{"id":"d21","day":21,"week":3,"data":"30/08 · dom","formato":"Reel","pilar":"Bastidores acadêmicos","tema":"Bastidor de uma oficina sobre currículo Lattes","objetivo":"Mostrar atuação em eventos e gerar conteúdo derivado de dúvidas reais do público.","gancho":"Ministrei uma oficina sobre currículo Lattes esse mês. Veja os bastidores.","visual":"Vídeo mostrando bastidor de palestra ou oficina real, interação com o público, tom energético.","legenda":"Participar de eventos e oficinas também me ensina bastante, porque cada pergunta da plateia mostra as dúvidas reais de quem está construindo a trajetória acadêmica agora. Esse mês conduzi uma oficina sobre atualização de currículo Lattes, um ponto que costuma gerar bastante dúvida em processos seletivos. Comenta aqui embaixo se tu tem dúvida sobre como organizar teu currículo Lattes que eu trago mais conteúdo sobre isso.","cta":"Comente sua dúvida sobre o currículo Lattes"},
+
+{"id":"d22","day":22,"week":4,"data":"31/08 · seg","formato":"Reel","pilar":"Organização do pensamento","tema":"Metodologia existe pra dar direção, não pra engessar","objetivo":"Ressignificar a parte mais temida da pesquisa com autoridade técnica.","gancho":"Metodologia científica existe pra dar direção pra tua pesquisa avançar com segurança.","visual":"Letícia explicando com exemplo de escolha metodológica, tom confiante.","legenda":"Metodologia costuma ser vista como a parte mais burocrática e menos interessante da pesquisa, mas ela cumpre um papel bem diferente do que parece. Ela existe pra garantir que tuas escolhas façam sentido com o teu objetivo, dando direção clara pro caminho que tua pesquisa vai seguir. Quando a metodologia está bem definida, o resto do trabalho flui com muito mais segurança. Comenta aqui embaixo se metodologia é a parte que mais gera dúvida na tua pesquisa hoje.","cta":"Comente sua dúvida sobre metodologia"},
+
+{"id":"d23","day":23,"week":4,"data":"01/09 · ter","formato":"Carrossel","pilar":"Quebra de objeção","tema":"5 mitos sobre pedir ajuda pra escrever","objetivo":"Desconstruir crenças que atrasam a decisão de buscar acompanhamento.","gancho":"5 mitos sobre pedir ajuda pra escrever tua pesquisa ou teu livro.","visual":"7 slides, um mito por slide, com explicação curta desconstruindo cada um, último slide convidando a compartilhar.","legenda":"Muita gente adia pedir ajuda achando que isso significa reconhecer alguma incapacidade. Na prática, a maioria de quem me procura já sabe muito sobre o próprio assunto, só precisa de direção pra organizar esse conhecimento em texto. Reuni aqui alguns mitos que ouço com frequência sobre pedir esse tipo de acompanhamento. Salva esse carrossel e compartilha com alguém que também posterga pedir ajuda por esses motivos.","cta":"Salve e compartilhe"},
+
+{"id":"d24","day":24,"week":4,"data":"02/09 · qua","formato":"Estático","pilar":"Metodologia Vida Acadêmica + Leve","tema":"+1000 pessoas, um método","objetivo":"Reforçar prova numérica consolidada da metodologia batizada.","gancho":"+1000 pessoas já passaram pela Metodologia Vida Acadêmica + Leve.","visual":"Arte estática com número em destaque, fundo terracota, elementos gráficos simples.","legenda":"A Metodologia Vida Acadêmica + Leve nasceu da repetição de um padrão que vi em centenas de orientações: quando a pessoa organiza o pensamento antes de escrever, o processo fica mais rápido e muito menos sofrido. Hoje já são mais de mil pessoas que passaram por essa lógica, em fases diferentes da trajetória acadêmica. Se tu quer entender como esse método se aplica no teu momento agora, manda mensagem no WhatsApp que conversamos com calma.","cta":"Manda mensagem no WhatsApp"},
+
+{"id":"d25","day":25,"week":4,"data":"03/09 · qui","formato":"Reel","pilar":"Universo autoral","tema":"Quem pode escrever um livro que vale a pena","objetivo":"Ampliar percepção de quem pode ser cliente da frente autoral.","gancho":"Um livro que vale a pena existir pode nascer de quem tem uma história real pra contar, famoso ou não.","visual":"Letícia falando sobre o público real de quem já orientou em processos de livro (professores, profissionais, pessoas com histórias pessoais), tom acolhedor.","legenda":"Uma crença comum é que só quem já é referência reconhecida na área pode escrever um livro. Na prática, já acompanhei professores, profissionais e pessoas com histórias de vida marcantes transformando repertório real em obra estruturada, sem precisar de fama prévia pra isso fazer sentido. O que sustenta um bom livro é ter algo genuíno pra dizer e um processo organizado pra dizer isso bem. Comenta aqui embaixo se tu também carrega uma história ou um conhecimento que poderia virar livro.","cta":"Comente sobre sua ideia de livro"},
+
+{"id":"d26","day":26,"week":4,"data":"04/09 · sex","formato":"Carrossel","pilar":"Organização do pensamento","tema":"Passo a passo pra decidir o tema do teu TCC sem enrolação","objetivo":"Entregar valor prático de alto interesse do público acadêmico.","gancho":"Passo a passo pra decidir o tema do teu TCC sem enrolação.","visual":"8 slides com passo a passo prático (listar interesses, cruzar com a linha do orientador, verificar viabilidade de fontes, testar o objetivo numa frase), fechando com CTA de salvar.","legenda":"Escolher o tema costuma ser a etapa que mais atrasa o início da pesquisa, e normalmente isso acontece porque a decisão é tomada sem um processo claro por trás. Reuni aqui o passo a passo que uso com quem mentora comigo pra sair da indecisão e chegar num tema viável, alinhado com a linha do orientador e com fontes disponíveis pra pesquisar de verdade. Salva esse carrossel se tu ainda está nessa fase de decidir o tema.","cta":"Salve este carrossel"},
+
+{"id":"d27","day":27,"week":4,"data":"05/09 · sab","formato":"Estático","pilar":"Prova social","tema":"Seis anos, mais de 970 trabalhos, um propósito","objetivo":"Consolidar autoridade histórica com linha do tempo profissional.","gancho":"Seis anos acompanhando gente que sabe mais do que consegue escrever.","visual":"Arte estática com linha do tempo simples (formação, docência, mestrado, +970 trabalhos, livro publicado), fundo terracota.","legenda":"Cada número dessa trajetória representa gente real que chegou até mim com ideia, referência e conhecimento de sobra, mas sem conseguir organizar tudo isso em texto. Seis anos de acompanhamento acadêmico, mais de 970 trabalhos orientados e um livro publicado depois, o propósito continua o mesmo: transformar conhecimento em produção organizada. Comenta aqui embaixo se tu quer fazer parte dessa trajetória também.","cta":"Comente seu interesse"},
+
+{"id":"d28","day":28,"week":4,"data":"06/09 · dom","formato":"Reel","pilar":"Quebra de objeção","tema":"Perguntas rápidas sobre a mentoria","objetivo":"Reduzir barreira de contato respondendo as dúvidas mais comuns.","gancho":"As perguntas que mais recebo sobre a mentoria, respondidas rapidinho.","visual":"Vídeo em ritmo ágil, perguntas aparecendo na tela seguidas de resposta curta (funciona pra qualquer área, é online, quanto tempo dura), tom simpático.","legenda":"Separei aqui as dúvidas que mais aparecem na minha caixa de mensagem sobre como funciona a Mentoria Vida Acadêmica + Leve: se funciona pra qualquer área, se é só online, quanto tempo costuma durar o acompanhamento e como funciona o primeiro contato. Preferi responder direto aqui pra facilitar antes de tu decidir mandar mensagem. Se ainda ficou alguma dúvida, comenta aqui embaixo que eu respondo pessoalmente.","cta":"Comente sua dúvida"},
+
+{"id":"d29","day":29,"week":5,"data":"07/09 · seg","formato":"Reel","pilar":"Metodologia Vida Acadêmica + Leve","tema":"Recapitulando o mês sobre organizar pensamento em texto","objetivo":"Consolidar a mensagem do mês e converter interesse acumulado em contato direto.","gancho":"Recapitulando tudo que já mostrei esse mês sobre organizar pensamento em texto.","visual":"Vídeo de recapitulação rápida dos principais temas do mês, ritmo ágil, fechando com CTA forte de WhatsApp.","legenda":"Esse mês passei por vários pontos que sustentam a Metodologia Vida Acadêmica + Leve: organização do objetivo de pesquisa, referencial teórico como diálogo entre autores, o Documento-Guia, o Ecossistema de Pesquisa e também o universo autoral, com mentoria pra escritores e ghostwriting. Se em algum momento desse mês tu se identificou com algum desses conteúdos, esse é o momento de dar o próximo passo. Manda mensagem no WhatsApp e vamos conversar sobre o teu momento agora.","cta":"Manda mensagem no WhatsApp"},
+
+{"id":"d30","day":30,"week":5,"data":"08/09 · ter","formato":"Carrossel","pilar":"Fechamento","tema":"Tudo que cabe dentro do trabalho com Letícia","objetivo":"Fechar o ciclo de 30 dias com recapitulação completa das duas frentes de atuação e CTA forte.","gancho":"Isso é tudo que cabe dentro da Mentoria Vida Acadêmica + Leve e do trabalho autoral.","visual":"9 slides organizados por categoria (acadêmico: TCC, artigos, projetos, dissertações, mestrado e doutorado; autoral: mentoria pra escritores e ghostwriting; extras: currículo Lattes, eventos e publicações), fechando com CTA grande.","legenda":"Fechando esse mês de conteúdo, quis reunir num só lugar tudo que já faço hoje, porque muita gente ainda me conhece só pela parte de TCC e não sabe da extensão real do trabalho. Tem acompanhamento acadêmico completo, do TCC ao doutorado, tem mentoria pra escritores e ghostwriting pra quem carrega um livro na cabeça, e tem também o suporte de currículo Lattes, eventos e publicações pra fortalecer trajetória. Se depois desse mês tu sentiu que chegou tua vez de organizar as janelinhas da tua cabeça, manda mensagem. Eu leio e respondo pessoalmente.","cta":"Manda mensagem e comece tua organização"}
+]
+;
+
+const container = document.getElementById('days-container');
+const progressFill = document.getElementById('progress-fill');
+const progressCount = document.getElementById('progress-count');
+const badgePill = document.getElementById('badge-pill');
+const toast = document.getElementById('save-toast');
+
+let state = {};
+
+function showToast(){
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>toast.classList.remove('show'), 1400);
+}
+
+function fmtClass(fmt){
+  if(fmt==='Reel') return 'reel';
+  if(fmt==='Carrossel') return 'carrossel';
+  return 'estatico';
+}
+
+function render(){
+  container.innerHTML = '';
+  let currentWeek = null;
+  CAL_DATA.forEach((d, idx)=>{
+    if(d.week !== currentWeek){
+      currentWeek = d.week;
+      const wl = document.createElement('div');
+      wl.className='week-label';
+      wl.textContent = 'Semana ' + d.week;
+      container.appendChild(wl);
+    }
+    const done = !!state[d.id];
+    const card = document.createElement('div');
+    card.className = 'day-card' + (done?' done':'');
+    card.id = 'card-'+d.id;
+    card.innerHTML = `
+      <div class="day-head" data-toggle="${d.id}">
+        <div class="day-num">D${d.day}</div>
+        <div class="day-meta">
+          <div class="d-top">
+            <span class="fmt-badge ${fmtClass(d.formato)}">${d.formato}</span>
+            <span class="date-label">${d.data}</span>
+          </div>
+          <div class="day-title">${d.tema}</div>
+        </div>
+        <button class="check-btn ${done?'checked':''}" data-check="${d.id}" aria-label="Marcar como feito">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="day-body">
+        <div class="day-body-inner">
+          <div class="field"><div class="f-label">Pilar · Objetivo estratégico</div><div class="f-value"><b>${d.pilar}</b> · ${d.objetivo}</div></div>
+          <div class="field"><div class="f-label">${d.formato==='Carrossel' ? 'Título do carrossel' : 'Gancho na tela'}</div><div class="f-value">${d.gancho}</div></div>
+          <div class="field"><div class="f-label">Sugestão visual</div><div class="f-value">${d.visual}</div></div>
+          <div class="field"><div class="f-label">Legenda</div><div class="f-value">${d.legenda}</div></div>
+          <div class="field"><div class="f-label">CTA</div><div class="f-value"><span class="cta-tag">${d.cta}</span></div></div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-check]')) return;
+      const card = document.getElementById('card-'+el.dataset.toggle);
+      card.classList.toggle('open');
+    });
+  });
+  container.querySelectorAll('[data-check]').forEach(el=>{
+    el.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const id = el.dataset.check;
+      state[id] = !state[id];
+      el.classList.toggle('checked', state[id]);
+      document.getElementById('card-'+id).classList.toggle('done', state[id]);
+      await persist(id, state[id]);
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = CAL_DATA.length;
+  const doneCount = Object.values(state).filter(Boolean).length;
+  const pct = Math.round((doneCount/total)*100);
+  progressFill.style.width = pct + '%';
+  progressCount.innerHTML = doneCount + '/' + total;
+  let badge = 'Bronze';
+  if(pct >= 90) badge = 'Ouro';
+  else if(pct >= 50) badge = 'Prata';
+  badgePill.textContent = badge;
+}
+
+async function persist(id, value){
+  try{
+    if(window.storage && window.storage.set){
+      await window.storage.set('day-'+id, JSON.stringify(value), false);
+      showToast();
+    }
+  }catch(err){
+    console.error('Erro ao salvar progresso', err);
+  }
+}
+
+async function loadState(){
+  state = {};
+  try{
+    if(window.storage && window.storage.list){
+      const listRes = await window.storage.list('day-', false);
+      const keys = (listRes && listRes.keys) ? listRes.keys : [];
+      for(const k of keys){
+        try{
+          const res = await window.storage.get(k, false);
+          if(res && res.value !== undefined){
+            const id = k.replace('day-','');
+            state[id] = JSON.parse(res.value);
+          }
+        }catch(e){}
+      }
+    }
+  }catch(err){
+    console.error('Erro ao carregar progresso', err);
+  }
+  render();
+}
+
+document.getElementById('reset-btn').addEventListener('click', async ()=>{
+  if(!confirm('Reiniciar todo o checklist do calendário?')) return;
+  try{
+    if(window.storage && window.storage.delete){
+      for(const d of CAL_DATA){
+        try{ await window.storage.delete('day-'+d.id, false); }catch(e){}
+      }
+    }
+  }catch(e){}
+  state = {};
+  render();
+});
+
+loadState();
+</script>
+
+</body>
+</html>
