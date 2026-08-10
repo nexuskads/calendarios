@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Estratégico & Calendário · @amendola.rosana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#07050c;
+    --bg-1:#0d0916;
+    --bg-2:#140f21;
+    --purple-900:#2b0f52;
+    --purple-700:#5b1fb8;
+    --purple-500:#8b3ff0;
+    --purple-400:#a855f7;
+    --purple-glow:#c084fc;
+    --ink-0:#f4f1fb;
+    --ink-1:#c9c2dc;
+    --ink-2:#8f88a8;
+    --line:rgba(168,85,247,0.18);
+    --card:rgba(255,255,255,0.03);
+    --gold:#e8c874;
+    --ok:#5fe3a1;
+    --radius:18px;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(60% 50% at 12% 0%, rgba(139,63,240,0.20), transparent 60%),
+      radial-gradient(50% 40% at 100% 10%, rgba(168,85,247,0.12), transparent 60%),
+      var(--bg-0);
+    color:var(--ink-1);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--purple-500);color:#fff;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(7,5,12,0.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:34px;border-radius:9px;display:block;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.05;}
+  .brand-text b{font-family:var(--display);font-size:13px;letter-spacing:0.04em;color:var(--ink-0);}
+  .brand-text span{font-size:10px;color:var(--ink-2);letter-spacing:0.06em;}
+  nav{display:none;gap:22px;font-size:13px;}
+  nav a{color:var(--ink-2);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:.2s;}
+  nav a:hover{color:var(--ink-0);border-color:var(--purple-400);}
+  @media(min-width:860px){nav{display:flex;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:920px;margin:0 auto;padding:64px 24px 40px;text-align:left;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--purple-glow);
+    border:1px solid var(--line);
+    padding:6px 12px;border-radius:100px;
+    background:rgba(139,63,240,0.08);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple-glow);box-shadow:0 0 10px var(--purple-glow);}
+  h1{
+    font-family:var(--display);
+    font-size:clamp(30px,6vw,52px);
+    line-height:1.05;
+    color:var(--ink-0);
+    margin:0 0 18px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  h1 em{font-style:normal;color:transparent;background:linear-gradient(100deg,var(--purple-glow),var(--purple-400) 60%);-webkit-background-clip:text;background-clip:text;}
+  .hero p.lead{font-size:16px;color:var(--ink-1);max-width:640px;line-height:1.65;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .chip{font-size:12px;color:var(--ink-2);border:1px solid var(--line);padding:7px 13px;border-radius:100px;background:var(--card);}
+  .chip b{color:var(--ink-0);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{max-width:920px;margin:0 auto;padding:70px 24px;border-top:1px solid var(--line);}
+  .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .kicker .num{font-family:var(--display);font-size:13px;color:var(--purple-glow);border:1px solid var(--line);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;}
+  .kicker h2{font-family:var(--display);font-size:clamp(22px,4vw,32px);color:var(--ink-0);margin:0;font-weight:600;}
+  .section-intro{color:var(--ink-2);font-size:14.5px;line-height:1.7;max-width:680px;margin-bottom:34px;}
+
+  .grid2{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:720px){.grid2{grid-template-columns:1fr 1fr;}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .card h3{font-family:var(--display);font-size:16px;color:var(--ink-0);margin:0 0 10px;font-weight:600;}
+  .card p{margin:0;font-size:13.8px;line-height:1.65;color:var(--ink-1);}
+  .card ul{margin:8px 0 0;padding-left:18px;}
+  .card li{font-size:13.8px;line-height:1.7;color:var(--ink-1);margin-bottom:4px;}
+
+  .tag{display:inline-block;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);background:rgba(139,63,240,0.1);border:1px solid var(--line);padding:4px 10px;border-radius:100px;margin-bottom:12px;}
+
+  .quote-block{border-left:2px solid var(--purple-500);padding:4px 0 4px 20px;margin:28px 0;font-family:var(--display);font-size:19px;color:var(--ink-0);line-height:1.5;font-weight:500;}
+
+  .objecoes{display:flex;flex-direction:column;gap:10px;}
+  .obj-item{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card);}
+  .obj-item .o-head{display:flex;justify-content:space-between;gap:12px;font-family:var(--display);color:var(--ink-0);font-size:14.5px;font-weight:600;margin-bottom:6px;}
+  .obj-item .o-num{color:var(--purple-glow);font-size:12px;}
+  .obj-item p{font-size:13.5px;color:var(--ink-1);line-height:1.6;margin:0;}
+
+  /* bio card */
+  .bio-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;background:linear-gradient(160deg,rgba(139,63,240,0.10),rgba(255,255,255,0.02));
+    margin-top:10px;
+  }
+  .bio-card .bio-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:10px;}
+  .bio-card pre{white-space:pre-wrap;font-family:var(--body);font-size:14.5px;color:var(--ink-0);line-height:1.75;margin:0;}
+
+  /* pillars grid */
+  .pillars{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.pillars{grid-template-columns:1fr 1fr;}}
+  .pillar{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--card);position:relative;overflow:hidden;}
+  .pillar::before{content:attr(data-n);position:absolute;right:14px;top:6px;font-family:var(--display);font-size:44px;color:rgba(168,85,247,0.10);font-weight:700;}
+  .pillar h4{font-family:var(--display);font-size:15px;color:var(--ink-0);margin:0 0 6px;font-weight:600;}
+  .pillar p{font-size:13.3px;color:var(--ink-1);margin:0;line-height:1.6;}
+  .pillar .fun{display:inline-block;margin-top:10px;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);}
+
+  .rules{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.rules{grid-template-columns:1fr 1fr;}}
+  .rule-do,.rule-dont{border-radius:16px;padding:18px 20px;border:1px solid var(--line);}
+  .rule-do{background:rgba(95,227,161,0.06);}
+  .rule-dont{background:rgba(255,90,90,0.05);}
+  .rule-do h4{color:var(--ok);} .rule-dont h4{color:#ff8a8a;}
+  .rule-do h4,.rule-dont h4{font-family:var(--display);font-size:14px;margin:0 0 10px;}
+  .rule-do ul,.rule-dont ul{margin:0;padding-left:18px;}
+  .rule-do li,.rule-dont li{font-size:13.3px;color:var(--ink-1);margin-bottom:6px;line-height:1.55;}
+
+  .funnel-strip{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;}
+  @media(min-width:720px){.funnel-strip{grid-template-columns:1fr 1fr 1fr;}}
+  .funnel-col{border-radius:14px;padding:16px;border:1px solid var(--line);}
+  .funnel-col.topo{background:rgba(168,85,247,0.06);}
+  .funnel-col.meio{background:rgba(168,85,247,0.10);}
+  .funnel-col.fundo{background:rgba(168,85,247,0.16);}
+  .funnel-col h5{font-family:var(--display);font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--purple-glow);margin:0 0 8px;}
+  .funnel-col p{font-size:13px;margin:0;color:var(--ink-1);line-height:1.6;}
+
+  /* ---------- CALENDAR ---------- */
+  .progress-wrap{
+    position:sticky;top:63px;z-index:40;
+    background:rgba(13,9,22,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;
+  }
+  .progress-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;}
+  .progress-track{flex:1;height:8px;border-radius:100px;background:rgba(255,255,255,0.06);overflow:hidden;}
+  .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple-700),var(--purple-glow));border-radius:100px;transition:width .5s ease;}
+  .progress-label{font-size:12px;color:var(--ink-2);white-space:nowrap;font-family:var(--display);}
+  .progress-label b{color:var(--ink-0);}
+  .badge-pill{font-size:11px;padding:5px 11px;border-radius:100px;border:1px solid var(--line);color:var(--gold);white-space:nowrap;background:rgba(232,200,116,0.06);}
+
+  .week-label{font-family:var(--display);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+  .week-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  .day-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .day-card.done{border-color:rgba(95,227,161,0.45);background:rgba(95,227,161,0.045);}
+  .day-head{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 18px;cursor:pointer;
+  }
+  .day-num{
+    font-family:var(--display);font-weight:700;font-size:15px;
+    width:42px;height:42px;border-radius:12px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,var(--purple-700),var(--purple-500));
+    color:#fff;
+  }
+  .day-card.done .day-num{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);}
+  .day-meta{flex:1;min-width:0;}
+  .day-meta .d-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:3px;}
+  .fmt-badge{font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line);color:var(--ink-2);}
+  .fmt-badge.reel{color:#ff9fd6;border-color:rgba(255,159,214,0.3);}
+  .fmt-badge.carrossel{color:#8fd0ff;border-color:rgba(143,208,255,0.3);}
+  .fmt-badge.estatico{color:var(--gold);border-color:rgba(232,200,116,0.3);}
+  .date-label{font-size:11.5px;color:var(--ink-2);}
+  .day-title{font-size:14.5px;color:var(--ink-0);font-weight:600;}
+  .chev{width:20px;height:20px;flex:none;color:var(--ink-2);transition:transform .25s;}
+  .day-card.open .chev{transform:rotate(180deg);}
+  .check-btn{
+    flex:none;width:26px;height:26px;border-radius:8px;
+    border:1.5px solid var(--line);background:transparent;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    color:transparent;transition:.2s;
+  }
+  .check-btn.checked{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);border-color:transparent;color:#0a1a12;}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .day-card.open .day-body{max-height:900px;}
+  .day-body-inner{padding:0 18px 20px;display:grid;gap:12px;}
+  .field{border-top:1px solid var(--line);padding-top:12px;}
+  .field .f-label{font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:5px;}
+  .field .f-value{font-size:13.6px;color:var(--ink-1);line-height:1.6;}
+  .field .f-value b{color:var(--ink-0);}
+  .cta-tag{display:inline-block;margin-top:4px;font-size:11.5px;color:var(--gold);border:1px solid rgba(232,200,116,0.3);padding:4px 10px;border-radius:100px;}
+
+  .goal-card{
+    margin-top:40px;border-radius:var(--radius);
+    padding:28px;background:linear-gradient(150deg,rgba(139,63,240,0.18),rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+  }
+  .goal-card .tag{margin-bottom:14px;}
+  .goal-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px;}
+  @media(min-width:720px){.goal-grid{grid-template-columns:repeat(3,1fr);}}
+  .goal-item .g-num{font-family:var(--display);font-size:28px;color:var(--ink-0);font-weight:700;}
+  .goal-item .g-lbl{font-size:12px;color:var(--ink-2);margin-top:2px;}
+
+  footer{
+    margin-top:60px;padding:70px 24px 50px;text-align:center;
+    border-top:1px solid var(--line);
+    background:radial-gradient(60% 60% at 50% 0%, rgba(139,63,240,0.14), transparent 70%);
+  }
+  footer img{height:64px;width:64px;border-radius:16px;margin-bottom:18px;}
+  footer .f-title{font-family:var(--display);font-size:15px;color:var(--ink-0);margin-bottom:6px;}
+  footer .f-link{display:inline-block;margin-top:8px;font-size:14px;color:var(--purple-glow);text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.4);padding-bottom:2px;}
+  footer .f-sub{font-size:11.5px;color:var(--ink-2);margin-top:22px;}
+
+  .reset-wrap{max-width:920px;margin:0 auto;padding:0 24px 10px;display:flex;justify-content:flex-end;}
+  .reset-btn{font-size:11.5px;color:var(--ink-2);background:none;border:1px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer;}
+  .reset-btn:hover{color:var(--ink-0);border-color:var(--purple-400);}
+
+  .save-toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--bg-2);border:1px solid var(--line);color:var(--ink-0);
+    font-size:12.5px;padding:10px 18px;border-radius:100px;opacity:0;
+    transition:.3s;pointer-events:none;z-index:100;
+  }
+  .save-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img src="data:image/webp;base64,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" alt="NexusK Ads">
+    <div class="brand-text"><b>NEXUS K</b><span>AGÊNCIA DE MARKETING</span></div>
+  </div>
+  <nav>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#posicionamento">Posicionamento</a>
+    <a href="#editorial">Linha Editorial</a>
+    <a href="#calendario">Calendário</a>
+  </nav>
+</div>
+
+<div class="hero">
+  <span class="eyebrow">Portfólio estratégico · Instagram · 2026</span>
+  <h1>Diagnóstico completo e <em>calendário de 30 dias</em> para @amendola.rosana</h1>
+  <p class="lead">Este documento reúne a análise do perfil, o novo posicionamento de marca do Estilo Livre Lab e o plano editorial completo para os próximos 30 dias. Cada card do calendário é interativo: marque o que já foi produzido e acompanhe o progresso em tempo real.</p>
+  <div class="hero-meta">
+    <span class="chip">Cliente <b>Rosana Amendola · Estilo Livre Lab</b></span>
+    <span class="chip">Nicho <b>Consultoria de Imagem e Estilo</b></span>
+    <span class="chip">Perfil <b>@amendola.rosana</b></span>
+    <span class="chip">Período <b>30 dias · 2026</b></span>
+  </div>
+</div>
+
+<!-- ================= DIAGNÓSTICO ================= -->
+<section class="block" id="diagnostico">
+  <div class="kicker"><span class="num">01</span><h2>Diagnóstico brutal do perfil</h2></div>
+  <p class="section-intro">Análise sem filtro do que o perfil comunica hoje, com base no conteúdo publicado, na bio atual e no briefing enviado por Rosana.</p>
+
+  <div class="card" style="margin-bottom:16px;">
+    <span class="tag">Posicionamento atual</span>
+    <p>O perfil já tem uma identidade visual forte e autoral, com paleta consistente, quote cards de impacto e um tom de voz que se destaca no mercado de consultoria de imagem. O problema real está no foco, não na estética. O feed recente está dominado pela fase pessoal de gravidez de Rosana, com uma sequência extensa de conteúdo sobre gestantes e maternidade. Esse conteúdo é genuíno e conecta com o Curso Maternidade com Estilo, mas o público-alvo declarado no briefing é mulher executiva e profissional liberal, 35 anos ou mais, renda a partir de R$ 8 mil, em transição pessoal e profissional. Essa mulher, ao entrar no perfil hoje, encontra menos espelho do que poderia pros serviços de maior ticket, como Presença, Imagem em Movimento e Direção de Imagem.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:32px;">
+    <span class="tag">Pontos críticos de bloqueio</span>
+    <ul>
+      <li><b>Bio corta a informação de atendimento internacional:</b> "Atendimento RJ e..." fica truncado, apesar do público-alvo declarado incluir mulheres que vivem no exterior. Essa informação essencial está escondida atrás de um "mais" que poucas pessoas clicam.</li>
+      <li><b>Categoria da conta com erro de gênero:</b> o perfil comercial aparece como "Consultor de imagem", não "Consultora". Detalhe pequeno, mas exatamente o tipo de deslize que uma audiência de alto padrão, acostumada a observar detalhe, costuma notar.</li>
+      <li><b>Dois links concorrendo sem hierarquia:</b> "linktr.ee/rosanaamendola e mais 1" não deixa claro qual link é a porta de entrada certa pra quem chega agora com uma necessidade específica.</li>
+      <li><b>Destaques com nome cortado:</b> "Prazer, R...", "Mater e E...", "Edição ar...", "Autoimag...", "Bem Bea...", "Facilita..." dificultam a navegação rápida de quem ainda não conhece o trabalho.</li>
+      <li><b>Feed concentrado num único momento de vida:</b> a sequência "Gestantes parte 1, 2 e 3" e os looks de grávida ocupam boa parte do espaço recente, deixando pouco espaço visível pros serviços voltados à mulher em transição de carreira ou reposicionamento profissional.</li>
+      <li><b>Ausência de hierarquia entre serviços express e aprofundados:</b> Ponto de Virada e Direção de Imagem (mais rápidos e acessíveis) não aparecem claramente como porta de entrada pra quem ainda não decidiu investir na consultoria completa.</li>
+    </ul>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Dores visíveis do público</span>
+      <ul>
+        <li>"Tenho o guarda-roupa cheio e não sei o que vestir."</li>
+        <li>"Compro roupa e no fim não uso quase nada."</li>
+        <li>"Não sei o que minha imagem está comunicando nas reuniões."</li>
+        <li>"Preciso mudar de imagem pra essa nova fase da carreira."</li>
+        <li>"Meu corpo mudou e não sei mais o que combina comigo."</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Dores ocultas do público</span>
+      <ul>
+        <li>Medo de não ser levada a sério profissionalmente por causa da aparência.</li>
+        <li>Vergonha de "já devia saber se vestir" numa certa posição ou idade.</li>
+        <li>Insegurança com o corpo em transformação e medo de ser julgada por isso.</li>
+        <li>Sensação de estar invisível ou desatualizada apesar do sucesso profissional já construído.</li>
+        <li>Receio de investir em consultoria e mesmo assim não se reconhecer no resultado.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Desejos emocionais</span>
+      <ul>
+        <li>Sentir alinhamento entre quem ela é por dentro e o que projeta pra fora.</li>
+        <li>Sentir liberdade pra construir a própria imagem, sem seguir regra alheia.</li>
+        <li>Sentir-se vista e reconhecida pelo que já construiu.</li>
+        <li>Sentir confiança real ao entrar numa sala, reunião ou evento importante.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Desejos práticos</span>
+      <ul>
+        <li>Montar looks com o que já tem no guarda-roupa, sem precisar comprar tudo de novo.</li>
+        <li>Ter clareza pras próximas compras, sem desperdício.</li>
+        <li>Ter uma imagem que sustente o próximo passo de carreira ou de vida.</li>
+        <li>Resolver rápido, numa sessão express, quando o tempo é curto.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Objeções que seguram a decisão de compra</span>
+  <div class="objecoes" style="margin-bottom:32px;">
+    <div class="obj-item">
+      <div class="o-head"><span>"Já sei o que gosto de vestir, não preciso de consultoria"</span><span class="o-num">01</span></div>
+      <p>A lógica por trás: a cliente enxerga consultoria como escolha de roupa, algo que já resolve sozinha todo dia. Precisa entender que o trabalho é sobre alinhamento estratégico de identidade, não sobre escolher peça.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Isso é vaidade, tenho prioridade mais importante agora"</span><span class="o-num">02</span></div>
+      <p>A lógica por trás: imagem é vista como acessório frente à carreira ou à saúde. Precisa mostrar a conexão real entre imagem, autoestima e performance profissional.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Não tenho tempo pra isso agora"</span><span class="o-num">03</span></div>
+      <p>A lógica por trás: a consultoria é vista como mais uma tarefa longa na agenda. Precisa comunicar as opções express, como Ponto de Virada e Direção de Imagem, feitas justamente pra rotina apertada.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Será que funciona pra minha fase de vida específica"</span><span class="o-num">04</span></div>
+      <p>A lógica por trás: dúvida se um método geral resolve gravidez, pós-parto, transição de carreira ou recomeço. Precisa reforçar a especialização declarada em fases de transformação.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Prefiro comprar roupa sozinha, sai mais barato"</span><span class="o-num">05</span></div>
+      <p>A lógica por trás: a consultoria é entendida como compra de roupa assistida. Precisa reposicionar como método de leitura de identidade, que evita compra por impulso e desperdício no longo prazo.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Oportunidade de mercado</span>
+    <p>O mercado de consultoria de imagem no Brasil é dominado por fórmulas prontas: sete estilos universais, tipo de corpo, regras rígidas do que "pode" ou "não pode" usar. O método próprio de Rosana rejeita exatamente isso, unindo análise facial, semiótica, comportamento de consumo e mais de 15 anos de experiência real no mercado de beleza e varejo. Esse conjunto é raro entre concorrentes, mas hoje aparece disperso no feed. A oportunidade é assumir com clareza a posição de quem lê identidade em vez de aplicar fórmula, justamente pro público de alto padrão que o briefing já declara como alvo.</p>
+  </div>
+</section>
+
+<!-- ================= POSICIONAMENTO ================= -->
+<section class="block" id="posicionamento">
+  <div class="kicker"><span class="num">02</span><h2>Novo posicionamento de marca</h2></div>
+  <p class="section-intro">Um método só, sem fórmula pronta: leitura estratégica de identidade pra mulheres que já construíram muito e estão em transição.</p>
+
+  <div class="quote-block">"Estilo de verdade nasce da leitura de quem você é."</div>
+
+  <div class="grid2" style="margin-bottom:10px;">
+    <div class="card">
+      <h3>Território de marca</h3>
+      <p>Enquanto o mercado compete por fórmula pronta, Rosana ocupa o território da leitura estratégica: análise facial, semiótica e comportamento aplicados à imagem, sem os sete estilos universais nem regras rígidas de tipo de corpo. O nome comercial segue único e consistente: <b>Estilo Livre Lab</b>, assinatura do método, com Rosana Amendola como autora e voz da marca.</p>
+    </div>
+    <div class="card">
+      <h3>Arquétipo de marca</h3>
+      <p>Arquétipo principal: <b>a Rebelde</b>, que rejeita fórmula pronta e devolve liberdade de escolha pra cliente. Traço secundário: <b>a Sábia</b>, sustentada pelos mais de 15 anos de bagagem técnica em beleza, varejo e consultoria de imagem. A comunicação equilibra provocação com profundidade estratégica.</p>
+    </div>
+  </div>
+
+  <div class="bio-card">
+    <div class="bio-label">Nova bio estratégica</div>
+    <pre>💫 Rosana Amendola
+Leio identidade, não aplico fórmula de estilo
+🎯 Consultoria de imagem para mulheres em transição · Brasil e exterior
+👇 Agenda tua sessão</pre>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Frase de posicionamento</h3>
+    <p style="font-family:var(--display);font-size:17px;color:var(--ink-0);">"Estilo de verdade nasce da leitura de quem você é."</p>
+  </div>
+</section>
+
+<!-- ================= LINHA EDITORIAL ================= -->
+<section class="block" id="editorial">
+  <div class="kicker"><span class="num">03</span><h2>Linha editorial e comunicação</h2></div>
+  <p class="section-intro">Seis pilares sustentam o conteúdo mensal. Nenhum deles compete com o outro: eles se revezam pra cobrir identificação, autoridade, prova social e decisão ao longo do mês, com a maternidade presente mas sem dominar o feed.</p>
+
+  <div class="pillars" style="margin-bottom:36px;">
+    <div class="pillar" data-n="01"><h4>Leitura de identidade</h4><p>O núcleo da autoridade da marca: análise facial, visagismo e semiótica aplicados à imagem.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="02"><h4>Liberdade vs fórmula pronta</h4><p>O diferencial central do método, rejeitando os sete estilos universais e regras rígidas de corpo.</p><span class="fun">Fundo de funil</span></div>
+    <div class="pillar" data-n="03"><h4>Transição e recomeço</h4><p>Mulheres mudando de carreira, de corpo ou de fase de vida, e como a imagem acompanha essa virada.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="04"><h4>Maternidade com estilo</h4><p>Conteúdo específico pro curso, presente com frequência controlada, sem dominar o feed.</p><span class="fun">Topo de funil</span></div>
+    <div class="pillar" data-n="05"><h4>Bastidores autorais</h4><p>Trajetória de 15 anos, eventos, conferências e rotina real de Rosana por trás do método.</p><span class="fun">Topo de funil</span></div>
+    <div class="pillar" data-n="06"><h4>Prova social</h4><p>Relatos de transformação de percepção, sempre com contexto de identidade, não só de roupa.</p><span class="fun">Fundo de funil</span></div>
+  </div>
+
+  <span class="tag">Tom por formato</span>
+  <div class="grid2" style="margin:12px 0 32px;">
+    <div class="card"><h3>Reels</h3><p>Provocador e direto, cortes rápidos, frase de impacto logo no início. Tom autoral, nunca professoral.</p></div>
+    <div class="card"><h3>Carrossel</h3><p>Educativo, passo a passo, aplicando semiótica e leitura de identidade de forma prática. Fecha com convite de salvar.</p></div>
+    <div class="card"><h3>Estático</h3><p>Quote card autoral, tipografia forte, paleta terracota, azul e preto e branco já usada no perfil.</p></div>
+    <div class="card"><h3>Stories</h3><p>Bastidor real, enquete rápida, caixinha de pergunta sobre o que a roupa está comunicando naquele dia.</p></div>
+  </div>
+
+  <div class="rules" style="margin-bottom:32px;">
+    <div class="rule-do">
+      <h4>Sempre fazer</h4>
+      <ul>
+        <li>Falar de identidade antes de falar de roupa, em qualquer peça de conteúdo.</li>
+        <li>Reforçar que o método não segue os sete estilos universais nem regra rígida de tipo de corpo.</li>
+        <li>Assinar todo conteúdo como Estilo Livre Lab, com Rosana Amendola como autora do método.</li>
+        <li>Corrigir a categoria da conta no Instagram pra "Consultora de imagem" e destacar o atendimento internacional na bio.</li>
+      </ul>
+    </div>
+    <div class="rule-dont">
+      <h4>Nunca fazer</h4>
+      <ul>
+        <li>Prometer mudança corporal ou emagrecimento em qualquer peça de conteúdo.</li>
+        <li>Reduzir o método a dica solta de moda sem contexto de identidade.</li>
+        <li>Deixar o conteúdo de maternidade ocupar mais de dois espaços por semana no feed.</li>
+        <li>Ensinar a esconder ou disfarçar o corpo. O método trabalha a relação com o corpo de agora.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Paleta de sentimentos por etapa de funil</span>
+  <div class="funnel-strip">
+    <div class="funnel-col topo"><h5>Topo</h5><p>Identificação com a mulher em transição, curiosidade sobre leitura de imagem.</p></div>
+    <div class="funnel-col meio"><h5>Meio</h5><p>Clareza estratégica, confiança no método autoral, sensação de liberdade.</p></div>
+    <div class="funnel-col fundo"><h5>Fundo</h5><p>Segurança pra investir, urgência real ligada a um momento de transição de vida ou carreira.</p></div>
+  </div>
+</section>
+
+<!-- ================= CALENDÁRIO ================= -->
+<section class="block" id="calendario" style="padding-bottom:0;">
+  <div class="kicker"><span class="num">04</span><h2>Calendário de 30 dias</h2></div>
+  <p class="section-intro">3 reels · 2 carrosséis · 2 estáticos por semana. Toque em cada card pra abrir o roteiro completo, e marque o check quando publicar. Seu progresso fica salvo automaticamente.</p>
+</section>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">Progresso <b id="progress-count">0/30</b></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="badge-pill" id="badge-pill">Bronze</span>
+  </div>
+</div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" id="reset-btn">Reiniciar checklist</button>
+</div>
+
+<section class="block" style="padding-top:20px;" id="days-container"></section>
+
+<div class="block" id="meta-mensal-wrap">
+  <div class="goal-card">
+    <span class="tag">Meta mensal</span>
+    <h3 style="font-family:var(--display);color:var(--ink-0);font-size:20px;margin:0 0 8px;">Meta de crescimento pra este ciclo de 30 dias</h3>
+    <p style="font-size:13.8px;color:var(--ink-1);line-height:1.65;max-width:640px;">Com 1.349 seguidores e uma identidade visual já forte, a meta deste ciclo é reequilibrar o feed pra que o público de maior ticket, mulher executiva em transição, volte a se reconhecer nas publicações, sem abandonar a conexão genuína com a maternidade. Publicando os 30 dias completos, o perfil passa a gerar contato qualificado pras duas frentes: consultoria completa e sessões express.</p>
+    <div class="goal-grid">
+      <div class="goal-item"><div class="g-num">+18%</div><div class="g-lbl">alcance médio por publicação em 30 dias</div></div>
+      <div class="goal-item"><div class="g-num">20+</div><div class="g-lbl">contatos iniciados por WhatsApp ou direct</div></div>
+      <div class="goal-item"><div class="g-num">6+</div><div class="g-lbl">sessões agendadas entre consultoria completa e express</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="data:image/webp;base64,UklGRuomAABXRUJQVlA4IN4mAACQ0gCdASr0AfQBPlEmkEajoiGhIXBpkHAKCWdu+/xItgeAfU35u8uW4f4r8hdGGebuvyheqXzAP0W/YX/D9mbzIfuF+2nvlemX/aeoh/euoz9ADy6fZw/sP/O/c/2sdWW7X90H/E/IntK/j03txL/1vRT+bfmr9p63f8L/oeGPzc1CPx3+o/57gGwB/nP9c/1/5w+/v9x/0vRX+M9QD9duKuoEfo/1df73/4f7j8vfbd+kf6v/1/7D4B/57/dP+v64n/09uf7b//b3X/22//4oqWNXbbNNiATsS9flFyo8EcAnU89PyxiLO2X1NKsYgE7K15e9DjvHz7xF1JKSCvy16OV5GJURZUzibYTfXwYxUzkksQQ9hX1POzMrCRnf1oy+8IXGaT1Td7Ly1x96nYiPhDTcEs6ngDkkAPLGIJBi+9Z0ZKQEWyBPQ0KL/mwWIeGW/LfvzRf85PGJHy0QIXGbbI+Lrpma7TO7mRTsypI9Si0NEMCuVzEUBbn6kA+z6VqqrdXZZF1lTxnpiZKhNDA7DhJeS8ogAEi5BD2YHRdEj7R/gywXItkhevMIDoWJbGH6ws6FlimHDizPlAPwI3uyD0aVZ7ETh7gVnlUle8aAbPVajIIwc9s2Oz+aGGSzA3jfICgZae7/pvZaKk04s0dVO6IukHxChkhu7hhMkXY8LP793uoyIY7vHvet+bSD4XP0zHZURQtukb5W2aRVt8mam99f6CRdmu9V7e1L0IgpgvX6iCUU89Gr9LvlY8IvUG+2E6PJi+oFX3CrLHf1cIi1Z5besG4lEgC82vQcbDUY1/0pDcgoM2vAJ5Y5Rn2f61sLXrJrrtv05PVUTTJabOpzfr49R+sqPCDqOiiU/LeHQYNREwY8LdBFwl0WXTgKXw1RQGS/qf6OXNKMq3BKYoj6ylY/tqD5f/2T2WPfB2/mdbdoT/zWCZy38D48FaPiEyHVMyk5UvPIB5ABPTsRcqUmcqOu44bnog74Shqv2dleoZQi+YFXNfYSnhCykA40lKK47B0LcP4F9xWWq40xHjYdCypmNGHjGPC0U42RVG2qohdkzr45G7BCJ4ssltleF2YfB8Y5F5cGinDRc1mHrEjWUJkx+V4s/7Lz6YtuGaeCSvKYiBHHUHj3lWdSIbEBTrPZ+wDB41/kV7YKIxlvvfViEZmx3CityxUfDMchusdWQga5UCHsnTEfwf8FiTFjXUHAQntLIOcmsC7Cgw+536bbSbN3zkBCzSSPRuBt+z3TOKIBP2bwDfyZjp56KVien5YxAIe4IVmuOMSBu4kX9PFFJYzV7kH+fV+6HiWSNVjZjxM9UV4sC8u4w/5q9sHC62JZ6XEAJOp82JWywVYZf9QQvq/qJuGzMyaNrm71qceKGVepMP0dSJoi5eS2wCiC0QLN8Tz0/LF2RB53Jjda0O7C3IPrFQ3gMC/mLyz30UxR+heDiikdXLt2D6DTh7WQpAL07WaaOS6YxgL4Uvtel7Xp9QyvZdAdRZfG4cdtjjPWFAnZcecJrFkArOgT92K19yQNmVMT5739PM21g5MrAGZayB41lyzeEaiFJJQW0eBxwLMZ7MEqiIqVEWV/HN/wFxNmL6ddlPw+6TJGTHXf9FcJ7/gMEMxxVKSuofJnsp4WUSmsa1DI+80Oxe5vQ10hdtSH5hyxACofHGfY8FLEVCvI2stIZma9Dukk/BqsbrmVPJeG4VHYV3k4WIseuWvzO4xtNdS0qXbmE/nyIu0ocnbtLROsRiwM8X9QqbChKQno4pC24WYrBBHr6JegHcJmeDbLuC8KJH5q3lOkjtOQoGLyPlCDus1sX5xQfxhINwqvccTgkuhjfA13uKrMGGHKBiwU9NF5fyR31jqep5HqiGh9Dr01LHv/2dUSo4dtc2A6kGSBAobOJCrm76bAC6xBv3n0pkVzhq5e4FOjEUYtEaqyCm6F3maMyAVbHESvBhiATpmP/7JE5sPv4J2Xkzp5gdssdiRXnOB1eGQhnbIYnL+4OjJ/CCuqqjk8dJf+Bu7ZoEOX7DIh7tojncEtkT6+RAWUfowXwo4lzaRpe1F3ZuyQBF0ZWD3QeetHKlh4omHB5qhsdEn/IeU0dH1G1vsY6ZpxLAqfTvg4r6VyDBaUobyKFRh4EUVO1RMQCEOZECnpheHIKYqGjLNc90o2xUOhupRWUEekQ0SY/KljYi1W0YiZ6hL7rbuUa49Y3oAnZU9HUcFdNpkJnu89PvpEmj1siljYgE7Lnfnqeen5YtgAAP79lsoQQSMe3ByW5FzCkxdHVLbVE2LZ5wCVYXFJYdPwwLrkbF7zNFAErqSXVrhaIhebvaK7q7aq6VR1Ixdl4mpVz8JBVL3XOgqpeooMHtWviv/Pk8V5yYo1r5yRf+hgCP04b8ZBsrvNMxlOkpvntCVHKg6wEiJIrj3XIyKMw+5l+HlKt1ViSYsQREDNdyARqQ+p5D9oT2UaZTb5QaxLq7tfIwU+tGVW85uQSUlyMra2Jej3YCVlsSqhQFSGtiKvLdWyrut6yFHnN0iSF9JHV1FT+J/53J3B+a8UDdqMu2ez56Q0XV6Sh+KZfdVhR3R3rWWzWsbKllYZd1Ghr0AaLRer99XKrp3Axhy+7Bd5BGMVKvNsvzR0Xb4tL+zE24A1R1LVqzTmKWFSswWxUM91t15pdzZt4j78dCWIIFb2cw21BHdT2fkHSatqgZ6qvcMJmpkt91bmIVtRoFY1PWzcd3wIXbfr/2py8TlIPPpBCLlYsITz4v3n1N2wGg8DLQR52tXHeBj6x0/NxLmQHkbej2N8Y3xRaLn+Xk0iAd2q5NlNPHJ6d67xmHWX+kroqmaft89u8VfY2Qf8Qz20frV1SJr+FMcNUU5Ly7xGwN15eDMe4iyVxoGlJPiZRar7dVibvb7LryxP1l9xe8lQQlpWwz6iHawuAX6awV99NU8HwacPNMHOG0mnnKLZCKHUCIiDpeVa374IBLyaEpHXLHRga10pGyLARy+qWA3LwnbDiFHPB/iUGuQrMCONoUbBqKhujz1dKdvEihs1q09NHlkWYt1E1Ojy2MBh6d7jQIPwhQHUNlK/yzH6yr33kVChnbLiqigXtDvu/l01D6EcW/tbu9COoeP+1lZ8OWu3W/AKBDfKZSE/LGUqMVXMLqQOdx9CLnRNfb55mA1VdIMwoMHIbgEch81q8gpESmgfjo+mFQLC8Dlv1gP0iUEVablmZ/OCpqE6H893vTx4HJR635qXqUoSp+mltiC/AfDHGTz1Wu6Ae/9YdVVVvuKAyL9Gr3r/UB2sl5MlMLzKWmrIEQJs0OsgHr9OpGbE0vjLP3+w8zhi0d0JgvPKTPwIJOi3WA/+LygcOtQ6v2+Ybad02IETXu9OBWM/AhK/pnsy3Kz138OTmQAXgp6Eqo8i2dTw7BYOEMve40MeEmqxttq0JQOBniV38JHJeSQnSCU02BU4paJItHWZ+hCtLbepbdt8WwEjDG8ORpSQ4QX10SjM4gIEiXsHgVYuHC6hyjdFOJKOBQopDvuVMM+JqykQiOGtq3HyMNoeKMsViFQ/fUo4ULGnVnRLu/4h4wZlRSr8Tid8YK/L7HlCpyHkO3MxJBG8Hm8eur8V+WHl2nBNsqgQVOibIP7VKdyQvuiHNyJ3NUbNyZr24r7zMnp2rtidsug7EoIOeeaCeUrfL0rhJx2wPic1H+dj+0pIXbcz7Ywn7NkE/aZfkvTswTx2/pvwX4P8qvviIahlsxO5Ugp222BWsUzAdvVKiVmcy83sfIfpdWhx5ukWotMUxw9mF9i0cdtKJX7OHoDD3PAaQNBqFbgYF5gtejXQiT2C77aj/I3TYO4BpViCrd1xHI0THiodgEMS55moSJZp049/QSEsJJ0FsW5PDdhmAJQyf9HZd2FKeKPPdKlcqW3IMxrxEGF+0d8necERyYL/Kmex6+Qslm7+Q0+7c0puLL5tL6DKNYfDUeNq9EwbboEGYrJ5Ezgoi77DTGYQdvhj0wPfFXbOGLuvWFd4J8aYjseqS256/4pVo/EV8gEvUsoQKHv+1qgCag0z33JHdNnySQZ141Q8pH0EqDSW1zSecG6yV8/ND3Yexsw8r5MUT03PaGLBIvcAGJQMWDEJ4M+nooxK7KUtKR7UcGiOFwvqzXGCf2VeUqvtJbp0/sqvw3Zs/dqsdbB2VcZg0Ts4R9Dtv5bh0grjD2gfcd52dEtL/Os0o7lV+Jfek27vxOE1GopBHsFKqgG02I6jtlZYewkaXmU7WC6Nxl2lTct0Cr7M65GbnwUlOy6KIdi8e5B9Fwa9OMGZdb9WH+Xh3o5ETnfrVzXf5SXv5uuSCPssXTkSWKxeXrE5ekMOhE2+J/zNnVHrXGHqlMh81tjw1FTSAMrbzC2XcWQq5DBLfEEViF7S9hi3jlx89FiGNkl/z7JtHguLSc9P7+VRv/4Tu4jvbvKPGM/8eKtslwCKlEQ6H1bjfE8jHeH57Ru04GL0cFo5nRJL/wfcBQ7TkgWZY63T5Ituo7HREOps+MHzy6MJBpdDa0RN+EA6jofNwPJh2un6PaSQnElfrXkx9jmJhDtwg76Y6vvkvxjrPmj4C58ZNo3Tl2OzRkObSXXyHZnxTorlRMoRp3OowNtREcMCeezS4wuHKifggpKAuRFV+AjSa+LGOTs3W/WRbuQNYsR/izgNIRltvSbHK5mSYIus/m7wd5PVK66fzfUsgSvgcu7ZRvuSXbmmEYN++JTsitXKtVa2fWeADNtOBVesnyeGI5OmdSGwGUnyMxjz7ZZZeV7MDw7TIpfqPVt12iYm9Ag73Sl/eVOrkXBoI2PaT5CbNM+dXxYys7Wjm6Ee+gc8HaSIELlMoQisozU8KeedCof4XzeHzan7KooC6nRMoR7ilpz+4e/ClZuppdAGrg6ku5stjFlojaJMOutR533KFbZo1wsoXKJMGoBWAjQ6gNGwaaWf8Wly1cOpMklcDp1kJGtDrRxh5XDbZxr8b9c2ijfFG2K8LbBzMlNQchy2kxilNHhJYkzZXqNKsk4epCrj4lz3+tEn51OtX3FUkCmENQoNVmonA41FAE/18DQajVYnQRBe0MF/cxMWjtyfqy4BStPfFnxxHtwsIyX98j0nqLWdF+CyW0dM0MkAyfS3Cb0mL8cfTRHlu0OZVDyKixG8n29DGtXBGaSxfVxmr0PCL6YFrEoNTb1QDHBI0yfKx+V7UnglbqOxgz+CDbQ9MbJc4sUL4J1CF0JCSDsevi+cN0ADVUeua+gYTz6QbKnPhSTDuY8TqysEJjiiv8sV7RHPcb+H8YfZNQjNCrJ8KQznHOGKBQ/7qEobhF8MJL3BanqK8YmrLeDpiOB2ikBZPdDgu4g7m38kOAy5b2AktvpA+xKAF4aXOUeF0tDcCd2F2DhDONwpjnJ3+7RTsbHlSp6XcIZ+DnXMeavMw+j3EvtC+YfWYWguMY5fyzi4JftCP6U8Vlyf4kBb+Q6/tSRfJKO5JAHqDcQZMyhdpqtDIfBbrfZRUsxlGlz9LpHUaa8EPr/4TBcXEQGMYWX2ZTcnonshObicpcmDkFNL+PhUf444zGbnPTbeLvRSAHak0jIlhET4MrAv/gFw6tLLBm4hWiSY5SxkN1qZ7/cAJ2A+nDm30iK1i+fxc+Iu4B7l5X3j3aUM0V0jw7axDSUBFcwGo7uKvJIbH0zW1klDhJcgtjmVqzaK6n3Q1Q8uP+w4TTRHAW0RDKfWa0Gm1GU8HzWEM5yj+eqqaPKjYkd7lF/JFiC+n0Va+fuJbO59XUk6uVGegj7IkONWjAduye1DKQ+IfCP4l7t+16eCrc2wO0AkfkPGdfn77X9HD5wsi07mRUE+muBvvGm/6waIMwQKb1tF08ty96afxxkYwhlzDSQpRAzbqZAIj1eSFZGtJTxuwKlCNvQB40Yq4ft58+dDkXPbNr+/50riYl9kks5ARNwBM+1758UWoyaX+OSgN1iUkxh2gXHzLf+8x+U5+gWaqNjQikgGLODU+XKeIB97EwcH1Y8vRRn65Wh6tm20mlIj/3r+tS3egYuugMOX7UfvWHqitHVzPJVqW1Ud5y+0YeEn3GpTAnoPr/Bh2udLO7JESeKCWlof1V0mDlwXeeYY2aXto8kybEclBLJyHn1sRcoEwJBWMcWZx/Da0gMC14mJGX7OuPXy2AF9DKNfj3t698hlbn84J7epwvldBX46B11i6GthMIa/qcrdxDOwGpiOlHJcy3LxNuG8pLD5IQIuDi2lIXlS62GOAHRLzrBq6ntn0fAbp9GMj4JmgLmHmg+YCttY9/tmwIKOLqu4+XBeEu7rEaxba8Kvkyy5hu/zlFTVZY2zHJSdtCqx5f13AA0RaCLHMABp+wEb6xnqaPrPjXlC1eomXZPAUYEdj6Coi3laIOqZkAG25LywbD1CWN+RCKnXYLfTzCmr3RNDk9meG9SvTcRJ89mEwcPHFykARyKylWT+9Hv3I/ur+HmNagv9zwijgKcmu9e1+sp1RCEYO36E3yow1e/XICObD8BhQsiTShUvD2T+zQzLaYgX166/QqjvoX5Tya+QkerC/e0Ts2A3Ku3lF7/1XFkoiFvSDcUfXM/M5CapScUAiRRCJO8wMg0G8Zgqoav902HgQYE7GkVC88YgV/TqIbXbucEsDr439gS5/T7CxyIcHFdJkJNYW2QXB/3qZLDGZy9woCJe+Y/Mi9G38SJ3LR3nRg1f0fkgjIl3WcCIINTJzhjZYL3Jh6LmLBEnfUSzIodipGufPlmpHzfoGfdKtQ1d+9eT1Rpm+36KqLecJ6RKir3iwvipMYq7ObRu+4KDG22433vtWDwE+MCLQYghkzLzYUDRu/sxKwUlGvbV7GCKEAqZykoSDIqefcty6fyVhNgTSe7uLkvcV/o94VSq0xuiTnJiln8DCAe5EsYhM3qau4G1eRBduG92KdIKCLR2v9PIQ/rLjtuYDT9VC4NVKQ69p3uHZiUpRa5S/EJ8SSzefLPjfGrf5/wWjYbJ2j5642OJLhSlpoCCH6MttAc9ppSbfebPNceKjsVXlqBUst5QOTkBQ5LslKcSr/ekG4T6M4Z3xVeSS+O3rgAw9g4erjgA2Vn5hbGNgXDceq6j/E/FEe9nsX4JLFVEL4XOdJhABS3xMYUKHkXvowdkanYLBbvQZhiI3dQiNn5SYJNSGH7N6lYQXfWMnFAj2o+zjL3Eo4G4AGpone3QmMACtFkJvaQSQGywjz8ncmTBRtn1qBxDZ0w/kpyAZ8yMfpOtPGAIfwYYI9Kft0rfu09ci9/q/YwI9gXTGcXE//8vJSzndYhLDLnr1DmeAdFYpbjYCzXBQm2cCizXrkOS4jukh4g51QC+PWNKf2QVacGrH4EBsa/PZ98YeyYgtX+JgjLtHJ+WaqfYGG6XIAS9bES4E2tYUNtYny1NzmsB0945hADJ1ldjP/y6iZ35ne+3hTnAvGwuG+sYA25Cu9wvZ+Df9cCC3qoJmdWxAscfZuF644LSSJ54UWakKXwYQvNTFUtKABrOqwCoWqTOyseS3iU39l2tAlijiU+pHaX63NjDmr2TTT1349hvh23zicmM8ERa/1QCULbhnu3nGVv/fhiNn8TQu869+a39mhaJnqRo4ZW9AvzGZxWxsbXE4mP65rUlXMU+mjV9N9tw5HACf1dwp0pYpDXZmA8G4V/DY7uYZlL04imgRdtgRcXVQZ0Lh1DSYMeQE9eQqcoBFtcHnNtKistC1xTenyisOHaO6wViaWpbc1WNTRWWypQGH+K+ul3qrONbNuo2sIHOvYTb5A+WuDh64GZ8mJjEfI83eTYuhToDM6JUP1k5eRH1VK+iw2uWaN/BFvXsrYUdNCEbWTGxSQ1mTMDhFs5cxTN2HljAS6cUQSDf/igUEPzX8x7IiQUqqLWeSfOTpHWLnXLK8Udw/Of3mCjyQINX/ozZ2EEOmgiQhW2wZy47qaeEQVK7ZZL6vPcl8VGOvhgM2GpkN4zXLptAiiwEOwJOn0cb4+7j8qozX3zOy5nfU+L4JeICEkopTF3dOc0fLYfekx577A41VVV+qG9cVcZqFQ/bOPOeh1Y1/F1gUCT0+OFlafc3mu8AmcEAWXM8jYyzA2s0bvF9j3+56EceWu+zE7+JJ7svCrxBMXpP1EP/61SNpZ4l3NXD+hto516QEv6nYabcd21Jw3h9cDjuAOxw8IkVO/xGDwa1bLTzXBr8KmDCoRI66D1tVxd1fkqSq/fl8WD/h3kn0wn8FKO3alSD9VMaYljVUboobZs+Q0wOJKjz/XamFZQoUi4aCIN2oiLhuTagV8Ne3l9WlwREkLpQdL9IXDc+H6z9bLMw9+8VtzzWvMi21JidJfy3u2PLeAkcf9MB+MifJZSjxkPF+ybSRKCZZ/m56qKTe+FRsJ+OkymOfimf5xOvWq5MAWRRjjH1yf4r5rX7IriOpgEn5MMlX5f2FgjgzwaJoAM+wDGFG0sOWfwDJJYs/zvioQbnv52dqnL/+F7rRv/nc8RFqWJS/k0BUYVGtsdqZYhifBeplbbL/0njAK9S90oPAw/83uR7vPoWsfxMJ7+QUTg9fH+I7aam+eTRRSWojzGcSQ8f9YLAgWxUfNC/5S+M9/i032X6aI1QYuIUktX0yn0r6mGWYKdauhfmjVN7pfwc0yEnENrKk7NEhMmqmuPEEIMwyn88ZYvW6sOwH7dFQ/pk0Njaf0vr+/WtouFVFTTBzPwEveOOPoKrtJ6HB78vD/XZQcON69trL/b1y7/DPGxxqFZ8eGHLChhtzWOX9NrH5rLxNel+kACkGmCFbcb/r84ntd+D1rHDdxLFFv11Vr5jBFnRfii4/hmf4kREauoFvZA2q39N9xTwsQP+sJ17m2Cs7X+3ZVKhVJ5MjMnhxzPIOiX34h81OtISqiDBD7zVCJIbA+Rzat9jzByT4Ow/ymXNPllXqsAMA3uYwqGCX/E5EEbcWQdOwUjpD5np5rGnJdGm0+DfrhPKpVkEQuJ91duYoVdY5UNiP7WAhh+F0MljTpxkvlo9FHbTsHI9mwqvQsvaMTsP1ItttdQ2vT09s1mD3tzbxTfBDQarB3EDeVQfevz+z7sZH2V3hExDKJoLnux3k0+7nsmjYAx1w6pr+sVjjvRcO5wrmJtCdzuWqEEg+U+JvBjfbjX+f+Ym8+reBTJsv4JrDyey9T4CjXwON14W+JLUrgj3DKEKf1Eg/Q6mYonX8/QhC57l4D9JFHTX+hNkAK/+zIc2KpSU4gYqH/gZRqm21slBuU4wvpltF/f+mM5XCiOvTR2qZvho7/fYaZP5VX36YtZxE5UFpu6Br13sWE31Lye4ec0xTOK42VWcM8NfS5xVI85pxw4nX1aHR1QJEl+ZGRJDd1XhGV4hvTl4CmQm4SZAnWrm10vDfbkSkFJwPFG7gxaXEbZJ4HyBzuvLWvp9dvBey0qcLSXZ2oxT5Kene1Dpv9sy80coVlsSLJHvUZDEmpcfYOZezqTjur8oZ9N0lOTHnHL2n++miiZ1J6kMGL2sSHPitocm8/psxl4ti78ZEX2OEvR9Xa1D1P1KXXJSesz6MJ1pMwbd4r3KTiV9sBxW9OlF8hp2NuXuqx7orf5uzyhZHyzfthUfUA3yd8TSRe7rEhQCa7iy1zOHlaBs/ihlxKcG/B1Id9gC2YcHut/uO/yWEFyBKayL1f4/7uVEECjfDUzIkJCq7e6irv1nsMiRtojkhBf2LCsndJbBa1g7GvkeN7FzYNQ0gUy9NuLCpPTMkV/X22i9YhRoiULTcnFy8kAnLdqN5SPo946bmJJbL9g96dv9Q+XQBbScLclDEhHUEyLHsSOSLFrJYAECbIsQr1RIExb3Ig2jfx5ENfH8DW4L/1ErFsaeWcvpR7HdTQ24RalU4T7FaTBF2Sl+XkwCKp71vH+5F1Kc36+LeLekFn18HFq2saPX6fmbFjVPYqBGBkK3fKNHsHbPL+v3d7KFtuBy/OXqdfB2iQ8fvM6VUiGPP0HrAgncAX4jv8c/sIRkU86H2lJrmVeodSRIlQbblDJT4nYZkp0/goE2O6Ho0XPLbuMZCyOZTcAd54Bxr7XRX7WKUH59YfG74+cQTFje1+IOWLyh5eKl2Mp3h72E04zIJgXT6Eu2x/afAn1DuSYRjUKz5H7FW5lF1ZCPYMnxluOsia8x+tdKR4COFm5Q9YsolLYIHi6rhyedUdH7QbViBd5ppEAzWuF2m5H6DQKTlN4M5FDaapc3ehDoGVAqbh1fQHQx+29Lg4TjZPut/KI3Nf/5km1EHCJUnxXID3XlGgKDcceK1elhqdR/fRvlAwGfJJQCoCz3KC5PBz1HYdVH4MU7CDc18VW0G7gHkfJqAw8est83KA7oHbwm1GTnVzVxmUU+1uV/Ixqeb0T+C/r7faGtc1Dk0tAXdzyjYy+reu0JGiPX9PvCrDhSYaEmWOMxr5+68e6jA9GZ6bHv1nAY+nG90i+MLymSATV4wuXSPdo2JxpoCCoZmhQvwDUnDH2lgRsNIBTs2ezclcSsND7AKtMK2/KysI4am6QrCX+c6ymvjsExYaKETeHAyI8ybSS1YuzVVfFXoerQVG64Y8uUnrdlyhoVzrP9ms0MI6j2CuJv7lVXQverkQV8YVc2FlcJBN2UyX560Z7aXfsMTmfkAVwXTrwHaSTdY3Lfrpv16jjwdHpHVCC2toDGjvNfZRB6JbZCokUg9HMJg+SaMDVfW9u/2XOIRmp7WfgrTKmH5BrDRbGmvyBA7QClVpbyB/bS7v2TuWAVK91Ez9RNoSA7cGzGN3oa585lsMkU2G/cc5/cm8iz4LjO5aJPvjT6ydSKck5XMkaZAN3gxeDdfKD4b7LdxxwCQR3hbkBU1/zpDYhFIEjLRy9HiqPfEDlin7KuN4MafjLtiqiF3JpsTNTfAJ9FvJCiHH+RrqJIqQPb/SfLXQS68VGi1mkRubhX2+sy/Sn9espB6F6fW2iYZiYibOAFhhdxaOAEmHSgiuXZwYqa1rG3sgVHBdvnljpvbXY3saBBe55lGcCrMDaU+92nZvHubQh1xRvAAHjp8D6EMImPKfbeaQ8L5pU817l+iKZrI+aXF45E8I5jSPqFfwELX3A90t+vve1HUCYYaDczCTMJeZaMp+vBdVZp6O+Zq0kdkPTrg7VKrGp0wdsAX4V0Rr8FrUSh9H5Ane/lwpSpEP4I9JqE6eVCYNHz3iHX/rPXJcywEkCNeE0OQtftFe+6r9AayPWH2F7vNEhYmDaEzN24l2Y/4BPEs9IkVmhaXXJioKQtQeHfF4in9F5Wqfi5+smg5eBkS6tahPyl/TREyxcEWpBCyewcyPAjQvQyn6Dc9mv49zRGRIrGQhIZKZIB8Umh51Fjo8jjTtFEEzK6N8itUWepFMy+l3Rf4/ZbT1HzPxSlXghPk7cpHXUyniE75/vVV6iPca8aJsHO2g/C6NwGiTBnhroQPeUSv6brgsfe58FTglcPutwwoAAA22ni16PYaH1+MWW8+V9zz+hVc1L3kSVC4yp6MnFQePXrwd0VmwjVf9D0OZmko/L177PHJgA6zBtyHiCl/kv6V0xAUKB6VGbb2TnzbdighAyatmGIJ/tSNg00hx2QrMrqOH/SJd+Rbp2mMjbgelONkKmK6Woej+xdIFhHGy2/bdKiAcnUFbFxX0/rBv1MiXPrXyLQkUGqikYxGwfx2H5QoQ3O7IBQYh2qzIo9taDQSlLH0ipjUV27IxzykDQXPSg+vxiXMD7cdLYmlSSu65VSG64KELhKqLyW7etpmYMy1G2bK1UgeHYFyNkhm/WXHhuMNTylPsGjqmyyRwERxDvOslioANidWpKACUyUWXBg72j/4QH+gGEig2u6T1tiI4rZ6c2zO5R1399ZiK+quIaJLp1ShociB/UALnHMlfYRg4WFBfeFZmNz2Fs32V34aopVC8QfjfqAOds1egfCpk4mLRkJK2z1iqbgYDl5JGVmZPlOCA1QI0bYF5+dBtvkYkHoRH52GFzVf7aWW+dZB1u7anGS/Il03+lYR64k0vvU119LF//OVDftKAf+71vUpMnbzJk2deZmVbyx7CJcaZcKqpC6EX7ss1sVTCf8ZUXdXzkwZmfpNmdhUlENEHwWOG96fXoFjO9Pti1uppXUiJdEiamJMqW8MoyrTWL0OzZP8thgzSib0991rmDJ/3HLIjC6mKbEBCdB4Y8aokObCA/ceXitQgRRcrbBn4/CmskTmU71fOl6Gu+b58U+XrL1ONgJSs+74BtfclF9vVTihJZlygBnN+25GohqhDUSfbwurZ0iVN4a176Vp+J61PdVF/sMNurA9trk+qqLBm5hGkjPjmZIquAXwcNti6F9GDn5PwUAEJzZfpmAu92IWTgdmMpkJS6OlSkYquwJi3fO2p1jNDkeH28I5g5w01aucXjIpWI+euVPxNcfmRa2DyXCC5E5+rARrMDIczC76Quw9I6bOG3162FlKIYoP3Ftcj8BXaRir8p1Cvrar6im3/3uFIMuCl6uT03zhG5gEwhULzMVTSrVrZ5cJ6VPz35v4b/Kcd8AGCHD5faZD57bm7YGUKVLsxptlNw4x4cG4cIFUm9aAxvSiKdPhgO3yqLzMdOoPyav6DZg0R1TT2WjsscV/OQ0wp9KoENW3J65YFO0LCRbMC4XBdGisqwGqsBmLeau1Uc9MCG2T8zd+lfWsDc1vhy4n3nv4OE3l0M+HNzzgbqQ1Xjc8Admy6AMvPslpsino6AHQr3h3u/WuiCNhrZsIMhDZG5RN3qaBoJ6KMpIBdVG3LqkHFkxMDJneNwS+5fjf2RNscV3N2K8TOM2XGs7MoDhXkXYxSujuq9VkWTRFpDEeg34DsqH/rZAmcp3ITcqZgDNBVC4QjmJo+LebZXeMRRFmTxvJsZ6far1JTzEWqs4O1YDxvSqoFroDmSLHwiRaIK6u/RPyGJqkwjFWLbrLNtWyiKjlKzT9RyaVd12lH5Ydal7cZ53cggmC1JhemhHOytDNleGSEaJwigbwRCv5pg9Iwv4wEqo4KiWfUl9pTqUySmJP5MxGyNdsVBVuIkxxCrtQeoIWkTtWC7shV8k19kcWuu5gMnHEP0YxiorulfATE1FT8QCncaVeBXDd0iR7BoxAYoPXhwPnLshTvx8rwXjdIAUC0G1LoPCuniKpLgDd7PhHoNlSE1w+1BaTHvVhLy+fSKocMtYrI5xs7xSS5S/AJHIVTiXAFkgJpmgdsNXYRm40PGlG+ZqyoK1DYgM6sAnNmYhJ9AATkganpRZg4DlACEStzt9sAAAAA==" alt="NexusK Ads">
+  <div class="f-title">Produzido por NexusK Ads</div>
+  <a class="f-link" href="https://www.instagram.com/nexusk.ads/" target="_blank" rel="noopener">@nexusk.ads</a>
+  <div class="f-sub">Estratégia · Criatividade · Conexão · Resultados</div>
+</footer>
+
+<div class="save-toast" id="save-toast">Progresso salvo</div>
+
+<script>
+const CAL_DATA = [
+{"id":"d01","day":1,"week":1,"data":"10/08 · seg","formato":"Reel","pilar":"Leitura de identidade","tema":"O que sua imagem comunica sem você perceber","objetivo":"Gerar identificação imediata com a proposta central do método no topo de funil.","gancho":"Sua imagem está comunicando algo agora, mesmo que você não tenha escolhido isso de propósito.","visual":"Rosana falando direto pra câmera, cortes rápidos, texto de apoio só no gancho inicial, fundo neutro.","legenda":"Toda imagem comunica alguma coisa, quer a pessoa tenha escolhido isso conscientemente ou não. Postura, cor, textura, expressão facial, tudo isso forma uma leitura na cabeça de quem está do outro lado antes mesmo de qualquer palavra ser dita. Meu trabalho começa exatamente aí, entendendo o que já está sendo comunicado hoje pra depois decidir, junto com a cliente, se aquilo representa quem ela realmente é nessa fase da vida. Comenta aqui embaixo o que você acha que sua imagem está comunicando agora.","cta":"Comente sua percepção sobre sua imagem"},
+
+{"id":"d02","day":2,"week":1,"data":"11/08 · ter","formato":"Carrossel","pilar":"Liberdade vs fórmula pronta","tema":"Por que não trabalho com os sete estilos universais","objetivo":"Diferenciar o método da concorrência tradicional de consultoria de imagem.","gancho":"Sete estilos pra explicar todas as mulheres do mundo? Eu não compro essa ideia.","visual":"7 slides no padrão terracota e preto do perfil, explicando por que fórmulas fechadas de estilo simplificam demais a identidade de cada pessoa, com exemplo visual de contraste.","legenda":"O mercado de consultoria de imagem adora fórmula fechada: sete estilos, tipo de corpo, lista do que pode ou não pode usar. Já vi de perto como isso engessa mais do que ajuda, porque nenhuma fórmula pronta dá conta da história, do momento de vida e da forma como cada mulher quer se sentir e ser percebida. O Estilo Livre Lab nasceu justamente pra fugir dessa lógica, trabalhando identidade, intenção e liberdade em vez de regra rígida. Salva esse carrossel se você já se sentiu presa numa fórmula de estilo que não combinava com você.","cta":"Salve este carrossel"},
+
+{"id":"d03","day":3,"week":1,"data":"12/08 · qua","formato":"Estático","pilar":"Bastidores autorais","tema":"Frase autoral sobre identidade e imagem","objetivo":"Reforçar o tom de voz provocador e autoral que já é assinatura do perfil.","gancho":"Imagem não é sobre esconder. É sobre revelar quem você já é.","visual":"Arte estática com tipografia bold, fundo terracota ou azul, sem foto, no padrão de quote cards que já performam bem no perfil.","legenda":"Recebo muita gente achando que consultoria de imagem serve pra corrigir alguma coisa que estaria errada. Trabalho com uma lógica bem diferente. A imagem funciona melhor quando revela quem a pessoa já é, não quando tenta esconder ou disfarçar alguma parte dela. Esse é o ponto de partida de qualquer sessão que faço, seja consultoria completa ou sessão express. Comenta aqui embaixo se essa forma de pensar imagem é nova pra você.","cta":"Comente sua reflexão"},
+
+{"id":"d04","day":4,"week":1,"data":"13/08 · qui","formato":"Reel","pilar":"Prova social","tema":"Relato de mulher em transição de carreira","objetivo":"Construir confiança usando um relato real de transformação de percepção.","gancho":"Ela estava mudando de cargo e sentia que a imagem ainda contava a história antiga.","visual":"Texto de depoimento (anonimizado ou com autorização) animado na tela, fundo neutro, música instrumental leve.","legenda":"Um relato recente que recebi veio de uma cliente em transição de cargo, indo pra uma posição de mais visibilidade dentro da empresa. Ela sentia que a imagem que construiu nos últimos anos já não representava o próximo passo que estava dando profissionalmente. Trabalhamos juntas a leitura de identidade antes de qualquer mudança de guarda-roupa, e o resultado foi uma imagem alinhada com a mulher que ela estava se tornando, não só com a próxima reunião. Se você está vivendo uma transição parecida, comenta aqui embaixo.","cta":"Comente sobre sua transição"},
+
+{"id":"d05","day":5,"week":1,"data":"14/08 · sex","formato":"Carrossel","pilar":"Transição e recomeço","tema":"Como a imagem muda quando você muda de fase","objetivo":"Educar sobre a lógica de acompanhar transições de vida através da imagem.","gancho":"Toda vez que a vida muda de fase, a imagem também precisa de um novo alinhamento.","visual":"6 slides explicando diferentes fases de transição que o método atende (mudança de carreira, maternidade, reposicionamento, recomeço), com exemplo de leitura de identidade pra cada uma.","legenda":"Trabalho com um recorte bem específico de cliente: mulheres vivendo mudança pessoal, profissional ou corporal. Isso inclui reposicionamento de carreira, maternidade, recomeços depois de decisões importantes. Em cada uma dessas fases, a imagem que fazia sentido antes pode não fazer mais sentido agora, e isso é sinal de estar em movimento. Salva esse carrossel se você reconhece que está vivendo uma dessas fases agora.","cta":"Salve este carrossel"},
+
+{"id":"d06","day":6,"week":1,"data":"15/08 · sab","formato":"Estático","pilar":"Leitura de identidade","tema":"O que eu observo numa análise facial","objetivo":"Entregar autoridade técnica rápida e gerar curiosidade sobre o processo.","gancho":"Numa análise facial, eu olho muito além do formato do seu rosto.","visual":"Arte estática com ilustração simples de rosto e pontos de observação, tipografia clara, fundo neutro.","legenda":"Análise facial costuma ser reduzida a descobrir o formato do rosto pra indicar corte de cabelo ou óculos. No meu processo, ela vai bem além disso: observo expressão, proporção, textura e a relação entre todos esses elementos pra entender como cada traço comunica algo sobre identidade e presença. Essa leitura entra em quase todo tipo de sessão que faço, da mais completa até a mais rápida. Comenta aqui embaixo se você já fez uma análise facial antes.","cta":"Comente sua experiência"},
+
+{"id":"d07","day":7,"week":1,"data":"16/08 · dom","formato":"Reel","pilar":"Maternidade com estilo","tema":"Bastidor real da gravidez e da imagem em transformação","objetivo":"Trazer conexão pessoal genuína sem dominar o restante da semana editorial.","gancho":"Estou vivendo minha própria transformação de imagem agora, na gravidez.","visual":"Vídeo estilo vlog curto, Rosana mostrando looks reais da gravidez, tom pessoal e transparente, sem produção pesada.","legenda":"Grávida de alguns meses, estou vivendo na prática tudo que ensino sobre transição: o corpo muda, o guarda-roupa precisa de ajuste e a relação com a própria imagem passa por uma reorganização inteira. Uso essa fase pessoal também pra aprofundar o Curso Maternidade com Estilo, pensado pra grávidas, puérperas e mães de crianças pequenas que sentem exatamente essa mesma virada. Comenta aqui embaixo se você também já passou ou está passando por essa fase.","cta":"Comente sua experiência com maternidade"},
+
+{"id":"d08","day":8,"week":2,"data":"17/08 · seg","formato":"Reel","pilar":"Liberdade vs fórmula pronta","tema":"O detalhe que a fórmula pronta ignora","objetivo":"Reforçar diferencial técnico do método com exemplo concreto.","gancho":"Fórmula pronta trata todo mundo igual. Detalhe de verdade nunca é genérico.","visual":"Rosana mostrando duas peças de roupa parecidas na aparência mas com leitura completamente diferente conforme contexto e identidade da pessoa, tom confiante.","legenda":"Duas mulheres podem usar praticamente a mesma peça e comunicar coisas completamente diferentes, porque a leitura de imagem nunca depende só da roupa em si, depende do contexto, da postura e da história de quem está vestindo. Fórmula pronta ignora essa camada inteira, porque trata identidade como se fosse padrão fixo. Meu trabalho é justamente entender esse detalhe antes de qualquer recomendação. Comenta aqui embaixo se você já usou uma peça que via em outra pessoa e sentiu que não comunicava a mesma coisa em você.","cta":"Comente sua experiência"},
+
+{"id":"d09","day":9,"week":2,"data":"18/08 · ter","formato":"Carrossel","pilar":"Leitura de identidade","tema":"3 perguntas que faço antes de falar de roupa","objetivo":"Mostrar o processo real de uma sessão e gerar salvamento.","gancho":"Antes de falar de roupa, eu preciso de três respostas suas.","visual":"5 slides, cada um apresentando uma pergunta do processo (quem você é hoje, pra onde está indo, como quer ser percebida), com exemplo de como a resposta direciona a leitura de imagem.","legenda":"Antes de qualquer recomendação de imagem, faço três perguntas que guiam todo o resto da sessão: quem você é nesse momento da vida, pra onde você está caminhando e como você quer ser percebida por quem te encontra. As respostas mudam completamente o resultado do trabalho, porque a imagem só faz sentido quando está alinhada com essas três coisas ao mesmo tempo. Salva esse carrossel e pensa nas suas próprias respostas antes da nossa conversa.","cta":"Salve este carrossel"},
+
+{"id":"d10","day":10,"week":2,"data":"19/08 · qua","formato":"Estático","pilar":"Prova social","tema":"Relato curto de cliente sobre a sessão","objetivo":"Reforçar credibilidade com prova social breve e direta.","gancho":"\"Pela primeira vez senti que minha imagem finalmente combinava comigo.\"","visual":"Arte estática simples, aspas grandes em destaque, fundo neutro, sem foto.","legenda":"Frases como essa chegam com frequência e reforçam exatamente o que sustenta o Estilo Livre Lab: o objetivo nunca foi mudar quem a cliente é, foi alinhar a imagem com quem ela já é de verdade. Guardo cada relato assim porque eles mostram o resultado que realmente importa, muito além do guarda-roupa. Se você já fez uma sessão comigo e quer compartilhar sua experiência, comenta aqui embaixo.","cta":"Compartilhe sua experiência"},
+
+{"id":"d11","day":11,"week":2,"data":"20/08 · qui","formato":"Reel","pilar":"Transição e recomeço","tema":"Voltando ao mercado depois de uma pausa","objetivo":"Falar diretamente com o recorte de mulher em reposicionamento profissional.","gancho":"Voltar ao mercado depois de uma pausa também é uma questão de imagem.","visual":"Rosana explicando com exemplo de cliente (anonimizado) que retomou a carreira depois de licença ou pausa pessoal, tom acolhedor e estratégico.","legenda":"Voltar pro mercado de trabalho depois de uma licença, uma pausa pessoal ou uma mudança de área costuma trazer uma pergunta silenciosa: como quero ser vista nessa nova etapa. A imagem que fazia sentido antes da pausa nem sempre representa quem a pessoa se tornou durante esse período. Trabalhar essa transição com leitura de identidade evita que a mulher entre nessa nova fase carregando uma imagem que já não é dela. Comenta aqui embaixo se você já viveu ou está vivendo esse tipo de retorno.","cta":"Comente sobre seu retorno ao mercado"},
+
+{"id":"d12","day":12,"week":2,"data":"21/08 · sex","formato":"Carrossel","pilar":"Bastidores autorais","tema":"15 anos de trajetória até o Estilo Livre Lab","objetivo":"Consolidar autoridade através da bagagem profissional real.","gancho":"15 anos entre cosméticos, estética e varejo antes de criar o Estilo Livre Lab.","visual":"6 slides contando a linha do tempo profissional de Rosana, da atuação em cosméticos e varejo até a consultoria de imagem, com fotos ou elementos gráficos representando cada fase.","legenda":"O Estilo Livre Lab não nasceu de um curso de fim de semana. Antes de trabalhar com consultoria de imagem, passei mais de 15 anos atuando com cosméticos, estética, varejo e comportamento de consumo, um repertório que hoje sustenta a forma como leio identidade, presença e percepção. Essa bagagem é o que diferencia uma leitura estratégica de uma simples dica de moda solta. Marca aqui alguém que também construiu a própria trajetória fora de uma linha reta.","cta":"Marque alguém com uma trajetória parecida"},
+
+{"id":"d13","day":13,"week":2,"data":"22/08 · sab","formato":"Estático","pilar":"Liberdade vs fórmula pronta","tema":"Respeito ao corpo de agora","objetivo":"Reforçar postura de aceitação corporal como diferencial ético do método.","gancho":"Não ensino a esconder o corpo. Ensino a se relacionar melhor com ele.","visual":"Arte estática com frase em destaque, tipografia forte, fundo neutro, sem imagem de corpo.","legenda":"Uma parte importante do meu trabalho é não tratar o corpo como um problema a ser corrigido ou disfarçado. O foco está em criar uma relação mais consciente e acolhedora com a imagem atual, seja qual for a fase de vida ou a mudança que o corpo está atravessando. Isso vale pra gravidez, pós-parto, envelhecimento ou qualquer outra transformação física. Comenta aqui embaixo se essa forma de pensar consultoria de imagem já era familiar pra você.","cta":"Comente sua reflexão"},
+
+{"id":"d14","day":14,"week":2,"data":"23/08 · dom","formato":"Reel","pilar":"Maternidade com estilo","tema":"O que vestir sem perder identidade na gravidez","objetivo":"Entregar conteúdo prático conectado ao curso, mantendo dose equilibrada no feed.","gancho":"Gravidez muda o corpo. Não precisa mudar quem você é.","visual":"Rosana mostrando looks reais de gravidez com foco em manter elementos de identidade pessoal, tom leve e prático.","legenda":"Uma das maiores dúvidas que recebo de grávidas é como continuar se reconhecendo no espelho enquanto o corpo muda tão rápido. A resposta não está em esconder a barriga nem em seguir só o que a loja de roupa de grávida oferece pronto. Está em manter elementos que já fazem parte da sua identidade, cor, textura, atitude, e adaptar isso ao momento atual do corpo. Esse é um dos pontos centrais do Curso Maternidade com Estilo. Comenta aqui embaixo se essa é uma dúvida que você já teve.","cta":"Comente sua dúvida sobre estilo na gravidez"},
+
+{"id":"d15","day":15,"week":3,"data":"24/08 · seg","formato":"Reel","pilar":"Leitura de identidade","tema":"A roupa muda o cérebro? A ciência por trás disso","objetivo":"Trazer conteúdo com base científica e reforçar autoridade estratégica.","gancho":"Existe ciência real por trás de como a roupa muda seu comportamento.","visual":"Rosana explicando de forma acessível o conceito de cognição incorporada aplicado à moda, com apoio de texto na tela, tom didático.","legenda":"A forma como você se veste influencia diretamente sua postura, sua confiança e até sua performance em situações de pressão, e isso é um efeito real, estudado dentro da psicologia do vestuário. Uso esse tipo de conhecimento junto com a leitura de identidade pra construir imagens que não são só bonitas visualmente, são funcionais pro momento que a pessoa está vivendo. Comenta aqui embaixo se você já sentiu na prática como uma roupa mudou seu jeito de agir num dia importante.","cta":"Comente sua experiência"},
+
+{"id":"d16","day":16,"week":3,"data":"25/08 · ter","formato":"Carrossel","pilar":"Quebra de objeção","tema":"5 mitos sobre consultoria de imagem","objetivo":"Desconstruir crenças que atrasam a decisão de investir na consultoria.","gancho":"5 mitos sobre consultoria de imagem que ainda seguram muita mulher de fora.","visual":"7 slides, um mito por slide (é só pra quem gosta de moda, é caro demais, só serve pra quem não sabe se vestir, entre outros), com explicação curta desconstruindo cada um.","legenda":"Consultoria de imagem carrega bastante mito que afasta justamente a mulher que mais se beneficiaria do processo. Consultoria de imagem tem menos a ver com gostar ou entender de moda e mais a ver com estratégia de percepção. Não é reservado só pra quem não sabe se vestir. Muita cliente que atendo já se veste muito bem e busca alinhamento profundo, mais do que instrução básica. Reuni aqui os principais mitos que ouço com frequência. Salva esse carrossel e compartilha com alguém que também posterga essa decisão por algum desses motivos.","cta":"Salve e compartilhe"},
+
+{"id":"d17","day":17,"week":3,"data":"26/08 · qua","formato":"Estático","pilar":"Bastidores autorais","tema":"Bastidor da Conferência Brasileira de Cores","objetivo":"Mostrar atuação em eventos do setor e reforçar autoridade técnica.","gancho":"Participando da Conferência Brasileira de Cores, sempre estudando pra trazer mais profundidade pro trabalho.","visual":"Arte estática com foto do evento, fundo neutro, legenda curta destacando aprendizado levado pro método.","legenda":"Participar de eventos como esse é parte do compromisso de manter o Estilo Livre Lab atualizado com o que existe de mais aprofundado em teoria de cor, percepção e comportamento visual. Cada novo aprendizado entra direto nas sessões que faço, seja na leitura de paleta pessoal ou na forma como oriento composição visual completa. Comenta aqui embaixo se você tem curiosidade sobre como a teoria das cores entra numa consultoria de imagem.","cta":"Comente sua curiosidade sobre cores"},
+
+{"id":"d18","day":18,"week":3,"data":"27/08 · qui","formato":"Reel","pilar":"Transição e recomeço","tema":"Reposicionamento profissional através da imagem","objetivo":"Falar diretamente com o público de alto ticket em transição de carreira.","gancho":"Trocar de cargo também pede um novo alinhamento de imagem.","visual":"Rosana explicando processo de reposicionamento com exemplo de cliente executiva, tom estratégico e confiante.","legenda":"Quando uma cliente está subindo de posição, mudando de área ou assumindo mais visibilidade dentro da empresa, a imagem que sustentava o cargo anterior nem sempre sustenta o próximo passo. Se trata de alinhar presença visual com o nível de responsabilidade e reconhecimento que essa nova fase pede, sem virar outra pessoa. Esse é um dos processos mais frequentes que conduzo na consultoria completa. Comenta aqui embaixo se você está vivendo ou já viveu esse tipo de reposicionamento.","cta":"Comente sobre seu reposicionamento"},
+
+{"id":"d19","day":19,"week":3,"data":"28/08 · sex","formato":"Carrossel","pilar":"Prova social","tema":"O que dizem sobre o processo do Estilo Livre Lab","objetivo":"Reunir múltiplos relatos curtos pra reforçar credibilidade num único conteúdo.","gancho":"Reunimos relatos reais de clientes sobre o processo do Estilo Livre Lab.","visual":"6 slides, um relato por slide, fundo terracota ou azul, aspas em destaque, último slide convidando pra deixar relato próprio.","legenda":"Cada relato que recebo reforça o mesmo padrão: o processo tem a ver com enxergar com clareza quem a cliente já é e alinhar a imagem com isso, muito mais do que acumular roupa nova. Reuni aqui alguns relatos recentes, de clientes em fases bem diferentes, desde reposicionamento profissional até maternidade. Se você já passou por uma sessão comigo e quer compartilhar sua experiência, comenta aqui embaixo ou manda mensagem.","cta":"Comente sua experiência com o processo"},
+
+{"id":"d20","day":20,"week":3,"data":"29/08 · sab","formato":"Estático","pilar":"Leitura de identidade","tema":"Quanto custa não investir na própria imagem","objetivo":"Provocar reflexão de fundo de funil com frase de impacto.","gancho":"Quanto custa continuar se vestindo com dúvida todos os dias?","visual":"Arte estática com tipografia forte, fundo escuro, frase centralizada, no padrão de quote card provocador do perfil.","legenda":"Existe um custo invisível em abrir o guarda-roupa todo dia sem saber o que realmente comunica quem você é. Esse custo aparece em tempo perdido, em compra que não serve, em insegurança que aparece bem antes de qualquer reunião ou compromisso importante. Investir numa leitura de imagem estratégica resolve esse ciclo de dúvida de um jeito que nenhuma compra isolada resolve. Comenta aqui embaixo se você já sentiu esse tipo de desgaste diário com a própria imagem.","cta":"Comente sua reflexão"},
+
+{"id":"d21","day":21,"week":3,"data":"30/08 · dom","formato":"Reel","pilar":"Maternidade com estilo","tema":"O enxoval emocional que ninguém te conta","objetivo":"Trazer profundidade emocional ao conteúdo de maternidade, conectando com autoestima.","gancho":"Existe um enxoval que ninguém te conta que você também precisa preparar.","visual":"Rosana falando sobre a preparação emocional pra maternidade junto com a preparação prática do guarda-roupa, tom sensível e acolhedor.","legenda":"Enquanto se prepara o enxoval do bebê, quase ninguém fala sobre o enxoval emocional da mãe, incluindo a relação dela com a própria imagem durante e depois da gravidez. Esse é um tema que trago com frequência no Curso Maternidade com Estilo, porque a autoestima nessa fase não depende só de saber o que vestir, depende de se sentir acolhida no próprio processo de transformação. Comenta aqui embaixo se esse é um assunto que você gostaria de ver mais por aqui.","cta":"Comente seu interesse no tema"},
+
+{"id":"d22","day":22,"week":4,"data":"31/08 · seg","formato":"Reel","pilar":"Liberdade vs fórmula pronta","tema":"Por que não ensino a esconder o corpo","objetivo":"Reforçar o posicionamento ético do método com tom confiante e direto.","gancho":"Consultoria de imagem que ensina a esconder o corpo está resolvendo o problema errado.","visual":"Rosana falando direto pra câmera, tom firme, texto de apoio só na frase final da legenda.","legenda":"Muita consultoria de imagem no mercado ainda trabalha em cima da lógica de esconder, disfarçar ou corrigir o corpo, como se ele fosse sempre um problema a ser resolvido. Trabalho numa direção completamente diferente: ajudar a cliente a se relacionar melhor com o corpo que ela tem agora, não com um corpo idealizado que talvez nunca exista. Essa diferença muda completamente o resultado emocional do processo. Comenta aqui embaixo se você já passou por uma consultoria que trabalhava em cima de esconder, em vez de acolher.","cta":"Comente sua experiência"},
+
+{"id":"d23","day":23,"week":4,"data":"01/09 · ter","formato":"Carrossel","pilar":"Quebra de objeção","tema":"O que a consultoria de imagem realmente resolve","objetivo":"Reposicionar o serviço como método estratégico, afastando a ideia de compra assistida.","gancho":"Consultoria de imagem resolve muito mais do que a próxima compra de roupa.","visual":"6 slides mostrando o que realmente muda com o processo (clareza de compra, alinhamento de identidade, confiança em ocasiões importantes, economia de tempo e dinheiro no longo prazo).","legenda":"Uma confusão comum é achar que consultoria de imagem serve pra decidir o que comprar numa loja. O processo vai bem além disso: ele organiza a relação inteira da cliente com a própria imagem, trazendo clareza que evita compra por impulso, peça parada no armário e a sensação de nunca ter o que vestir mesmo com guarda-roupa cheio. Salva esse carrossel se você quer entender o que realmente muda depois de uma sessão.","cta":"Salve este carrossel"},
+
+{"id":"d24","day":24,"week":4,"data":"02/09 · qua","formato":"Estático","pilar":"Bastidores autorais","tema":"Atendo Brasil e exterior","objetivo":"Comunicar com clareza o alcance internacional do atendimento, corrigindo lacuna da bio.","gancho":"Você não precisa estar no Rio de Janeiro pra fazer uma sessão comigo.","visual":"Arte estática com mapa estilizado ou ícone de videochamada, fundo neutro, frase do gancho em destaque.","legenda":"Grande parte das sessões do Estilo Livre Lab acontece online, o que significa que clientes no exterior conseguem passar pelo mesmo processo de leitura de identidade que quem mora no Rio de Janeiro. Se você vive fora do Brasil e sente falta de um olhar que entenda sua identidade brasileira dentro de um contexto internacional, esse processo também é pra você. Manda mensagem no WhatsApp pra saber como funciona a sessão online.","cta":"Manda mensagem no WhatsApp"},
+
+{"id":"d25","day":25,"week":4,"data":"03/09 · qui","formato":"Reel","pilar":"Transição e recomeço","tema":"Bastidor de uma sessão Ponto de Virada","objetivo":"Apresentar o serviço express e reduzir barreira de tempo pra decisão de compra.","gancho":"Uma hora pode ser suficiente pra mudar sua relação com a própria imagem.","visual":"Vídeo mostrando bastidor real de uma sessão express (Ponto de Virada), ritmo ágil, legendas explicando cada etapa.","legenda":"Nem toda transformação de imagem precisa de um processo longo. O Ponto de Virada foi criado justamente pra quem está numa fase de mudança e precisa de direção rápida, sem abrir mão da profundidade da leitura de identidade. Numa sessão express, já é possível sair com clareza sobre o que priorizar e por onde começar. Comenta aqui embaixo se uma sessão assim faria sentido pro seu momento agora.","cta":"Comente seu interesse na sessão express"},
+
+{"id":"d26","day":26,"week":4,"data":"04/09 · sex","formato":"Carrossel","pilar":"Leitura de identidade","tema":"Como funciona a Direção de Imagem online","objetivo":"Detalhar o passo a passo do serviço mais acessível e converter em agendamento.","gancho":"Uma sessão online rápida que já muda como você enxerga sua própria imagem hoje.","visual":"6 slides explicando o passo a passo da Direção de Imagem (formulário inicial, sessão online, entrega de direcionamento, próximos passos sugeridos).","legenda":"A Direção de Imagem foi pensada pra quem quer entender rápido o que a própria imagem está comunicando hoje, sem precisar de um processo longo logo de início. Em uma sessão online, você recebe uma leitura estratégica e direcionamentos práticos pra aplicar imediatamente. É um ótimo primeiro passo pra quem ainda está decidindo se quer avançar pra uma consultoria mais completa. Salva esse carrossel e manda mensagem se quiser agendar a sua.","cta":"Salve e manda mensagem para agendar"},
+
+{"id":"d27","day":27,"week":4,"data":"05/09 · sab","formato":"Estático","pilar":"Prova social","tema":"Antes e depois de percepção, não só de roupa","objetivo":"Mostrar transformação real sem reduzir o processo a antes/depois estético raso.","gancho":"O antes e depois que mais me importa é como a cliente se sente ao se olhar no espelho.","visual":"Arte estática com frase em destaque, sem foto de antes/depois corporal, foco em linguagem de presença e confiança.","legenda":"Não trabalho com antes e depois no sentido tradicional de mudança estética. O antes e depois que mais acompanho é de percepção: como a cliente se sentia insegura ou desconectada da própria imagem antes do processo, e como ela passa a se reconhecer depois. Esse tipo de mudança não aparece só numa foto, aparece na postura, na confiança e na forma como ela se apresenta no mundo. Comenta aqui embaixo se você já sentiu essa diferença depois de alguma mudança de imagem na sua vida.","cta":"Comente sua experiência"},
+
+{"id":"d28","day":28,"week":4,"data":"06/09 · dom","formato":"Reel","pilar":"Quebra de objeção","tema":"Perguntas rápidas sobre os serviços do Estilo Livre Lab","objetivo":"Reduzir barreira de contato esclarecendo diferenças entre os serviços oferecidos.","gancho":"As perguntas que mais recebo sobre os serviços, respondidas rapidinho.","visual":"Vídeo em ritmo ágil, cada serviço (Presença, Imagem em Movimento, Ponto de Virada, Direção de Imagem) aparecendo na tela com explicação curta.","legenda":"Recebo bastante dúvida sobre qual serviço combina com cada momento. Presença trabalha análise facial e visagismo em profundidade. Imagem em Movimento é a consultoria completa pra quem está em transição pessoal ou profissional. Ponto de Virada é a versão express da consultoria completa. Direção de Imagem é a sessão online mais rápida, ideal pra quem quer clareza imediata. Se ainda ficou dúvida sobre qual combina com seu momento, comenta aqui embaixo que eu te ajudo a decidir.","cta":"Comente sua dúvida sobre os serviços"},
+
+{"id":"d29","day":29,"week":5,"data":"07/09 · seg","formato":"Reel","pilar":"Bastidores autorais","tema":"Recapitulando o mês sobre leitura de identidade","objetivo":"Consolidar a mensagem do mês e converter interesse acumulado em contato direto.","gancho":"Recapitulando tudo que já mostrei esse mês sobre leitura de identidade e liberdade de estilo.","visual":"Vídeo de recapitulação rápida dos principais temas do mês, ritmo ágil, fechando com CTA forte de WhatsApp.","legenda":"Esse mês passei por vários pontos que sustentam o Estilo Livre Lab: leitura de identidade antes de qualquer roupa, liberdade em vez de fórmula pronta, transições de carreira e de vida, e também a fase de maternidade que estou vivendo agora. Se em algum momento desse mês você se identificou com algum desses conteúdos, esse é o momento de dar o próximo passo. Manda mensagem no WhatsApp e vamos conversar sobre qual serviço combina com seu momento agora.","cta":"Manda mensagem no WhatsApp"},
+
+{"id":"d30","day":30,"week":5,"data":"08/09 · ter","formato":"Carrossel","pilar":"Fechamento","tema":"Tudo que cabe dentro do Estilo Livre Lab","objetivo":"Fechar o ciclo de 30 dias com recapitulação completa dos serviços e CTA forte.","gancho":"Isso é tudo que cabe dentro do Estilo Livre Lab, da sessão express à consultoria completa.","visual":"8 slides organizados por serviço (Presença, Imagem em Movimento, Ponto de Virada, Direção de Imagem, Curso Maternidade com Estilo), fechando com CTA grande.","legenda":"Fechando esse mês de conteúdo, quis reunir num só lugar tudo que já existe dentro do Estilo Livre Lab, porque muita gente ainda me conhece só por um serviço específico e não sabe da extensão real do trabalho. Tem análise facial e visagismo em profundidade, consultoria completa pra transições de vida, sessões express pra quem tem pouco tempo, e o Curso Maternidade com Estilo pra quem está nessa fase específica. Se depois desse mês você sentiu que chegou sua hora de alinhar a imagem com quem você é agora, manda mensagem. Eu leio e respondo pessoalmente.","cta":"Manda mensagem e agende sua sessão"}
+]
+;
+
+const container = document.getElementById('days-container');
+const progressFill = document.getElementById('progress-fill');
+const progressCount = document.getElementById('progress-count');
+const badgePill = document.getElementById('badge-pill');
+const toast = document.getElementById('save-toast');
+
+let state = {};
+
+function showToast(){
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>toast.classList.remove('show'), 1400);
+}
+
+function fmtClass(fmt){
+  if(fmt==='Reel') return 'reel';
+  if(fmt==='Carrossel') return 'carrossel';
+  return 'estatico';
+}
+
+function render(){
+  container.innerHTML = '';
+  let currentWeek = null;
+  CAL_DATA.forEach((d, idx)=>{
+    if(d.week !== currentWeek){
+      currentWeek = d.week;
+      const wl = document.createElement('div');
+      wl.className='week-label';
+      wl.textContent = 'Semana ' + d.week;
+      container.appendChild(wl);
+    }
+    const done = !!state[d.id];
+    const card = document.createElement('div');
+    card.className = 'day-card' + (done?' done':'');
+    card.id = 'card-'+d.id;
+    card.innerHTML = `
+      <div class="day-head" data-toggle="${d.id}">
+        <div class="day-num">D${d.day}</div>
+        <div class="day-meta">
+          <div class="d-top">
+            <span class="fmt-badge ${fmtClass(d.formato)}">${d.formato}</span>
+            <span class="date-label">${d.data}</span>
+          </div>
+          <div class="day-title">${d.tema}</div>
+        </div>
+        <button class="check-btn ${done?'checked':''}" data-check="${d.id}" aria-label="Marcar como feito">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="day-body">
+        <div class="day-body-inner">
+          <div class="field"><div class="f-label">Pilar · Objetivo estratégico</div><div class="f-value"><b>${d.pilar}</b> · ${d.objetivo}</div></div>
+          <div class="field"><div class="f-label">${d.formato==='Carrossel' ? 'Título do carrossel' : 'Gancho na tela'}</div><div class="f-value">${d.gancho}</div></div>
+          <div class="field"><div class="f-label">Sugestão visual</div><div class="f-value">${d.visual}</div></div>
+          <div class="field"><div class="f-label">Legenda</div><div class="f-value">${d.legenda}</div></div>
+          <div class="field"><div class="f-label">CTA</div><div class="f-value"><span class="cta-tag">${d.cta}</span></div></div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-check]')) return;
+      const card = document.getElementById('card-'+el.dataset.toggle);
+      card.classList.toggle('open');
+    });
+  });
+  container.querySelectorAll('[data-check]').forEach(el=>{
+    el.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const id = el.dataset.check;
+      state[id] = !state[id];
+      el.classList.toggle('checked', state[id]);
+      document.getElementById('card-'+id).classList.toggle('done', state[id]);
+      await persist(id, state[id]);
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = CAL_DATA.length;
+  const doneCount = Object.values(state).filter(Boolean).length;
+  const pct = Math.round((doneCount/total)*100);
+  progressFill.style.width = pct + '%';
+  progressCount.innerHTML = doneCount + '/' + total;
+  let badge = 'Bronze';
+  if(pct >= 90) badge = 'Ouro';
+  else if(pct >= 50) badge = 'Prata';
+  badgePill.textContent = badge;
+}
+
+async function persist(id, value){
+  try{
+    if(window.storage && window.storage.set){
+      await window.storage.set('day-'+id, JSON.stringify(value), false);
+      showToast();
+    }
+  }catch(err){
+    console.error('Erro ao salvar progresso', err);
+  }
+}
+
+async function loadState(){
+  state = {};
+  try{
+    if(window.storage && window.storage.list){
+      const listRes = await window.storage.list('day-', false);
+      const keys = (listRes && listRes.keys) ? listRes.keys : [];
+      for(const k of keys){
+        try{
+          const res = await window.storage.get(k, false);
+          if(res && res.value !== undefined){
+            const id = k.replace('day-','');
+            state[id] = JSON.parse(res.value);
+          }
+        }catch(e){}
+      }
+    }
+  }catch(err){
+    console.error('Erro ao carregar progresso', err);
+  }
+  render();
+}
+
+document.getElementById('reset-btn').addEventListener('click', async ()=>{
+  if(!confirm('Reiniciar todo o checklist do calendário?')) return;
+  try{
+    if(window.storage && window.storage.delete){
+      for(const d of CAL_DATA){
+        try{ await window.storage.delete('day-'+d.id, false); }catch(e){}
+      }
+    }
+  }catch(e){}
+  state = {};
+  render();
+});
+
+loadState();
+</script>
+
+</body>
+</html>
