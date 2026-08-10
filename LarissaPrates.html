@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Estratégico & Calendário · @soullariprates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#07050c;
+    --bg-1:#0d0916;
+    --bg-2:#140f21;
+    --purple-900:#2b0f52;
+    --purple-700:#5b1fb8;
+    --purple-500:#8b3ff0;
+    --purple-400:#a855f7;
+    --purple-glow:#c084fc;
+    --ink-0:#f4f1fb;
+    --ink-1:#c9c2dc;
+    --ink-2:#8f88a8;
+    --line:rgba(168,85,247,0.18);
+    --card:rgba(255,255,255,0.03);
+    --gold:#e8c874;
+    --ok:#5fe3a1;
+    --radius:18px;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(60% 50% at 12% 0%, rgba(139,63,240,0.20), transparent 60%),
+      radial-gradient(50% 40% at 100% 10%, rgba(168,85,247,0.12), transparent 60%),
+      var(--bg-0);
+    color:var(--ink-1);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--purple-500);color:#fff;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(7,5,12,0.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:34px;border-radius:9px;display:block;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.05;}
+  .brand-text b{font-family:var(--display);font-size:13px;letter-spacing:0.04em;color:var(--ink-0);}
+  .brand-text span{font-size:10px;color:var(--ink-2);letter-spacing:0.06em;}
+  nav{display:none;gap:22px;font-size:13px;}
+  nav a{color:var(--ink-2);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:.2s;}
+  nav a:hover{color:var(--ink-0);border-color:var(--purple-400);}
+  @media(min-width:860px){nav{display:flex;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:920px;margin:0 auto;padding:64px 24px 40px;text-align:left;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--purple-glow);
+    border:1px solid var(--line);
+    padding:6px 12px;border-radius:100px;
+    background:rgba(139,63,240,0.08);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple-glow);box-shadow:0 0 10px var(--purple-glow);}
+  h1{
+    font-family:var(--display);
+    font-size:clamp(30px,6vw,52px);
+    line-height:1.05;
+    color:var(--ink-0);
+    margin:0 0 18px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  h1 em{font-style:normal;color:transparent;background:linear-gradient(100deg,var(--purple-glow),var(--purple-400) 60%);-webkit-background-clip:text;background-clip:text;}
+  .hero p.lead{font-size:16px;color:var(--ink-1);max-width:640px;line-height:1.65;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .chip{font-size:12px;color:var(--ink-2);border:1px solid var(--line);padding:7px 13px;border-radius:100px;background:var(--card);}
+  .chip b{color:var(--ink-0);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{max-width:920px;margin:0 auto;padding:70px 24px;border-top:1px solid var(--line);}
+  .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .kicker .num{font-family:var(--display);font-size:13px;color:var(--purple-glow);border:1px solid var(--line);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;}
+  .kicker h2{font-family:var(--display);font-size:clamp(22px,4vw,32px);color:var(--ink-0);margin:0;font-weight:600;}
+  .section-intro{color:var(--ink-2);font-size:14.5px;line-height:1.7;max-width:680px;margin-bottom:34px;}
+
+  .grid2{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:720px){.grid2{grid-template-columns:1fr 1fr;}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .card h3{font-family:var(--display);font-size:16px;color:var(--ink-0);margin:0 0 10px;font-weight:600;}
+  .card p{margin:0;font-size:13.8px;line-height:1.65;color:var(--ink-1);}
+  .card ul{margin:8px 0 0;padding-left:18px;}
+  .card li{font-size:13.8px;line-height:1.7;color:var(--ink-1);margin-bottom:4px;}
+
+  .tag{display:inline-block;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);background:rgba(139,63,240,0.1);border:1px solid var(--line);padding:4px 10px;border-radius:100px;margin-bottom:12px;}
+
+  .quote-block{border-left:2px solid var(--purple-500);padding:4px 0 4px 20px;margin:28px 0;font-family:var(--display);font-size:19px;color:var(--ink-0);line-height:1.5;font-weight:500;}
+
+  .objecoes{display:flex;flex-direction:column;gap:10px;}
+  .obj-item{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card);}
+  .obj-item .o-head{display:flex;justify-content:space-between;gap:12px;font-family:var(--display);color:var(--ink-0);font-size:14.5px;font-weight:600;margin-bottom:6px;}
+  .obj-item .o-num{color:var(--purple-glow);font-size:12px;}
+  .obj-item p{font-size:13.5px;color:var(--ink-1);line-height:1.6;margin:0;}
+
+  /* bio card */
+  .bio-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;background:linear-gradient(160deg,rgba(139,63,240,0.10),rgba(255,255,255,0.02));
+    margin-top:10px;
+  }
+  .bio-card .bio-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:10px;}
+  .bio-card pre{white-space:pre-wrap;font-family:var(--body);font-size:14.5px;color:var(--ink-0);line-height:1.75;margin:0;}
+
+  /* pillars grid */
+  .pillars{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.pillars{grid-template-columns:1fr 1fr;}}
+  .pillar{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--card);position:relative;overflow:hidden;}
+  .pillar::before{content:attr(data-n);position:absolute;right:14px;top:6px;font-family:var(--display);font-size:44px;color:rgba(168,85,247,0.10);font-weight:700;}
+  .pillar h4{font-family:var(--display);font-size:15px;color:var(--ink-0);margin:0 0 6px;font-weight:600;}
+  .pillar p{font-size:13.3px;color:var(--ink-1);margin:0;line-height:1.6;}
+  .pillar .fun{display:inline-block;margin-top:10px;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);}
+
+  .rules{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.rules{grid-template-columns:1fr 1fr;}}
+  .rule-do,.rule-dont{border-radius:16px;padding:18px 20px;border:1px solid var(--line);}
+  .rule-do{background:rgba(95,227,161,0.06);}
+  .rule-dont{background:rgba(255,90,90,0.05);}
+  .rule-do h4{color:var(--ok);} .rule-dont h4{color:#ff8a8a;}
+  .rule-do h4,.rule-dont h4{font-family:var(--display);font-size:14px;margin:0 0 10px;}
+  .rule-do ul,.rule-dont ul{margin:0;padding-left:18px;}
+  .rule-do li,.rule-dont li{font-size:13.3px;color:var(--ink-1);margin-bottom:6px;line-height:1.55;}
+
+  .funnel-strip{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;}
+  @media(min-width:720px){.funnel-strip{grid-template-columns:1fr 1fr 1fr;}}
+  .funnel-col{border-radius:14px;padding:16px;border:1px solid var(--line);}
+  .funnel-col.topo{background:rgba(168,85,247,0.06);}
+  .funnel-col.meio{background:rgba(168,85,247,0.10);}
+  .funnel-col.fundo{background:rgba(168,85,247,0.16);}
+  .funnel-col h5{font-family:var(--display);font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--purple-glow);margin:0 0 8px;}
+  .funnel-col p{font-size:13px;margin:0;color:var(--ink-1);line-height:1.6;}
+
+  /* ---------- CALENDAR ---------- */
+  .progress-wrap{
+    position:sticky;top:63px;z-index:40;
+    background:rgba(13,9,22,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;
+  }
+  .progress-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;}
+  .progress-track{flex:1;height:8px;border-radius:100px;background:rgba(255,255,255,0.06);overflow:hidden;}
+  .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple-700),var(--purple-glow));border-radius:100px;transition:width .5s ease;}
+  .progress-label{font-size:12px;color:var(--ink-2);white-space:nowrap;font-family:var(--display);}
+  .progress-label b{color:var(--ink-0);}
+  .badge-pill{font-size:11px;padding:5px 11px;border-radius:100px;border:1px solid var(--line);color:var(--gold);white-space:nowrap;background:rgba(232,200,116,0.06);}
+
+  .week-label{font-family:var(--display);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+  .week-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  .day-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .day-card.done{border-color:rgba(95,227,161,0.45);background:rgba(95,227,161,0.045);}
+  .day-head{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 18px;cursor:pointer;
+  }
+  .day-num{
+    font-family:var(--display);font-weight:700;font-size:15px;
+    width:42px;height:42px;border-radius:12px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,var(--purple-700),var(--purple-500));
+    color:#fff;
+  }
+  .day-card.done .day-num{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);}
+  .day-meta{flex:1;min-width:0;}
+  .day-meta .d-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:3px;}
+  .fmt-badge{font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line);color:var(--ink-2);}
+  .fmt-badge.reel{color:#ff9fd6;border-color:rgba(255,159,214,0.3);}
+  .fmt-badge.carrossel{color:#8fd0ff;border-color:rgba(143,208,255,0.3);}
+  .fmt-badge.estatico{color:var(--gold);border-color:rgba(232,200,116,0.3);}
+  .date-label{font-size:11.5px;color:var(--ink-2);}
+  .day-title{font-size:14.5px;color:var(--ink-0);font-weight:600;}
+  .chev{width:20px;height:20px;flex:none;color:var(--ink-2);transition:transform .25s;}
+  .day-card.open .chev{transform:rotate(180deg);}
+  .check-btn{
+    flex:none;width:26px;height:26px;border-radius:8px;
+    border:1.5px solid var(--line);background:transparent;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    color:transparent;transition:.2s;
+  }
+  .check-btn.checked{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);border-color:transparent;color:#0a1a12;}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .day-card.open .day-body{max-height:900px;}
+  .day-body-inner{padding:0 18px 20px;display:grid;gap:12px;}
+  .field{border-top:1px solid var(--line);padding-top:12px;}
+  .field .f-label{font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:5px;}
+  .field .f-value{font-size:13.6px;color:var(--ink-1);line-height:1.6;}
+  .field .f-value b{color:var(--ink-0);}
+  .cta-tag{display:inline-block;margin-top:4px;font-size:11.5px;color:var(--gold);border:1px solid rgba(232,200,116,0.3);padding:4px 10px;border-radius:100px;}
+
+  .goal-card{
+    margin-top:40px;border-radius:var(--radius);
+    padding:28px;background:linear-gradient(150deg,rgba(139,63,240,0.18),rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+  }
+  .goal-card .tag{margin-bottom:14px;}
+  .goal-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px;}
+  @media(min-width:720px){.goal-grid{grid-template-columns:repeat(3,1fr);}}
+  .goal-item .g-num{font-family:var(--display);font-size:28px;color:var(--ink-0);font-weight:700;}
+  .goal-item .g-lbl{font-size:12px;color:var(--ink-2);margin-top:2px;}
+
+  footer{
+    margin-top:60px;padding:70px 24px 50px;text-align:center;
+    border-top:1px solid var(--line);
+    background:radial-gradient(60% 60% at 50% 0%, rgba(139,63,240,0.14), transparent 70%);
+  }
+  footer img{height:64px;width:64px;border-radius:16px;margin-bottom:18px;}
+  footer .f-title{font-family:var(--display);font-size:15px;color:var(--ink-0);margin-bottom:6px;}
+  footer .f-link{display:inline-block;margin-top:8px;font-size:14px;color:var(--purple-glow);text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.4);padding-bottom:2px;}
+  footer .f-sub{font-size:11.5px;color:var(--ink-2);margin-top:22px;}
+
+  .reset-wrap{max-width:920px;margin:0 auto;padding:0 24px 10px;display:flex;justify-content:flex-end;}
+  .reset-btn{font-size:11.5px;color:var(--ink-2);background:none;border:1px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer;}
+  .reset-btn:hover{color:var(--ink-0);border-color:var(--purple-400);}
+
+  .save-toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--bg-2);border:1px solid var(--line);color:var(--ink-0);
+    font-size:12.5px;padding:10px 18px;border-radius:100px;opacity:0;
+    transition:.3s;pointer-events:none;z-index:100;
+  }
+  .save-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img src="data:image/webp;base64,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" alt="NexusK Ads">
+    <div class="brand-text"><b>NEXUS K</b><span>AGÊNCIA DE MARKETING</span></div>
+  </div>
+  <nav>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#posicionamento">Posicionamento</a>
+    <a href="#editorial">Linha Editorial</a>
+    <a href="#calendario">Calendário</a>
+  </nav>
+</div>
+
+<div class="hero">
+  <span class="eyebrow">Portfólio estratégico · Instagram · 2026</span>
+  <h1>Diagnóstico completo e <em>calendário de 30 dias</em> para @soullariprates</h1>
+  <p class="lead">Este documento reúne a análise do perfil, o novo posicionamento de marca de Larissa Prates e o plano editorial completo para os próximos 30 dias. Cada card do calendário é interativo: marque o que já foi produzido e acompanhe o progresso em tempo real.</p>
+  <div class="hero-meta">
+    <span class="chip">Cliente <b>Larissa Prates · Nutricionista Comportamental</b></span>
+    <span class="chip">Nicho <b>Nutrição comportamental</b></span>
+    <span class="chip">Perfil <b>@soullariprates</b></span>
+    <span class="chip">Período <b>30 dias · 2026</b></span>
+  </div>
+</div>
+
+<!-- ================= DIAGNÓSTICO ================= -->
+<section class="block" id="diagnostico">
+  <div class="kicker"><span class="num">01</span><h2>Diagnóstico brutal do perfil</h2></div>
+  <p class="section-intro">Análise sem filtro do que o perfil comunica hoje, com base no conteúdo publicado, na bio atual e no briefing enviado por Larissa.</p>
+
+  <div class="card" style="margin-bottom:16px;">
+    <span class="tag">Posicionamento atual</span>
+    <p>O perfil já reúne quase 2.900 seguidores e um mix de conteúdo genuíno: comida, rotina, viagem, corrida, momentos pessoais. O ponto de atenção real está na dispersão da mensagem, não na falta de conteúdo bom. A bio fala em "Nutrição Regenerativa, Ayurveda e Yoga", uma linguagem mais espiritual e holística, enquanto o briefing descreve o trabalho como "nutricionista comportamental", uma abordagem mais técnica e psicológica. Ao mesmo tempo, o grid revela uma camada inteira de conteúdo sobre nutrição pra quem convive com condição autoimune, um recorte de público bem específico que não aparece descrito em nenhum lugar do briefing nem da bio. São três formas diferentes de se apresentar coexistindo sem se conectar claramente.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:32px;">
+    <span class="tag">Pontos críticos de bloqueio</span>
+    <ul>
+      <li><b>Bio cortada no momento decisivo:</b> o texto para em "Sem..." logo antes do que provavelmente é a promessa central da marca, escondida atrás de um "mais" que poucas pessoas clicam.</li>
+      <li><b>Três nomes de marca em jogo:</b> o perfil é soullariprates, o link leva pra "Nutriterapia", e a marca d'água de parte dos posts mostra "Larissa Prates". Nenhum desses nomes reforça o outro com clareza.</li>
+      <li><b>Vivência com condição autoimune pouco aproveitada:</b> posts sobre alimentação pra quem tem EM ou doença autoimune, e um relato pessoal sensível sobre mudança no próprio rosto, mostram uma camada de profundidade real que não está conectada à oferta principal declarada no briefing.</li>
+      <li><b>Divergência de linguagem entre bio e briefing:</b> "Nutrição Regenerativa + Ayurveda + Yoga" comunica algo mais espiritual do que "nutricionista comportamental", o que pode atrair um público com expectativa diferente da proposta real de trabalho.</li>
+      <li><b>Destaques com nome cortado:</b> "Nutritera...", "Estrategi...", "Oq a nutr...", "Nutriveda...", "Papo d..." dificultam a navegação de quem chega agora.</li>
+    </ul>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Dores visíveis do público</span>
+      <ul>
+        <li>"Não consigo manter hábito nenhum por mais de duas semanas."</li>
+        <li>"Sigo dieta e abandono depois de um tempo."</li>
+        <li>"Não entendo por que como do jeito que como."</li>
+        <li>"Já tentei de tudo e nada resolve minha relação com a comida."</li>
+        <li>"Meu corpo mudou e não sei mais como me relacionar com ele."</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Dores ocultas do público</span>
+      <ul>
+        <li>Vergonha de "já saber tudo sobre nutrição" e mesmo assim não conseguir aplicar no dia a dia.</li>
+        <li>Medo de que a relação difícil com a comida seja permanente, sem solução real.</li>
+        <li>Sensação de fracasso a cada tentativa de dieta que não dura.</li>
+        <li>Insegurança de expor o próprio padrão alimentar sem medo de julgamento.</li>
+        <li>Ansiedade de cuidar de tudo, carreira, casa, relacionamento, menos de si mesma.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Desejos emocionais</span>
+      <ul>
+        <li>Sentir paz com o próprio corpo, sem culpa a cada refeição.</li>
+        <li>Sentir que finalmente entende a própria relação com a comida, além de só seguir regra.</li>
+        <li>Sentir-se acolhida, não julgada, durante todo o processo de mudança.</li>
+        <li>Sentir constância real, sem voltar pro mesmo ciclo de recomeço.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Desejos práticos</span>
+      <ul>
+        <li>Construir hábito alimentar sustentável, sem depender de dieta restritiva.</li>
+        <li>Entender o motivo real por trás dos próprios padrões alimentares.</li>
+        <li>Ter acompanhamento profundo, não só um cardápio genérico.</li>
+        <li>Aplicar mudança de rotina que realmente se sustente com o tempo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Objeções que seguram a decisão de contratar</span>
+  <div class="objecoes" style="margin-bottom:32px;">
+    <div class="obj-item">
+      <div class="o-head"><span>"Já fiz acompanhamento com nutricionista antes e não deu certo"</span><span class="o-num">01</span></div>
+      <p>A lógica por trás: associa qualquer novo acompanhamento ao fracasso da experiência anterior. Precisa entender a diferença entre dieta tradicional e trabalho comportamental.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Eu já sei o que é saudável, meu problema não é informação"</span><span class="o-num">02</span></div>
+      <p>A lógica por trás: acredita que já tem conhecimento suficiente, então não vê valor em mais um acompanhamento. Precisa entender que o trabalho é sobre comportamento, não sobre repetir informação.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Não tenho constância pra seguir nada, vou desperdiçar o investimento"</span><span class="o-num">03</span></div>
+      <p>A lógica por trás: teme repetir o próprio padrão de abandono de sempre. Precisa ver que o método trabalha exatamente essa falta de constância como parte do processo.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Não quero mais uma dieta restritiva na minha vida"</span><span class="o-num">04</span></div>
+      <p>A lógica por trás: carrega trauma de dieta anterior extremamente restritiva. Precisa entender que a abordagem aqui não trabalha com restrição.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Será que ela entende minha rotina corrida, não tenho tempo pra processo longo"</span><span class="o-num">05</span></div>
+      <p>A lógica por trás: duvida se o acompanhamento cabe numa rotina de mulher com carreira ativa. Precisa ver que o processo se adapta à rotina real de cada cliente.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Oportunidade de mercado</span>
+    <p>Boa parte do mercado de nutrição no Instagram ainda vende dieta pronta ou fórmula genérica de alimentação saudável. Larissa já tem formação multidisciplinar, método próprio unindo ciência, comportamento e práticas de corpo e mente, além de uma vivência pessoal real com condição autoimune, que aparece hoje de forma fragmentada no feed. Essa vivência, comunicada com o cuidado e o consentimento dela, tem potencial de gerar identificação profunda com mulheres que sentem que já tentaram de tudo, porque mostra alguém que entende na prática o que é reconstruir a relação com o próprio corpo em meio a um desafio de saúde real.</p>
+  </div>
+</section>
+
+<!-- ================= POSICIONAMENTO ================= -->
+<section class="block" id="posicionamento">
+  <div class="kicker"><span class="num">02</span><h2>Novo posicionamento de marca</h2></div>
+  <p class="section-intro">Um nome só, uma promessa clara: entender por que você come como come, sem dieta restritiva e sem julgamento.</p>
+
+  <div class="quote-block">"Entender por que você come como come muda mais do que o prato, muda a relação com você mesma."</div>
+
+  <div class="grid2" style="margin-bottom:10px;">
+    <div class="card">
+      <h3>Território de marca</h3>
+      <p>Enquanto boa parte do mercado de nutrição vende dieta e cardápio pronto, Larissa ocupa o território do comportamento alimentar: entender o motivo por trás do padrão, antes de qualquer restrição. O nome comercial passa a ser sempre <b>Lari Prates</b>, com "nutricionista comportamental" como definição central, unificando o que hoje aparece espalhado entre soullariprates, Nutriterapia e Larissa Prates.</p>
+    </div>
+    <div class="card">
+      <h3>Arquétipo de marca</h3>
+      <p>Arquétipo principal: <b>a Cuidadora</b>, presente no tom acolhedor e humano que já é marca registrada da comunicação. Traço secundário: <b>a Sábia</b>, sustentada pela formação multidisciplinar e pelo método próprio que une ciência, comportamento e prática de corpo e mente. A comunicação equilibra profundidade com acolhimento, sem soar clínica ou distante.</p>
+    </div>
+  </div>
+
+  <div class="bio-card">
+    <div class="bio-label">Nova bio estratégica</div>
+    <pre>🌿 Lari Prates · Nutricionista comportamental
+Te ajudo a entender por que você come como come
+🎯 Hábito sustentável, sem dieta restritiva
+👇 Vem fazer as pazes com a comida</pre>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Frase de posicionamento</h3>
+    <p style="font-family:var(--display);font-size:17px;color:var(--ink-0);">"Entender por que você come como come muda mais do que o prato, muda a relação com você mesma."</p>
+  </div>
+</section>
+
+<!-- ================= LINHA EDITORIAL ================= -->
+<section class="block" id="editorial">
+  <div class="kicker"><span class="num">03</span><h2>Linha editorial e comunicação</h2></div>
+  <p class="section-intro">Seis pilares sustentam o conteúdo mensal. Nenhum deles compete com o outro: eles se revezam pra cobrir identificação, autoridade, prova social e decisão ao longo do mês, incluindo a vivência pessoal quando e como Larissa se sentir confortável em compartilhar.</p>
+
+  <div class="pillars" style="margin-bottom:36px;">
+    <div class="pillar" data-n="01"><h4>Comportamento alimentar</h4><p>O núcleo da autoridade da marca: entender o motivo por trás do padrão alimentar, antes de qualquer prato.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="02"><h4>Hábito sustentável</h4><p>O diferencial central do método, sem dieta restritiva, focado em constância real.</p><span class="fun">Fundo de funil</span></div>
+    <div class="pillar" data-n="03"><h4>Vivência pessoal</h4><p>Rotina real de Larissa e, quando ela sentir-se à vontade, sua experiência com condição autoimune.</p><span class="fun">Topo de funil</span></div>
+    <div class="pillar" data-n="04"><h4>Prova social</h4><p>Relatos de transformação na relação com a comida e o corpo, sempre com contexto do processo.</p><span class="fun">Fundo de funil</span></div>
+    <div class="pillar" data-n="05"><h4>Rotina real e alimentação prática</h4><p>Receitas, comfort food e cotidiano real, sem produção excessiva.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="06"><h4>Quebra de objeção</h4><p>Desmistifica "já sei o que é saudável" e "não tenho constância", reposicionando o valor do acompanhamento.</p><span class="fun">Fundo de funil</span></div>
+  </div>
+
+  <span class="tag">Tom por formato</span>
+  <div class="grid2" style="margin:12px 0 32px;">
+    <div class="card"><h3>Reels</h3><p>Acolhedor e direto, com storytelling pessoal quando fizer sentido. Nunca em tom de julgamento.</p></div>
+    <div class="card"><h3>Carrossel</h3><p>Educativo, explicando comportamento alimentar de forma acessível. Fecha sempre com convite de salvar ou comentar.</p></div>
+    <div class="card"><h3>Estático</h3><p>Frase reflexiva ou provocadora, tom humano, sem prometer número de peso ou resultado estético.</p></div>
+    <div class="card"><h3>Stories</h3><p>Bastidor real do dia a dia, papo de nutri, enquete sobre relação com a comida.</p></div>
+  </div>
+
+  <div class="rules" style="margin-bottom:32px;">
+    <div class="rule-do">
+      <h4>Sempre fazer</h4>
+      <ul>
+        <li>Trabalhar comportamento antes de qualquer recomendação específica de alimento.</li>
+        <li>Acolher sem julgamento em qualquer conteúdo sobre relação com a comida ou o corpo.</li>
+        <li>Assinar todo conteúdo como Lari Prates, unificando a identidade hoje espalhada em três nomes.</li>
+        <li>Tratar a vivência com condição autoimune com cuidado e sempre com consentimento pessoal de Larissa antes de publicar.</li>
+      </ul>
+    </div>
+    <div class="rule-dont">
+      <h4>Nunca fazer</h4>
+      <ul>
+        <li>Prometer perda de peso ou número específico de resultado em qualquer peça de conteúdo.</li>
+        <li>Promover dieta restritiva ou fórmula genérica de "o que comer".</li>
+        <li>Expor a condição de saúde pessoal de Larissa sem ela ter validado o conteúdo antes.</li>
+        <li>Misturar linguagem espiritual e linguagem comportamental na mesma peça sem clareza de propósito.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Paleta de sentimentos por etapa de funil</span>
+  <div class="funnel-strip">
+    <div class="funnel-col topo"><h5>Topo</h5><p>Identificação, alívio de perceber que a dificuldade com a comida não é falha pessoal.</p></div>
+    <div class="funnel-col meio"><h5>Meio</h5><p>Clareza sobre o próprio comportamento alimentar, confiança no método.</p></div>
+    <div class="funnel-col fundo"><h5>Fundo</h5><p>Segurança pra investir, urgência real de romper o ciclo de tentativa e abandono.</p></div>
+  </div>
+</section>
+
+<!-- ================= CALENDÁRIO ================= -->
+<section class="block" id="calendario" style="padding-bottom:0;">
+  <div class="kicker"><span class="num">04</span><h2>Calendário de 30 dias</h2></div>
+  <p class="section-intro">3 reels · 2 carrosséis · 2 estáticos por semana. Toque em cada card pra abrir o roteiro completo, e marque o check quando publicar. Seu progresso fica salvo automaticamente.</p>
+</section>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">Progresso <b id="progress-count">0/30</b></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="badge-pill" id="badge-pill">Bronze</span>
+  </div>
+</div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" id="reset-btn">Reiniciar checklist</button>
+</div>
+
+<section class="block" style="padding-top:20px;" id="days-container"></section>
+
+<div class="block" id="meta-mensal-wrap">
+  <div class="goal-card">
+    <span class="tag">Meta mensal</span>
+    <h3 style="font-family:var(--display);color:var(--ink-0);font-size:20px;margin:0 0 8px;">Meta de crescimento pra este ciclo de 30 dias</h3>
+    <p style="font-size:13.8px;color:var(--ink-1);line-height:1.65;max-width:640px;">Com 2.825 seguidores e um feed cheio de conteúdo genuíno, a meta deste ciclo é unificar a mensagem em torno do comportamento alimentar, sem perder a profundidade pessoal que já diferencia Larissa. Publicando os 30 dias completos, o perfil passa a gerar contato qualificado de mulheres realmente alinhadas com a proposta de acompanhamento comportamental.</p>
+    <div class="goal-grid">
+      <div class="goal-item"><div class="g-num">+18%</div><div class="g-lbl">alcance médio por publicação em 30 dias</div></div>
+      <div class="goal-item"><div class="g-num">25+</div><div class="g-lbl">contatos iniciados por WhatsApp ou direct</div></div>
+      <div class="goal-item"><div class="g-num">6+</div><div class="g-lbl">novos acompanhamentos fechados dentro do perfil declarado</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="data:image/webp;base64,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" alt="NexusK Ads">
+  <div class="f-title">Produzido por NexusK Ads</div>
+  <a class="f-link" href="https://www.instagram.com/nexusk.ads/" target="_blank" rel="noopener">@nexusk.ads</a>
+  <div class="f-sub">Estratégia · Criatividade · Conexão · Resultados</div>
+</footer>
+
+<div class="save-toast" id="save-toast">Progresso salvo</div>
+
+<script>
+const CAL_DATA = [
+{"id":"d01","day":1,"week":1,"data":"10/08 · seg","formato":"Reel","pilar":"Comportamento alimentar","tema":"Por que você come do jeito que come","objetivo":"Gerar identificação imediata com a proposta central do trabalho.","gancho":"O que você come hoje tem menos a ver com fome do que você imagina.","visual":"Larissa falando direto pra câmera, tom acolhedor, texto de apoio só no gancho inicial, ambiente natural e simples.","legenda":"Boa parte das escolhas alimentares do dia a dia nasce de emoção, rotina e memória, muito antes de fome física entrar em cena. Comer por ansiedade, por cansaço, por recompensa depois de um dia difícil, tudo isso é padrão de comportamento, não falha de força de vontade. Entender esse padrão é o primeiro passo de qualquer mudança que realmente dura. Comenta aqui embaixo se você já percebeu isso acontecendo na sua rotina.","cta":"Comente sua experiência"},
+
+{"id":"d02","day":2,"week":1,"data":"11/08 · ter","formato":"Carrossel","pilar":"Hábito sustentável","tema":"Hábito sustentável não depende de força de vontade","objetivo":"Quebrar a crença central que trava a constância do público e gerar salvamento.","gancho":"Força de vontade acaba. Hábito bem construído, não.","visual":"6 slides explicando por que a motivação sozinha falha e o que realmente sustenta um hábito no longo prazo, com exemplo prático.","legenda":"Quase toda dieta que não dura foi construída em cima de força de vontade, e força de vontade é um recurso limitado que se esgota nos dias difíceis. Hábito que realmente se sustenta nasce de ambiente favorável, gatilho claro e recompensa que faz sentido pra sua rotina, não de disciplina pura. Quando você entende essa lógica, para de se cobrar por algo que nunca foi sobre caráter. Salva esse carrossel pra revisar sempre que sentir que está perdendo o ritmo.","cta":"Salve este carrossel"},
+
+{"id":"d03","day":3,"week":1,"data":"12/08 · qua","formato":"Estático","pilar":"Vivência pessoal","tema":"Eu não me abandono mais","objetivo":"Trazer profundidade pessoal e gerar conexão emocional no topo de funil.","gancho":"Eu não me abandono mais. Essa frase mudou minha relação comigo mesma.","visual":"Arte estática com foto real de Larissa, luz natural, frase em destaque, tom sereno.","legenda":"Passei anos colocando a mim mesma por último na lista de prioridades, cuidando de tudo e de todos antes de olhar pro meu próprio corpo e pra minha própria rotina. Em algum momento entendi que cuidar de mim não era luxo nem vaidade, era necessidade. Hoje tento levar isso pra dentro de cada acompanhamento que faço, porque sei o quanto é difícil recomeçar essa relação consigo mesma. Comenta aqui embaixo se essa frase também faz sentido pra você agora.","cta":"Comente se isso faz sentido pra você"},
+
+{"id":"d04","day":4,"week":1,"data":"13/08 · qui","formato":"Reel","pilar":"Prova social","tema":"Relato de transformação na relação com a comida","objetivo":"Construir confiança usando um relato real de mudança de padrão.","gancho":"Ela chegou dizendo que já tinha tentado de tudo. Veja o que mudou.","visual":"Texto de depoimento (anonimizado ou com autorização) animado na tela, fundo suave, música instrumental leve.","legenda":"Um relato recente que recebi veio de uma cliente que já tinha feito acompanhamento com outros profissionais antes e sentia que nada realmente mudava sua relação com a comida. Trabalhamos o comportamento por trás das escolhas dela, não só o prato em si, e aos poucos ela deixou de viver o ciclo de dieta e abandono que se repetia há anos. Se você também já sentiu que já tentou de tudo, comenta aqui embaixo.","cta":"Comente se você já se sentiu assim"},
+
+{"id":"d05","day":5,"week":1,"data":"14/08 · sex","formato":"Carrossel","pilar":"Comportamento alimentar","tema":"5 sinais de que sua relação com a comida é sobre emoção","objetivo":"Ajudar o público a autodiagnosticar padrão emocional de alimentação.","gancho":"5 sinais de que você come por emoção, não por fome de verdade.","visual":"6 slides, um sinal por slide (comer rápido sem perceber, buscar comida depois de dia difícil, comer mesmo satisfeita, entre outros), com explicação curta em cada um.","legenda":"Reuni aqui alguns sinais que costumam aparecer quando a comida está sendo usada pra lidar com emoção, não só pra saciar fome física. Comer rápido sem prestar atenção no que está no prato. Buscar comida específica depois de um dia estressante. Continuar comendo mesmo já estando satisfeita. Sentir culpa logo depois de comer algo que gostava. Nenhum desses sinais é motivo pra vergonha, é só informação sobre o próprio padrão. Salva esse carrossel e observa quantos sinais você reconhece na sua rotina.","cta":"Salve este carrossel"},
+
+{"id":"d06","day":6,"week":1,"data":"15/08 · sab","formato":"Estático","pilar":"Rotina real e alimentação prática","tema":"Comfort food com propósito","objetivo":"Mostrar alimentação prática sem restrição, reforçando a proposta não restritiva.","gancho":"Comfort food também pode fazer parte de uma relação saudável com a comida.","visual":"Foto real de um prato de comfort food bem servido, tipografia leve sobreposta, tom caseiro e acolhedor.","legenda":"Comida de conforto não é inimiga de uma alimentação equilibrada, ela faz parte da vida real de qualquer pessoa. O problema nunca foi comer algo que aconchega, foi transformar isso na única ferramenta disponível pra lidar com qualquer emoção difícil. Equilíbrio de verdade tem espaço pra prato nutritivo e pra prato de conforto, sem culpa em nenhum dos dois. Comenta aqui embaixo qual é o seu comfort food favorito.","cta":"Comente seu comfort food favorito"},
+
+{"id":"d07","day":7,"week":1,"data":"16/08 · dom","formato":"Reel","pilar":"Hábito sustentável","tema":"Dieta restritiva constrói ciclo de abandono","objetivo":"Reforçar o diferencial central do método com argumento direto.","gancho":"Dieta muito restritiva não constrói hábito, constrói ciclo de abandono.","visual":"Larissa explicando com exemplo prático de como a restrição extrema leva à compensação, tom firme e acolhedor.","legenda":"Quanto mais restritiva a dieta, maior a chance de um momento de compensação vir logo depois, seguido de culpa e da sensação de ter falhado outra vez. Esse ciclo se repete porque o corpo e a mente reagem à privação extrema, não porque a pessoa não tem força de vontade suficiente. Trabalhar hábito sustentável significa construir uma relação com a comida que não depende de restrição pesada pra funcionar. Comenta aqui embaixo se você já viveu esse ciclo de dieta e abandono.","cta":"Comente sua experiência com esse ciclo"},
+
+{"id":"d08","day":8,"week":2,"data":"17/08 · seg","formato":"Reel","pilar":"Quebra de objeção","tema":"Já sei o que é saudável, meu problema não é informação","objetivo":"Responder diretamente uma objeção comum de forma direta e acolhedora.","gancho":"Você provavelmente já sabe o que é saudável. O problema nunca foi esse.","visual":"Larissa falando direto pra câmera, tom compreensivo, sem julgamento, texto de apoio no gancho.","legenda":"A maioria das mulheres que chega até mim já sabe, na teoria, o que é uma alimentação equilibrada. O que falta quase sempre tem a ver com entender por que o comportamento não muda mesmo sabendo o que seria ideal fazer, muito mais do que com informação nova. É exatamente nesse ponto que o acompanhamento comportamental atua, trabalhando o padrão por trás da escolha, não empilhando mais regra em cima de regra. Comenta aqui embaixo se você sente que já sabe o que fazer, mas não consegue aplicar no dia a dia.","cta":"Comente sua experiência"},
+
+{"id":"d09","day":9,"week":2,"data":"18/08 · ter","formato":"Carrossel","pilar":"Comportamento alimentar","tema":"O que a fome emocional está tentando te dizer","objetivo":"Educar sobre fome emocional de forma acolhedora e sem julgamento.","gancho":"Fome emocional é uma mensagem que merece atenção, muito mais do que fraqueza.","visual":"6 slides explicando o conceito de fome emocional, como identificar e o que fazer com essa informação, sem tom de repressão.","legenda":"Fome emocional geralmente aparece de repente, pede um alimento específico e não passa depois de comer, diferente da fome física que cresce aos poucos e aceita qualquer opção de comida. Em vez de reprimir esse tipo de fome, vale a pena escutar o que ela está tentando comunicar, geralmente uma emoção que precisa de atenção antes mesmo da comida entrar em cena. Esse é um dos primeiros passos do trabalho comportamental que faço com cada cliente. Salva esse carrossel pra revisar da próxima vez que sentir essa fome de repente.","cta":"Salve este carrossel"},
+
+{"id":"d10","day":10,"week":2,"data":"19/08 · qua","formato":"Estático","pilar":"Prova social","tema":"Relato curto de cliente","objetivo":"Reforçar credibilidade com prova social breve e direta.","gancho":"\"Pela primeira vez, comer deixou de ser um campo de batalha.\"","visual":"Arte estática simples, aspas grandes em destaque, fundo suave, sem foto.","legenda":"Frases como essa confirmam exatamente o que sustenta o trabalho que faço: transformar a relação com a comida de campo de batalha pra algo mais leve e sustentável. Guardo cada relato assim porque eles mostram um resultado que vai muito além do peso na balança. Se você já passou por acompanhamento comigo e quer compartilhar sua experiência, comenta aqui embaixo.","cta":"Compartilhe sua experiência"},
+
+{"id":"d11","day":11,"week":2,"data":"20/08 · qui","formato":"Reel","pilar":"Vivência pessoal","tema":"Viver uma condição de saúde e cuidar da nutrição de outras pessoas","objetivo":"Trazer profundidade pessoal com cuidado, apenas se Larissa validar o conteúdo antes de publicar.","gancho":"Viver com uma condição autoimune mudou completamente minha relação com o próprio corpo.","visual":"Larissa falando com tom sereno e vulnerável, sem produção pesada, contando brevemente como essa vivência influenciou seu trabalho.","legenda":"Conviver com uma condição autoimune me ensinou, na prática, o que é reconstruir a relação com o próprio corpo em meio a mudanças que a gente não escolhe. Isso mudou completamente o jeito como acompanho cada cliente, porque entendo de perto que transformação real leva tempo e exige acolhimento, não pressa nem cobrança. Comenta aqui embaixo se você também já passou por alguma mudança de saúde que reorganizou sua relação com o corpo.","cta":"Comente sua experiência"},
+
+{"id":"d12","day":12,"week":2,"data":"21/08 · sex","formato":"Carrossel","pilar":"Hábito sustentável","tema":"Passo a passo pra construir hábito que realmente dura","objetivo":"Entregar um processo prático e gerar salvamento.","gancho":"O passo a passo que uso pra construir hábito alimentar que realmente dura.","visual":"7 slides detalhando etapas práticas (identificar gatilho, começar pequeno, ajustar ambiente, acompanhar sem cobrança, celebrar constância), com exemplo em cada slide.","legenda":"Construir hábito sustentável começa identificando o gatilho que leva ao comportamento atual, não tentando mudar tudo de uma vez. A partir daí, o ajuste é gradual: começar pequeno, adaptar o ambiente pra facilitar a escolha desejada e acompanhar o processo sem cobrança excessiva quando um dia foge do combinado. Constância se constrói assim, aos poucos, não com força bruta de vontade. Salva esse carrossel pra aplicar no seu próprio processo.","cta":"Salve este carrossel"},
+
+{"id":"d13","day":13,"week":2,"data":"22/08 · sab","formato":"Estático","pilar":"Rotina real e alimentação prática","tema":"Foto real de uma refeição do dia a dia","objetivo":"Mostrar alimentação real e acessível, sem produção excessiva.","gancho":"Isso foi meu almoço hoje. Simples, real, sem produção.","visual":"Foto real e despretensiosa de uma refeição do dia a dia, sem edição pesada, legenda curta.","legenda":"Não preciso de prato perfeitamente montado pra comer bem. Minha rotina real tem refeição simples, feita com o que tinha em casa, e isso também é alimentação equilibrada. Prefiro mostrar esse tipo de imagem do que alimentar a ideia de que comer bem exige produção ou ingrediente difícil de achar. Comenta aqui embaixo qual foi sua refeição favorita da semana.","cta":"Comente sua refeição favorita da semana"},
+
+{"id":"d14","day":14,"week":2,"data":"23/08 · dom","formato":"Reel","pilar":"Comportamento alimentar","tema":"O corpo muda, a relação com ele também precisa mudar","objetivo":"Conectar mudança corporal com necessidade de ajuste emocional, sem foco estético.","gancho":"Seu corpo muda ao longo da vida. Sua relação com ele também precisa acompanhar essa mudança.","visual":"Larissa falando com tom reflexivo sobre mudanças naturais do corpo ao longo do tempo, sem foco em estética ou peso.","legenda":"O corpo muda com gravidez, com idade, com fase de vida, com condição de saúde, e tentar manter a mesma relação de anos atrás só gera frustração. Em vez de lutar contra essa mudança, o trabalho que proponho é aprender a se relacionar com o corpo que existe agora, não com uma versão antiga ou idealizada dele. Comenta aqui embaixo se você já sentiu dificuldade de aceitar uma mudança do seu próprio corpo.","cta":"Comente sua experiência"},
+
+{"id":"d15","day":15,"week":3,"data":"24/08 · seg","formato":"Reel","pilar":"Quebra de objeção","tema":"Não tenho constância, vou desperdiçar o investimento","objetivo":"Desconstruir o medo de falta de constância como barreira de decisão.","gancho":"Falta de constância é exatamente o que vamos trabalhar juntas, não motivo pra não começar.","visual":"Larissa explicando de forma acolhedora que a falta de constância faz parte do que o acompanhamento resolve, não um pré-requisito pra começar.","legenda":"Um medo comum de quem pensa em começar um acompanhamento é acreditar que vai desperdiçar o investimento por não conseguir manter a constância. Só que a falta de constância é exatamente o padrão que o trabalho comportamental existe pra entender e transformar, não um obstáculo pra começar. Ninguém chega até mim já constante, isso se constrói junto, com processo e acompanhamento real. Comenta aqui embaixo se esse medo já te impediu de buscar ajuda antes.","cta":"Comente seu receio"},
+
+{"id":"d16","day":16,"week":3,"data":"25/08 · ter","formato":"Carrossel","pilar":"Vivência pessoal","tema":"Nutrição pra quem convive com condição autoimune","objetivo":"Trazer conteúdo educativo dessa especialidade específica, com linguagem cuidadosa e sem alarmismo.","gancho":"O que aprendi sobre alimentação convivendo com uma condição autoimune.","visual":"6 slides com informações gerais e cuidadosas sobre alimentação e condição autoimune, sempre reforçando que cada caso deve ser avaliado individualmente.","legenda":"Conviver com uma condição autoimune me aproximou de um jeito diferente de olhar pra alimentação, entendendo que cada corpo responde de um jeito ao que come, especialmente em quadros de saúde específicos. Reuni aqui algumas reflexões gerais sobre esse tema, sempre reforçando que qualquer ajuste alimentar nesse contexto precisa ser individual, acompanhado de perto. Se você convive com alguma condição autoimune e sente falta de um olhar assim, comenta aqui embaixo.","cta":"Comente se esse tema é do seu interesse"},
+
+{"id":"d17","day":17,"week":3,"data":"26/08 · qua","formato":"Estático","pilar":"Comportamento alimentar","tema":"Frase provocadora sobre culpa alimentar","objetivo":"Provocar reflexão de fundo de funil com frase de impacto.","gancho":"Comer não devia pedir desculpa.","visual":"Arte estática com tipografia forte, fundo neutro, frase centralizada.","legenda":"Culpa depois de comer virou tão comum que quase ninguém questiona mais de onde ela vem. Boa parte dessa culpa nasce de anos de dieta restritiva e de regra alimentar que nunca fez sentido pro corpo real de cada pessoa. Comer não devia ser motivo de pedido de desculpa, devia ser parte tranquila da vida. Comenta aqui embaixo se você já sentiu culpa depois de uma refeição que na verdade era só uma refeição normal.","cta":"Comente sua reflexão"},
+
+{"id":"d18","day":18,"week":3,"data":"27/08 · qui","formato":"Reel","pilar":"Prova social","tema":"Relato de rotina que finalmente ficou sustentável","objetivo":"Reforçar prova social com foco em constância, não em número de peso.","gancho":"Ela não mudou o corpo da noite pro dia. Mudou a relação com a rotina, e isso durou.","visual":"Texto de depoimento (anonimizado ou com autorização) animado na tela, fundo suave, tom acolhedor.","legenda":"Um dos relatos que mais gosto de compartilhar veio de uma cliente que não buscava mudança rápida, buscava parar de viver o ciclo de recomeçar toda segunda-feira. Depois de alguns meses de acompanhamento, o que mudou de verdade foi a relação dela com a própria rotina alimentar, não só um número em algum lugar. Esse tipo de mudança costuma durar muito mais tempo. Comenta aqui embaixo se constância é o que você mais busca agora.","cta":"Comente o que você mais busca agora"},
+
+{"id":"d19","day":19,"week":3,"data":"28/08 · sex","formato":"Carrossel","pilar":"Hábito sustentável","tema":"Mitos sobre dieta que sabotam sua constância","objetivo":"Desconstruir crenças populares que atrapalham a construção de hábito real.","gancho":"5 mitos sobre dieta que sabotam sua constância sem você perceber.","visual":"6 slides, um mito por slide (é preciso cortar tudo de uma vez, comer fora do horário é errado, entre outros), com explicação curta desconstruindo cada um.","legenda":"Muito mito popular sobre dieta acaba sabotando exatamente a constância que a pessoa está tentando construir. Cortar tudo de uma vez raramente dura, comer fora de um horário rígido não é falha, e existir dia menos equilibrado não anula todo o progresso anterior. Reuni aqui alguns desses mitos que ouço com frequência. Salva esse carrossel e compartilha com alguém que também acredita nessas regras.","cta":"Salve e compartilhe"},
+
+{"id":"d20","day":20,"week":3,"data":"29/08 · sab","formato":"Estático","pilar":"Rotina real e alimentação prática","tema":"3 temperos que fazem diferença na cozinha do dia a dia","objetivo":"Entregar conteúdo prático de valor imediato e gerar salvamento.","gancho":"3 temperos que mudam qualquer prato simples do dia a dia.","visual":"Arte estática com foto dos temperos, tipografia clara, tom prático e caseiro.","legenda":"Nem sempre alimentação equilibrada precisa de ingrediente caro ou difícil de achar. Alguns temperos simples já fazem diferença real no sabor de uma refeição do dia a dia, tornando mais fácil manter uma rotina alimentar prazerosa, não só funcional. Salva essa arte pra ter à mão na próxima ida ao mercado.","cta":"Salve esta dica"},
+
+{"id":"d21","day":21,"week":3,"data":"30/08 · dom","formato":"Reel","pilar":"Vivência pessoal","tema":"Um dia comigo","objetivo":"Mostrar bastidor real e humano da rotina de Larissa.","gancho":"Um dia real na minha rotina, sem filtro.","visual":"Vídeo estilo mini vlog mostrando manhã, trabalho, refeição, momento de descanso, tom despretensioso.","legenda":"Nem todo dia meu tem produção grande ou novidade especial pra mostrar, e talvez seja isso que torna a rotina real mais fácil de se identificar. Um café da manhã simples, horas de trabalho, uma pausa pra respirar e cuidar de mim no meio da correria. Comenta aqui embaixo como está sendo sua rotina essa semana.","cta":"Comente sua rotina da semana"},
+
+{"id":"d22","day":22,"week":4,"data":"31/08 · seg","formato":"Reel","pilar":"Comportamento alimentar","tema":"O prato não é o problema, o padrão é","objetivo":"Reforçar a mensagem central da marca com clareza direta.","gancho":"Trocar o prato não resolve nada se o padrão por trás dele continuar igual.","visual":"Larissa explicando com exemplo prático de como trocar alimento sem entender o padrão não gera mudança real, tom direto e acolhedor.","legenda":"É comum achar que trocar um alimento por outro mais saudável já resolve o problema, mas se o padrão de comportamento por trás continuar igual, o resultado tende a se repetir. Comer por ansiedade com salada no lugar de doce ainda é comer por ansiedade. O trabalho de verdade está em entender o padrão, não só substituir o prato. Comenta aqui embaixo se você já tentou trocar alimento sem mudar o comportamento por trás.","cta":"Comente sua experiência"},
+
+{"id":"d23","day":23,"week":4,"data":"01/09 · ter","formato":"Carrossel","pilar":"Quebra de objeção","tema":"5 mitos sobre acompanhamento nutricional comportamental","objetivo":"Desconstruir crenças que atrasam a decisão de buscar acompanhamento.","gancho":"5 mitos sobre acompanhamento comportamental que talvez estejam te impedindo de começar.","visual":"6 slides, um mito por slide (é só pra quem tem transtorno alimentar grave, demora anos pra ver resultado, entre outros), com resposta curta desconstruindo cada um.","legenda":"Acompanhamento comportamental carrega bastante mito que afasta justamente quem mais se beneficiaria dele. Não é exclusivo pra quadro grave de transtorno alimentar, serve pra quem só quer entender melhor a própria relação com a comida. E os primeiros resultados costumam aparecer bem antes do que a maioria imagina, porque o trabalho começa desde a primeira conversa. Salva esse carrossel e compartilha com quem também tem essas dúvidas.","cta":"Salve e compartilhe"},
+
+{"id":"d24","day":24,"week":4,"data":"02/09 · qua","formato":"Estático","pilar":"Hábito sustentável","tema":"Frase de impacto sobre constância","objetivo":"Reforçar a filosofia central do método em formato salvável.","gancho":"Constância não é sobre nunca errar. É sobre voltar sem se punir.","visual":"Arte estática com tipografia forte, fundo neutro, frase em destaque.","legenda":"A ideia de constância perfeita, sem nenhum deslize, é uma das coisas que mais sabota quem está tentando construir hábito novo. Constância de verdade admite dia fora da rotina, sem transformar isso em motivo pra desistir de tudo. O que sustenta o processo é voltar sem se punir, não nunca sair do lugar. Salva essa frase pra lembrar disso na próxima vez que sentir que errou tudo de novo.","cta":"Salve esta reflexão"},
+
+{"id":"d25","day":25,"week":4,"data":"03/09 · qui","formato":"Reel","pilar":"Prova social","tema":"Relatos reunidos sobre o acompanhamento","objetivo":"Consolidar múltiplos relatos curtos pra reforçar credibilidade.","gancho":"Reunimos relatos reais de quem já passou pelo acompanhamento comigo.","visual":"Vídeo com trechos de depoimentos (anonimizados ou com autorização) em texto animado na tela, fundo suave, música instrumental.","legenda":"Cada relato que recebo confirma o mesmo padrão: a dificuldade quase nunca era sobre falta de informação, era sobre não conseguir aplicar o que já sabiam por causa de um comportamento alimentar não resolvido. Reuni aqui alguns relatos recentes de clientes em fases diferentes da própria relação com a comida. Se você já passou pelo acompanhamento e quer compartilhar sua experiência, comenta aqui embaixo.","cta":"Comente sua experiência"},
+
+{"id":"d26","day":26,"week":4,"data":"04/09 · sex","formato":"Carrossel","pilar":"Comportamento alimentar","tema":"Como identificar se você come por fome ou por emoção","objetivo":"Entregar uma ferramenta prática de autoconhecimento.","gancho":"3 perguntas rápidas pra saber se é fome de verdade ou fome emocional.","visual":"5 slides com perguntas práticas (a fome cresceu aos poucos ou veio de repente, você aceitaria qualquer alimento agora, o que você sentia antes de sentir fome), com explicação em cada slide.","legenda":"Antes de comer por impulso, três perguntas simples já ajudam a entender melhor o que está acontecendo. A fome cresceu aos poucos ou apareceu de repente? Você aceitaria qualquer alimento nesse momento ou só um específico? O que você estava sentindo minutos antes dessa vontade aparecer? Essas perguntas não existem pra reprimir o desejo de comer, existem pra te dar mais clareza sobre o próprio padrão. Salva esse carrossel pra consultar sempre que precisar.","cta":"Salve este carrossel"},
+
+{"id":"d27","day":27,"week":4,"data":"05/09 · sab","formato":"Estático","pilar":"Vivência pessoal","tema":"Reflexão pessoal breve sobre autocuidado","objetivo":"Reforçar conexão humana com reflexão pessoal simples.","gancho":"Cuidar de mim deixou de ser a última tarefa da minha lista.","visual":"Arte estática com foto pessoal simples, frase em destaque, tom sereno.","legenda":"Levei um tempo pra entender que colocar meu próprio cuidado no fim da lista, depois de resolver tudo pros outros, não era sinal de dedicação, era um padrão que precisava mudar. Hoje tento lembrar disso todos os dias, e sei que boa parte de quem me acompanha vive exatamente esse mesmo desafio. Comenta aqui embaixo se cuidar de si mesma também costuma ficar por último na sua lista.","cta":"Comente sua experiência"},
+
+{"id":"d28","day":28,"week":4,"data":"06/09 · dom","formato":"Reel","pilar":"Quebra de objeção","tema":"Perguntas rápidas sobre o acompanhamento","objetivo":"Reduzir barreira final de contato respondendo dúvidas práticas.","gancho":"As perguntas que mais recebo sobre o acompanhamento, respondidas rapidinho.","visual":"Vídeo em ritmo ágil, cada pergunta aparecendo na tela seguida de resposta curta (como funciona a primeira conversa, é online ou presencial, quanto tempo dura o processo).","legenda":"Separei aqui as dúvidas que mais chegam até mim antes de começar um acompanhamento: como funciona a primeira conversa, se o processo é online ou presencial, e quanto tempo costuma durar até sentir mudança real na rotina. Preferi responder direto aqui pra facilitar antes de você me chamar no WhatsApp. Se ainda ficou alguma dúvida, comenta aqui embaixo que eu respondo pessoalmente.","cta":"Comente sua dúvida"},
+
+{"id":"d29","day":29,"week":5,"data":"07/09 · seg","formato":"Reel","pilar":"Hábito sustentável","tema":"Recapitulando o mês sobre comportamento alimentar","objetivo":"Consolidar a mensagem do mês e converter interesse acumulado em contato direto.","gancho":"Recapitulando tudo que já mostrei esse mês sobre comportamento alimentar.","visual":"Vídeo de recapitulação rápida dos principais temas do mês, ritmo acolhedor, fechando com CTA de WhatsApp.","legenda":"Esse mês passei por vários pontos que sustentam meu trabalho: entender o comportamento por trás da fome, construir hábito sem depender de força de vontade, romper o ciclo de dieta restritiva e abandono, e também um pouco da minha própria vivência pessoal. Se em algum momento desse mês você se identificou com algum desses conteúdos, esse é o momento de dar o próximo passo. Manda mensagem no WhatsApp e vamos conversar sobre o seu momento agora.","cta":"Manda mensagem no WhatsApp"},
+
+{"id":"d30","day":30,"week":5,"data":"08/09 · ter","formato":"Carrossel","pilar":"Fechamento","tema":"Tudo que você precisa saber sobre o acompanhamento com a Lari","objetivo":"Fechar o ciclo de 30 dias com recapitulação completa e CTA forte.","gancho":"Isso é tudo que você precisa saber antes de começar seu acompanhamento comigo.","visual":"8 slides organizados por tema (o que é o trabalho comportamental, como funciona o processo, o que não é feito aqui, como começar), fechando com CTA grande de WhatsApp.","legenda":"Fechando esse mês de conteúdo, quis reunir num só lugar tudo que você precisa saber antes de decidir começar um acompanhamento comigo. Trabalho comportamento antes de qualquer restrição, sem prometer número de peso e sem fórmula genérica de dieta. O processo é construído junto, respeitando sua rotina real e o tempo que sua relação com a comida precisa pra mudar de verdade. Se depois desse mês você sentiu que chegou a hora de fazer as pazes com a comida, manda mensagem. Eu leio e respondo pessoalmente.","cta":"Manda mensagem e comece seu acompanhamento"}
+]
+;
+
+const container = document.getElementById('days-container');
+const progressFill = document.getElementById('progress-fill');
+const progressCount = document.getElementById('progress-count');
+const badgePill = document.getElementById('badge-pill');
+const toast = document.getElementById('save-toast');
+
+let state = {};
+
+function showToast(){
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>toast.classList.remove('show'), 1400);
+}
+
+function fmtClass(fmt){
+  if(fmt==='Reel') return 'reel';
+  if(fmt==='Carrossel') return 'carrossel';
+  return 'estatico';
+}
+
+function render(){
+  container.innerHTML = '';
+  let currentWeek = null;
+  CAL_DATA.forEach((d, idx)=>{
+    if(d.week !== currentWeek){
+      currentWeek = d.week;
+      const wl = document.createElement('div');
+      wl.className='week-label';
+      wl.textContent = 'Semana ' + d.week;
+      container.appendChild(wl);
+    }
+    const done = !!state[d.id];
+    const card = document.createElement('div');
+    card.className = 'day-card' + (done?' done':'');
+    card.id = 'card-'+d.id;
+    card.innerHTML = `
+      <div class="day-head" data-toggle="${d.id}">
+        <div class="day-num">D${d.day}</div>
+        <div class="day-meta">
+          <div class="d-top">
+            <span class="fmt-badge ${fmtClass(d.formato)}">${d.formato}</span>
+            <span class="date-label">${d.data}</span>
+          </div>
+          <div class="day-title">${d.tema}</div>
+        </div>
+        <button class="check-btn ${done?'checked':''}" data-check="${d.id}" aria-label="Marcar como feito">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="day-body">
+        <div class="day-body-inner">
+          <div class="field"><div class="f-label">Pilar · Objetivo estratégico</div><div class="f-value"><b>${d.pilar}</b> · ${d.objetivo}</div></div>
+          <div class="field"><div class="f-label">${d.formato==='Carrossel' ? 'Título do carrossel' : 'Gancho na tela'}</div><div class="f-value">${d.gancho}</div></div>
+          <div class="field"><div class="f-label">Sugestão visual</div><div class="f-value">${d.visual}</div></div>
+          <div class="field"><div class="f-label">Legenda</div><div class="f-value">${d.legenda}</div></div>
+          <div class="field"><div class="f-label">CTA</div><div class="f-value"><span class="cta-tag">${d.cta}</span></div></div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-check]')) return;
+      const card = document.getElementById('card-'+el.dataset.toggle);
+      card.classList.toggle('open');
+    });
+  });
+  container.querySelectorAll('[data-check]').forEach(el=>{
+    el.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const id = el.dataset.check;
+      state[id] = !state[id];
+      el.classList.toggle('checked', state[id]);
+      document.getElementById('card-'+id).classList.toggle('done', state[id]);
+      await persist(id, state[id]);
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = CAL_DATA.length;
+  const doneCount = Object.values(state).filter(Boolean).length;
+  const pct = Math.round((doneCount/total)*100);
+  progressFill.style.width = pct + '%';
+  progressCount.innerHTML = doneCount + '/' + total;
+  let badge = 'Bronze';
+  if(pct >= 90) badge = 'Ouro';
+  else if(pct >= 50) badge = 'Prata';
+  badgePill.textContent = badge;
+}
+
+async function persist(id, value){
+  try{
+    if(window.storage && window.storage.set){
+      await window.storage.set('day-'+id, JSON.stringify(value), false);
+      showToast();
+    }
+  }catch(err){
+    console.error('Erro ao salvar progresso', err);
+  }
+}
+
+async function loadState(){
+  state = {};
+  try{
+    if(window.storage && window.storage.list){
+      const listRes = await window.storage.list('day-', false);
+      const keys = (listRes && listRes.keys) ? listRes.keys : [];
+      for(const k of keys){
+        try{
+          const res = await window.storage.get(k, false);
+          if(res && res.value !== undefined){
+            const id = k.replace('day-','');
+            state[id] = JSON.parse(res.value);
+          }
+        }catch(e){}
+      }
+    }
+  }catch(err){
+    console.error('Erro ao carregar progresso', err);
+  }
+  render();
+}
+
+document.getElementById('reset-btn').addEventListener('click', async ()=>{
+  if(!confirm('Reiniciar todo o checklist do calendário?')) return;
+  try{
+    if(window.storage && window.storage.delete){
+      for(const d of CAL_DATA){
+        try{ await window.storage.delete('day-'+d.id, false); }catch(e){}
+      }
+    }
+  }catch(e){}
+  state = {};
+  render();
+});
+
+loadState();
+</script>
+
+</body>
+</html>
