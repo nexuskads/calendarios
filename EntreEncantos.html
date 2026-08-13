@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Estratégico & Calendário · @entreencantos__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#07050c;
+    --bg-1:#0d0916;
+    --bg-2:#140f21;
+    --purple-900:#2b0f52;
+    --purple-700:#5b1fb8;
+    --purple-500:#8b3ff0;
+    --purple-400:#a855f7;
+    --purple-glow:#c084fc;
+    --ink-0:#f4f1fb;
+    --ink-1:#c9c2dc;
+    --ink-2:#8f88a8;
+    --line:rgba(168,85,247,0.18);
+    --card:rgba(255,255,255,0.03);
+    --gold:#e8c874;
+    --ok:#5fe3a1;
+    --radius:18px;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(60% 50% at 12% 0%, rgba(139,63,240,0.20), transparent 60%),
+      radial-gradient(50% 40% at 100% 10%, rgba(168,85,247,0.12), transparent 60%),
+      var(--bg-0);
+    color:var(--ink-1);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--purple-500);color:#fff;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(7,5,12,0.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:34px;border-radius:9px;display:block;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.05;}
+  .brand-text b{font-family:var(--display);font-size:13px;letter-spacing:0.04em;color:var(--ink-0);}
+  .brand-text span{font-size:10px;color:var(--ink-2);letter-spacing:0.06em;}
+  nav{display:none;gap:22px;font-size:13px;}
+  nav a{color:var(--ink-2);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:.2s;}
+  nav a:hover{color:var(--ink-0);border-color:var(--purple-400);}
+  @media(min-width:860px){nav{display:flex;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:920px;margin:0 auto;padding:64px 24px 40px;text-align:left;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--purple-glow);
+    border:1px solid var(--line);
+    padding:6px 12px;border-radius:100px;
+    background:rgba(139,63,240,0.08);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple-glow);box-shadow:0 0 10px var(--purple-glow);}
+  h1{
+    font-family:var(--display);
+    font-size:clamp(30px,6vw,52px);
+    line-height:1.05;
+    color:var(--ink-0);
+    margin:0 0 18px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  h1 em{font-style:normal;color:transparent;background:linear-gradient(100deg,var(--purple-glow),var(--purple-400) 60%);-webkit-background-clip:text;background-clip:text;}
+  .hero p.lead{font-size:16px;color:var(--ink-1);max-width:640px;line-height:1.65;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .chip{font-size:12px;color:var(--ink-2);border:1px solid var(--line);padding:7px 13px;border-radius:100px;background:var(--card);}
+  .chip b{color:var(--ink-0);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{max-width:920px;margin:0 auto;padding:70px 24px;border-top:1px solid var(--line);}
+  .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .kicker .num{font-family:var(--display);font-size:13px;color:var(--purple-glow);border:1px solid var(--line);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;}
+  .kicker h2{font-family:var(--display);font-size:clamp(22px,4vw,32px);color:var(--ink-0);margin:0;font-weight:600;}
+  .section-intro{color:var(--ink-2);font-size:14.5px;line-height:1.7;max-width:680px;margin-bottom:34px;}
+
+  .grid2{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:720px){.grid2{grid-template-columns:1fr 1fr;}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .card h3{font-family:var(--display);font-size:16px;color:var(--ink-0);margin:0 0 10px;font-weight:600;}
+  .card p{margin:0;font-size:13.8px;line-height:1.65;color:var(--ink-1);}
+  .card ul{margin:8px 0 0;padding-left:18px;}
+  .card li{font-size:13.8px;line-height:1.7;color:var(--ink-1);margin-bottom:4px;}
+
+  .tag{display:inline-block;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);background:rgba(139,63,240,0.1);border:1px solid var(--line);padding:4px 10px;border-radius:100px;margin-bottom:12px;}
+
+  .quote-block{border-left:2px solid var(--purple-500);padding:4px 0 4px 20px;margin:28px 0;font-family:var(--display);font-size:19px;color:var(--ink-0);line-height:1.5;font-weight:500;}
+
+  .objecoes{display:flex;flex-direction:column;gap:10px;}
+  .obj-item{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card);}
+  .obj-item .o-head{display:flex;justify-content:space-between;gap:12px;font-family:var(--display);color:var(--ink-0);font-size:14.5px;font-weight:600;margin-bottom:6px;}
+  .obj-item .o-num{color:var(--purple-glow);font-size:12px;}
+  .obj-item p{font-size:13.5px;color:var(--ink-1);line-height:1.6;margin:0;}
+
+  /* bio card */
+  .bio-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;background:linear-gradient(160deg,rgba(139,63,240,0.10),rgba(255,255,255,0.02));
+    margin-top:10px;
+  }
+  .bio-card .bio-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:10px;}
+  .bio-card pre{white-space:pre-wrap;font-family:var(--body);font-size:14.5px;color:var(--ink-0);line-height:1.75;margin:0;}
+
+  /* pillars grid */
+  .pillars{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.pillars{grid-template-columns:1fr 1fr;}}
+  .pillar{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--card);position:relative;overflow:hidden;}
+  .pillar::before{content:attr(data-n);position:absolute;right:14px;top:6px;font-family:var(--display);font-size:44px;color:rgba(168,85,247,0.10);font-weight:700;}
+  .pillar h4{font-family:var(--display);font-size:15px;color:var(--ink-0);margin:0 0 6px;font-weight:600;}
+  .pillar p{font-size:13.3px;color:var(--ink-1);margin:0;line-height:1.6;}
+  .pillar .fun{display:inline-block;margin-top:10px;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);}
+
+  .rules{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.rules{grid-template-columns:1fr 1fr;}}
+  .rule-do,.rule-dont{border-radius:16px;padding:18px 20px;border:1px solid var(--line);}
+  .rule-do{background:rgba(95,227,161,0.06);}
+  .rule-dont{background:rgba(255,90,90,0.05);}
+  .rule-do h4{color:var(--ok);} .rule-dont h4{color:#ff8a8a;}
+  .rule-do h4,.rule-dont h4{font-family:var(--display);font-size:14px;margin:0 0 10px;}
+  .rule-do ul,.rule-dont ul{margin:0;padding-left:18px;}
+  .rule-do li,.rule-dont li{font-size:13.3px;color:var(--ink-1);margin-bottom:6px;line-height:1.55;}
+
+  .funnel-strip{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;}
+  @media(min-width:720px){.funnel-strip{grid-template-columns:1fr 1fr 1fr;}}
+  .funnel-col{border-radius:14px;padding:16px;border:1px solid var(--line);}
+  .funnel-col.topo{background:rgba(168,85,247,0.06);}
+  .funnel-col.meio{background:rgba(168,85,247,0.10);}
+  .funnel-col.fundo{background:rgba(168,85,247,0.16);}
+  .funnel-col h5{font-family:var(--display);font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--purple-glow);margin:0 0 8px;}
+  .funnel-col p{font-size:13px;margin:0;color:var(--ink-1);line-height:1.6;}
+
+  /* ---------- CALENDAR ---------- */
+  .progress-wrap{
+    position:sticky;top:63px;z-index:40;
+    background:rgba(13,9,22,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;
+  }
+  .progress-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;}
+  .progress-track{flex:1;height:8px;border-radius:100px;background:rgba(255,255,255,0.06);overflow:hidden;}
+  .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple-700),var(--purple-glow));border-radius:100px;transition:width .5s ease;}
+  .progress-label{font-size:12px;color:var(--ink-2);white-space:nowrap;font-family:var(--display);}
+  .progress-label b{color:var(--ink-0);}
+  .badge-pill{font-size:11px;padding:5px 11px;border-radius:100px;border:1px solid var(--line);color:var(--gold);white-space:nowrap;background:rgba(232,200,116,0.06);}
+
+  .week-label{font-family:var(--display);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+  .week-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  .day-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .day-card.done{border-color:rgba(95,227,161,0.45);background:rgba(95,227,161,0.045);}
+  .day-head{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 18px;cursor:pointer;
+  }
+  .day-num{
+    font-family:var(--display);font-weight:700;font-size:15px;
+    width:42px;height:42px;border-radius:12px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,var(--purple-700),var(--purple-500));
+    color:#fff;
+  }
+  .day-card.done .day-num{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);}
+  .day-meta{flex:1;min-width:0;}
+  .day-meta .d-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:3px;}
+  .fmt-badge{font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line);color:var(--ink-2);}
+  .fmt-badge.reel{color:#ff9fd6;border-color:rgba(255,159,214,0.3);}
+  .fmt-badge.carrossel{color:#8fd0ff;border-color:rgba(143,208,255,0.3);}
+  .fmt-badge.estatico{color:var(--gold);border-color:rgba(232,200,116,0.3);}
+  .date-label{font-size:11.5px;color:var(--ink-2);}
+  .day-title{font-size:14.5px;color:var(--ink-0);font-weight:600;}
+  .chev{width:20px;height:20px;flex:none;color:var(--ink-2);transition:transform .25s;}
+  .day-card.open .chev{transform:rotate(180deg);}
+  .check-btn{
+    flex:none;width:26px;height:26px;border-radius:8px;
+    border:1.5px solid var(--line);background:transparent;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    color:transparent;transition:.2s;
+  }
+  .check-btn.checked{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);border-color:transparent;color:#0a1a12;}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .day-card.open .day-body{max-height:900px;}
+  .day-body-inner{padding:0 18px 20px;display:grid;gap:12px;}
+  .field{border-top:1px solid var(--line);padding-top:12px;}
+  .field .f-label{font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:5px;}
+  .field .f-value{font-size:13.6px;color:var(--ink-1);line-height:1.6;}
+  .field .f-value b{color:var(--ink-0);}
+  .cta-tag{display:inline-block;margin-top:4px;font-size:11.5px;color:var(--gold);border:1px solid rgba(232,200,116,0.3);padding:4px 10px;border-radius:100px;}
+
+  .goal-card{
+    margin-top:40px;border-radius:var(--radius);
+    padding:28px;background:linear-gradient(150deg,rgba(139,63,240,0.18),rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+  }
+  .goal-card .tag{margin-bottom:14px;}
+  .goal-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px;}
+  @media(min-width:720px){.goal-grid{grid-template-columns:repeat(3,1fr);}}
+  .goal-item .g-num{font-family:var(--display);font-size:28px;color:var(--ink-0);font-weight:700;}
+  .goal-item .g-lbl{font-size:12px;color:var(--ink-2);margin-top:2px;}
+
+  footer{
+    margin-top:60px;padding:70px 24px 50px;text-align:center;
+    border-top:1px solid var(--line);
+    background:radial-gradient(60% 60% at 50% 0%, rgba(139,63,240,0.14), transparent 70%);
+  }
+  footer img{height:64px;width:64px;border-radius:16px;margin-bottom:18px;}
+  footer .f-title{font-family:var(--display);font-size:15px;color:var(--ink-0);margin-bottom:6px;}
+  footer .f-link{display:inline-block;margin-top:8px;font-size:14px;color:var(--purple-glow);text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.4);padding-bottom:2px;}
+  footer .f-sub{font-size:11.5px;color:var(--ink-2);margin-top:22px;}
+
+  .reset-wrap{max-width:920px;margin:0 auto;padding:0 24px 10px;display:flex;justify-content:flex-end;}
+  .reset-btn{font-size:11.5px;color:var(--ink-2);background:none;border:1px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer;}
+  .reset-btn:hover{color:var(--ink-0);border-color:var(--purple-400);}
+
+  .save-toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--bg-2);border:1px solid var(--line);color:var(--ink-0);
+    font-size:12.5px;padding:10px 18px;border-radius:100px;opacity:0;
+    transition:.3s;pointer-events:none;z-index:100;
+  }
+  .save-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img src="data:image/webp;base64,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" alt="NexusK Ads">
+    <div class="brand-text"><b>NEXUS K</b><span>AGÊNCIA DE MARKETING</span></div>
+  </div>
+  <nav>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#posicionamento">Posicionamento</a>
+    <a href="#editorial">Linha Editorial</a>
+    <a href="#calendario">Calendário</a>
+  </nav>
+</div>
+
+<div class="hero">
+  <span class="eyebrow">Portfólio estratégico · Instagram · 2026</span>
+  <h1>Diagnóstico completo e <em>calendário de 30 dias</em> para @entreencantos__</h1>
+  <p class="lead">Este documento reúne a análise do perfil, o posicionamento de marca da Entre Encantos e o plano editorial completo para os próximos 30 dias. Cada card do calendário é interativo: marque o que já foi produzido e acompanhe o progresso em tempo real.</p>
+  <div class="hero-meta">
+    <span class="chip">Cliente <b>Entre Encantos · Ateliê Floral</b></span>
+    <span class="chip">Nicho <b>Curadoria botânica · Slow living</b></span>
+    <span class="chip">Perfil <b>@entreencantos__</b></span>
+    <span class="chip">Período <b>30 dias · 2026</b></span>
+  </div>
+</div>
+
+<!-- ================= DIAGNÓSTICO ================= -->
+<section class="block" id="diagnostico">
+  <div class="kicker"><span class="num">01</span><h2>Diagnóstico brutal do perfil</h2></div>
+  <p class="section-intro">Análise sem filtro do que o perfil comunica hoje, com base no conteúdo publicado, na bio atual e no briefing enviado pela marca.</p>
+
+  <div class="card" style="margin-bottom:16px;">
+    <span class="tag">Posicionamento atual</span>
+    <p>Esse perfil já nasce com algo raro: uma voz poética consistente, paleta verde musgo, creme e dourado, três registros de tom bem definidos (poético, real, ritual) e séries de conteúdo já rodando, como "Rituais" e "espécies da estação". O problema real não está no discurso da marca, que já é maduro e autoral. Está na distância entre a delicadeza do que é dito e a fricção técnica que aparece assim que alguém tenta, de fato, comprar. Uma marca que promete pausa e cuidado precisa que cada ponto de contato, inclusive o link de pedido, respire a mesma calma do restante do perfil.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:32px;">
+    <span class="tag">Pontos críticos de bloqueio</span>
+    <ul>
+      <li><b>Link da bio expõe informação técnica:</b> o endereço mostra um parâmetro solto ("remessa=9") e corta no meio, quebrando exatamente a estética silenciosa que a marca promete em cada frase.</li>
+      <li><b>Destaques não organizam as séries já existentes:</b> "Rituais" e "espécies da estação" já têm múltiplos episódios publicados, mas nenhum destaque reúne essas séries pra quem quer assistir tudo de uma vez.</li>
+      <li><b>Localização ausente da bio:</b> Alto da Lapa, em São Paulo, não aparece no texto, informação essencial pra quem decide comprar flor local.</li>
+      <li><b>Pequeno deslize de revisão:</b> um dos episódios da série "espécies da estação" tem um erro de grafia no título, algo que destoa do cuidado extremo que sustenta o resto da marca.</li>
+      <li><b>Caminho de compra pouco visível:</b> pra um público que "não compra por impulso, compra porque sente que aquele gesto diz algo", qualquer fricção no processo de pedido pesa mais do que pesaria pra outro tipo de cliente.</li>
+    </ul>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Dores visíveis do público</span>
+      <ul>
+        <li>"Minha rotina não tem pausa nenhuma."</li>
+        <li>"Quero presentear alguém de um jeito que realmente diga algo."</li>
+        <li>"Já comprei flor bonita antes e em poucos dias joguei fora, sem sentir que valeu."</li>
+        <li>"Não sei onde encontrar algo que pareça cuidado de verdade, não só decoração."</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Dores ocultas do público</span>
+      <ul>
+        <li>Culpa de nunca reservar tempo pra si mesma em meio à rotina cheia.</li>
+        <li>Medo de que gestos de carinho pareçam genéricos ou automáticos.</li>
+        <li>Cansaço de excesso e pressa em tudo que consome, inclusive no Instagram.</li>
+        <li>Desejo de significado que só encontra nome quando algo "toca de verdade".</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Desejos emocionais</span>
+      <ul>
+        <li>Sentir pausa real em meio à rotina cheia.</li>
+        <li>Sentir que o gesto de presentear, ou se presentear, carrega intenção genuína.</li>
+        <li>Sentir conexão com algo orgânico e permanente, não descartável.</li>
+        <li>Sentir-se vista como alguém que também merece cuidado.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Desejos práticos</span>
+      <ul>
+        <li>Encontrar um arranjo que combine com o momento específico, calmante ou energizante.</li>
+        <li>Presentear com algo que comunique o que as palavras não dão conta.</li>
+        <li>Prolongar a experiência da flor além do buquê fresco, na flor seca, no ritual.</li>
+        <li>Comprar com facilidade, sem fricção técnica no meio do caminho.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Objeções que seguram a decisão de compra</span>
+  <div class="objecoes" style="margin-bottom:32px;">
+    <div class="obj-item">
+      <div class="o-head"><span>"Flor é cara e dura pouco, não compensa"</span><span class="o-num">01</span></div>
+      <p>A lógica por trás: enxerga a flor como algo descartável. Precisa comunicar o ciclo completo, viva, seca e ritual, como parte do valor entregue.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Prefiro comprar num app de entrega rápida, é mais prático"</span><span class="o-num">02</span></div>
+      <p>A lógica por trás: prioriza conveniência acima de intenção. Precisa mostrar que o cuidado artesanal é parte da experiência, não um obstáculo a mais.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Não sei se esse estilo de arranjo combina com meu gosto"</span><span class="o-num">03</span></div>
+      <p>A lógica por trás: incerteza por não ter visto variedade suficiente. Precisa mostrar amplitude de estilo dentro da mesma filosofia de cuidado.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"O link pra fazer o pedido ficou meio confuso"</span><span class="o-num">04</span></div>
+      <p>A lógica por trás: fricção técnica real, visível hoje no próprio link da bio. Precisa de um caminho de pedido simples, coerente com o resto da marca.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Não é uma data especial, não preciso comprar flor agora"</span><span class="o-num">05</span></div>
+      <p>A lógica por trás: associa flor só a ocasião comemorativa. Precisa reforçar que o gesto tem valor em qualquer dia comum, sem depender de data.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Oportunidade de mercado</span>
+    <p>A maior parte do mercado de floricultura compete por velocidade e preço, entrega expressa, promoção relâmpago. A Entre Encantos já escolheu o caminho oposto: pausa, cuidado, permanência. Poucas marcas do setor comunicam o ciclo completo da planta, viva, seca e ritual, como filosofia central, e menos ainda têm a fundadora tão presente na própria narrativa da marca. Esse território já está construído no discurso. O que falta é infraestrutura de conversão, link, destaques, localização, à altura da sofisticação que a marca já fala.</p>
+  </div>
+</section>
+
+<!-- ================= POSICIONAMENTO ================= -->
+<section class="block" id="posicionamento">
+  <div class="kicker"><span class="num">02</span><h2>Posicionamento de marca</h2></div>
+  <p class="section-intro">O posicionamento abaixo parte diretamente da essência já descrita pela própria marca, apenas organizado pra orientar a comunicação dos próximos 30 dias.</p>
+
+  <div class="quote-block">"A Entre Encantos não vende flor. Ela vende o que a flor carrega: intenção, ritual, permanência e cuidado."</div>
+
+  <div class="grid2" style="margin-bottom:10px;">
+    <div class="card">
+      <h3>Território de marca</h3>
+      <p>Enquanto o mercado de floricultura compete por urgência e preço, a Entre Encantos ocupa o território da pausa: cultivo devagar, ciclo completo da planta e presença da fundadora em cada etapa, da escolha da haste ao ritual final. O nome comercial é sempre <b>Entre Encantos</b>, com a fundadora como voz viva da marca, nunca apenas quem monta o arranjo.</p>
+    </div>
+    <div class="card">
+      <h3>Arquétipo de marca</h3>
+      <p>Arquétipo principal: <b>a Cuidadora</b>, presente no tom acolhedor, no ritmo sereno e na atenção a cada detalhe do processo. Traço secundário: <b>a Criadora</b>, sustentada pela curadoria artesanal e pela estética autoral que já diferencia o perfil. A comunicação nunca grita, ela convida a parar.</p>
+    </div>
+  </div>
+
+  <div class="bio-card">
+    <div class="bio-label">Bio revisada</div>
+    <pre>🌿 Entre Encantos
+Ateliê de design floral intencional
+✦ Arranjos que viram rituais de cuidado
+📍 Alto da Lapa, São Paulo · flores para presentear, cuidar e permanecer
+👇 Faça seu pedido</pre>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Frase de posicionamento</h3>
+    <p style="font-family:var(--display);font-size:17px;color:var(--ink-0);">"A Entre Encantos não vende flor. Ela vende o que a flor carrega: intenção, ritual, permanência e cuidado."</p>
+  </div>
+</section>
+
+<!-- ================= LINHA EDITORIAL ================= -->
+<section class="block" id="editorial">
+  <div class="kicker"><span class="num">03</span><h2>Linha editorial e comunicação</h2></div>
+  <p class="section-intro">Seis pilares sustentam o conteúdo mensal, organizados em torno das séries que a marca já criou. Nenhum deles compete com o outro: eles se revezam pra cobrir presença, curadoria, bastidor e decisão de compra, sempre no ritmo sereno já definido pela marca.</p>
+
+  <div class="pillars" style="margin-bottom:36px;">
+    <div class="pillar" data-n="01"><h4>Espécies da estação</h4><p>Série já existente, apresentando uma flor por episódio com curadoria e conhecimento botânico.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="02"><h4>Rituais</h4><p>Série já existente, mostrando o pós da planta como prática de autocuidado, banho, chá, presença.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="03"><h4>Bastidores reais</h4><p>A fundadora no mercado de flores, na câmara fria, escolhendo haste por haste.</p><span class="fun">Topo de funil</span></div>
+    <div class="pillar" data-n="04"><h4>Ciclo completo da planta</h4><p>Flor viva, flor seca e ritual, a filosofia central de que nada cultivado com cuidado desaparece.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="05"><h4>Gesto e presença</h4><p>Por que presentear com intenção importa, mesmo fora de data comemorativa.</p><span class="fun">Topo de funil</span></div>
+    <div class="pillar" data-n="06"><h4>Prova social e recebimento</h4><p>Reações reais de quem recebe um arranjo, sempre no mesmo tom poético da marca.</p><span class="fun">Fundo de funil</span></div>
+  </div>
+
+  <span class="tag">Tom por formato</span>
+  <div class="grid2" style="margin:12px 0 32px;">
+    <div class="card"><h3>Reels</h3><p>Registro real: câmara fria, escolha quente. Ritmo lento, sem corte agressivo, som ambiente sempre que possível.</p></div>
+    <div class="card"><h3>Carrossel</h3><p>Registro poético com camada educativa, um slide por ideia, respirando entre uma frase e outra.</p></div>
+    <div class="card"><h3>Estático</h3><p>Registro poético puro, paleta verde musgo, creme e dourado, frase curta que sustenta silêncio ao redor.</p></div>
+    <div class="card"><h3>Stories</h3><p>Registro ritual: convite de pausa, presença, respiração. Sem enquete de humor raso, sempre coerente com o tom.</p></div>
+  </div>
+
+  <div class="rules" style="margin-bottom:32px;">
+    <div class="rule-do">
+      <h4>Sempre fazer</h4>
+      <ul>
+        <li>Manter o ritmo sem urgência e sem exclamação em qualquer peça de conteúdo.</li>
+        <li>Organizar novos episódios de "Rituais" e "espécies da estação" no destaque correspondente.</li>
+        <li>Manter a fundadora presente e visível como voz viva da marca, não só quem executa.</li>
+        <li>Garantir que qualquer link ou processo de pedido mostrado esteja limpo, sem parâmetro técnico visível.</li>
+      </ul>
+    </div>
+    <div class="rule-dont">
+      <h4>Nunca fazer</h4>
+      <ul>
+        <li>Usar linguagem de promoção relâmpago, "compre agora" ou contagem regressiva de oferta.</li>
+        <li>Publicar conteúdo com erro de revisão em título ou legenda.</li>
+        <li>Prometer entrega expressa como diferencial, isso pertence ao território que a marca escolheu não disputar.</li>
+        <li>Deixar a estética silenciosa da marca se perder em favor de alcance rápido ou tendência do momento.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Paleta de sentimentos por etapa de funil</span>
+  <div class="funnel-strip">
+    <div class="funnel-col topo"><h5>Topo</h5><p>Pausa, identificação com a busca por significado em meio à rotina cheia.</p></div>
+    <div class="funnel-col meio"><h5>Meio</h5><p>Confiança na curadoria, clareza sobre o ciclo completo da planta.</p></div>
+    <div class="funnel-col fundo"><h5>Fundo</h5><p>Segurança pra comprar, sem pressão, no mesmo tom sereno de todo o resto da marca.</p></div>
+  </div>
+</section>
+
+<!-- ================= CALENDÁRIO ================= -->
+<section class="block" id="calendario" style="padding-bottom:0;">
+  <div class="kicker"><span class="num">04</span><h2>Calendário de 30 dias</h2></div>
+  <p class="section-intro">3 reels · 2 carrosséis · 2 estáticos por semana. Toque em cada card pra abrir o roteiro completo, e marque o check quando publicar. Seu progresso fica salvo automaticamente.</p>
+</section>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">Progresso <b id="progress-count">0/30</b></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="badge-pill" id="badge-pill">Bronze</span>
+  </div>
+</div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" id="reset-btn">Reiniciar checklist</button>
+</div>
+
+<section class="block" style="padding-top:20px;" id="days-container"></section>
+
+<div class="block" id="meta-mensal-wrap">
+  <div class="goal-card">
+    <span class="tag">Meta mensal</span>
+    <h3 style="font-family:var(--display);color:var(--ink-0);font-size:20px;margin:0 0 8px;">Meta de crescimento pra este ciclo de 30 dias</h3>
+    <p style="font-size:13.8px;color:var(--ink-1);line-height:1.65;max-width:640px;">Com 241 seguidores e uma voz de marca já madura, a meta deste ciclo é ampliar alcance sem trair o ritmo sereno que é o maior ativo da Entre Encantos. Publicando os 30 dias completos, com o link de pedido corrigido e os destaques organizados, o perfil passa a converter melhor quem já para pra olhar.</p>
+    <div class="goal-grid">
+      <div class="goal-item"><div class="g-num">+40%</div><div class="g-lbl">alcance médio por publicação em 30 dias</div></div>
+      <div class="goal-item"><div class="g-num">20+</div><div class="g-lbl">contatos iniciados por WhatsApp pra pedido</div></div>
+      <div class="goal-item"><div class="g-num">8+</div><div class="g-lbl">arranjos vendidos com origem direta no Instagram</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="data:image/webp;base64,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" alt="NexusK Ads">
+  <div class="f-title">Produzido por NexusK Ads</div>
+  <a class="f-link" href="https://www.instagram.com/nexusk.ads/" target="_blank" rel="noopener">@nexusk.ads</a>
+  <div class="f-sub">Estratégia · Criatividade · Conexão · Resultados</div>
+</footer>
+
+<div class="save-toast" id="save-toast">Progresso salvo</div>
+
+<script>
+const CAL_DATA = [
+{"id":"d01","day":1,"week":1,"data":"17/08 · seg","formato":"Reel","pilar":"Bastidores reais","tema":"Câmara fria, escolha quente","objetivo":"Mostrar o processo real de seleção das flores e reforçar a presença da fundadora na marca.","gancho":"Câmara fria, escolha quente. É assim que começa um arranjo da Entre Encantos.","visual":"Vídeo real da fundadora no mercado de flores, mãos escolhendo haste por haste, luz da manhã, som ambiente, sem trilha exagerada.","legenda":"Todo arranjo começa antes da flor chegar ao ateliê. Começa na câmara fria, no frio que corta a mão, na escolha de cada haste com atenção. Não existe pressa nesse momento, existe cuidado. É esse tempo que sustenta o que chega até você depois, já pronto, já com intenção. Deixe aqui embaixo o que essa parte do processo desperta em você.","cta":"Comente o que essa cena desperta em você"},
+
+{"id":"d02","day":2,"week":1,"data":"18/08 · ter","formato":"Carrossel","pilar":"Ciclo completo da planta","tema":"O ciclo que a Entre Encantos acompanha","objetivo":"Apresentar a filosofia central da marca de forma didática e poética.","gancho":"A flor viva, a flor seca, o ritual que ela se torna.","visual":"6 slides no padrão verde musgo e creme, cada um representando uma etapa do ciclo (flor viva, transição, flor seca, ritual final), com fotos reais do processo.","legenda":"A Entre Encantos não entrega só a flor no auge da sua beleza. Acompanha o ciclo inteiro. A flor viva enche o ambiente de cor e cheiro. A flor seca permanece quando o efêmero se vai. O que sobra da planta vira ritual, banho, chá, cuidado com o corpo. Nada que é cultivado com atenção desaparece, apenas muda de forma. Guarde este carrossel pra lembrar disso da próxima vez que uma flor começar a murchar.","cta":"Guarde este carrossel"},
+
+{"id":"d03","day":3,"week":1,"data":"19/08 · qua","formato":"Estático","pilar":"Gesto e presença","tema":"O que o gesto de presentear carrega","objetivo":"Reforçar o registro poético da marca com frase que convida à reflexão.","gancho":"O buquê não é a flor. É o que você quis dizer quando escolheu ela.","visual":"Arte estática com foto de mãos entregando flores, fundo verde musgo, tipografia que respira, sem excesso de elementos.","legenda":"Às vezes falta palavra pra dizer o que a gente sente. Um gesto de carinho, de agradecimento, de cuidado com quem se ama. É nesse espaço que a flor entra, não como decoração, como linguagem. Escolher um arranjo com intenção é escolher dizer algo que talvez nem em conversa saísse tão claro. Deixe aqui embaixo pra quem esse gesto faria sentido hoje.","cta":"Comente pra quem esse gesto faria sentido"},
+
+{"id":"d04","day":4,"week":1,"data":"20/08 · qui","formato":"Reel","pilar":"Rituais","tema":"Banho macerado, o primeiro ritual da série","objetivo":"Mostrar o pós da planta como prática de autocuidado real.","gancho":"O que sobra da flor também pode virar cuidado com o corpo.","visual":"Vídeo mostrando preparo de banho macerado com pétalas e ervas, mãos trabalhando devagar, ambiente tranquilo, legendas discretas.","legenda":"Quando a flor já passou do seu auge, ainda existe um caminho pra ela seguir. O banho macerado é o primeiro ritual dessa série, um jeito de transformar o que resta da planta em um momento de presença pro corpo. Nada aqui pede pressa. Pede pausa, água morna, e atenção ao que você está sentindo. Guarde este vídeo pra quando precisar de um momento assim.","cta":"Guarde este ritual"},
+
+{"id":"d05","day":5,"week":1,"data":"21/08 · sex","formato":"Carrossel","pilar":"Espécies da estação","tema":"Nova espécie da estação","objetivo":"Dar continuidade à série já existente com conteúdo educativo e sensorial.","gancho":"Espécies da estação: a flor que abre agora, do jeito que ela é.","visual":"6 slides com fotos da espécie escolhida em diferentes ângulos e estágios de abertura, texto curto sobre origem, cuidado e significado da flor.","legenda":"Cada estação traz uma flor que se destaca por resistir, ou por florescer justamente onde parecia difícil. Trazer essa espécie pra dentro de um arranjo é reconhecer o tempo certo dela, não forçar nada fora de época. Esse é um dos princípios que guia cada curadoria da Entre Encantos. Guarde este carrossel pra conhecer mais sobre as flores que compõem os próximos arranjos.","cta":"Guarde este carrossel"},
+
+{"id":"d06","day":6,"week":1,"data":"22/08 · sab","formato":"Estático","pilar":"Ciclo completo da planta","tema":"A flor seca também é presença","objetivo":"Reforçar valor da flor seca como parte do ciclo, não como sobra.","gancho":"A flor seca não é o fim. É outra forma de ficar.","visual":"Arte estática com foto de flores secas em composição delicada, fundo creme, tipografia leve.","legenda":"Existe uma beleza diferente na flor que já passou do viço, mas continua ali, guardando cor e forma de outro jeito. A flor seca carrega memória do que foi vivido, sem pedir pra ser descartada assim que a cor original se vai. Guardar uma flor seca é escolher permanência em vez de descarte. Comente aqui embaixo se você já guardou uma flor depois que ela secou.","cta":"Comente se você já guardou uma flor seca"},
+
+{"id":"d07","day":7,"week":1,"data":"23/08 · dom","formato":"Reel","pilar":"Gesto e presença","tema":"A pausa começa aqui","objetivo":"Fechar a semana reforçando o convite central da marca à desaceleração.","gancho":"Em um mundo que não para, existe o direito de respirar.","visual":"Vídeo contemplativo, fundadora arrumando flores em silêncio, câmera parada, sem cortes rápidos, som ambiente.","legenda":"Nem tudo precisa de pressa. Às vezes a coisa mais generosa que você pode fazer por si mesma é parar por um minuto, respirar, sentir o corpo antes de seguir pro próximo compromisso. É esse convite que a Entre Encantos tenta sustentar em cada arranjo, cada ritual, cada palavra por aqui. Comente aqui embaixo como está sendo sua semana até agora.","cta":"Comente como está sua semana"},
+
+{"id":"d08","day":8,"week":2,"data":"24/08 · seg","formato":"Reel","pilar":"Bastidores reais","tema":"Haste por haste","objetivo":"Aprofundar o bastidor da fundadora como parte central da marca.","gancho":"Cada arranjo começa muito antes da haste chegar ao vaso.","visual":"Vídeo mostrando a fundadora selecionando e preparando as hastes, cortando em ângulo, retirando folhas, tom silencioso e atento.","legenda":"Preparar uma haste é um trabalho de atenção, quase silencioso. Retirar a folha certa, cortar no ângulo certo, garantir que a flor consiga beber água por mais tempo. Nenhuma dessas etapas aparece no buquê pronto, mas sem elas, o arranjo não dura o que deveria durar. Comente aqui embaixo se você já reparou nesse tipo de cuidado antes.","cta":"Comente sua percepção sobre esse cuidado"},
+
+{"id":"d09","day":9,"week":2,"data":"25/08 · ter","formato":"Carrossel","pilar":"Espécies da estação","tema":"Novo episódio da série espécies da estação","objetivo":"Manter a cadência educativa da série já estabelecida.","gancho":"Espécies da estação: conhecer a flor antes de escolher o arranjo.","visual":"5 slides apresentando a espécie da semana, características, tempo de vida no vaso e combinações possíveis com outras flores.","legenda":"Conhecer a flor antes de escolher o arranjo muda a experiência inteira. Cada espécie tem um tempo, uma forma de cuidado, uma companhia ideal dentro do vaso. Trazer esse conhecimento pra você é parte da curadoria que sustenta cada entrega da Entre Encantos. Guarde este carrossel pra consultar na hora de escolher seu próximo arranjo.","cta":"Guarde este carrossel"},
+
+{"id":"d10","day":10,"week":2,"data":"26/08 · qua","formato":"Estático","pilar":"Prova social e recebimento","tema":"O que fica depois que o arranjo chega","objetivo":"Trazer prova social no mesmo tom poético da marca, sem quebrar o ritmo sereno.","gancho":"\"O ambiente inteiro mudou quando as flores chegaram.\"","visual":"Arte estática com foto real de um arranjo entregue em ambiente doméstico, aspas discretas, tipografia leve.","legenda":"Um relato assim vale mais do que qualquer descrição que a gente possa escrever sobre o próprio trabalho. O ambiente muda, o dia muda, às vezes até a forma de respirar naquele espaço muda um pouco. Guardamos cada mensagem assim porque ela confirma o que sustenta a Entre Encantos desde o início. Se você já recebeu um arranjo daqui e quer compartilhar o que sentiu, comente aqui embaixo.","cta":"Compartilhe o que você sentiu"},
+
+{"id":"d11","day":11,"week":2,"data":"27/08 · qui","formato":"Reel","pilar":"Rituais","tema":"Segundo ritual da série","objetivo":"Dar continuidade à série Rituais com novo episódio de autocuidado.","gancho":"Depois do banho macerado, um novo ritual pra continuar o ciclo.","visual":"Vídeo mostrando preparo de outro ritual (chá ou escalda-pés com pétalas), mãos trabalhando devagar, ambiente tranquilo.","legenda":"A série de rituais segue mostrando o que a planta ainda tem pra oferecer depois que a flor já não está mais no seu auge. Esse episódio traz um novo jeito de transformar o que sobra em presença pro corpo. Nenhum ritual aqui pede pressa, pede tempo dedicado só a você. Guarde este vídeo pra experimentar quando sentir que precisa.","cta":"Guarde este ritual"},
+
+{"id":"d12","day":12,"week":2,"data":"28/08 · sex","formato":"Carrossel","pilar":"Ciclo completo da planta","tema":"O que fazer quando a flor começa a murchar","objetivo":"Entregar conteúdo prático conectado à filosofia central da marca.","gancho":"A flor começando a murchar marca o início de outra fase, não o fim do arranjo.","visual":"5 slides mostrando passo a passo de como transformar flor murchando em flor seca, com dicas práticas de conservação.","legenda":"Muita gente joga o arranjo fora assim que a primeira pétala cai, sem saber que ainda existe um caminho possível pra essa flor. Secar de cabeça pra baixo, num lugar arejado e sem luz direta, prolonga a vida da planta em outra forma. Esse pequeno gesto de cuidado é parte do que a Entre Encantos ensina em cada entrega. Guarde este carrossel pra usar na próxima vez que seu arranjo começar a murchar.","cta":"Guarde este carrossel"},
+
+{"id":"d13","day":13,"week":2,"data":"29/08 · sab","formato":"Estático","pilar":"Gesto e presença","tema":"Presentear além da data comemorativa","objetivo":"Quebrar a objeção de que flor só faz sentido em ocasião especial.","gancho":"Tem alguém na sua vida que merece mais do que uma mensagem hoje.","visual":"Arte estática com foto de buquê simples sendo entregue, fundo verde, tipografia serena.","legenda":"Nem todo gesto de carinho precisa esperar uma data especial no calendário. Às vezes o motivo é só o dia comum que alguém está atravessando, e um arranjo chega pra lembrar que essa pessoa está sendo pensada. Comente aqui embaixo o nome de alguém que merece esse tipo de gesto essa semana.","cta":"Comente o nome de alguém"},
+
+{"id":"d14","day":14,"week":2,"data":"30/08 · dom","formato":"Reel","pilar":"Bastidores reais","tema":"Um dia comum no ateliê","objetivo":"Mostrar rotina real sem produção, aproximando o público do processo.","gancho":"Um domingo comum, sem pedido especial, só cuidando do que já está aqui.","visual":"Vídeo estilo vlog mostrando rotina de manutenção das flores no ateliê, troca de água, organização do espaço, tom calmo.","legenda":"Nem todo dia tem entrega ou pedido especial pra contar. Alguns dias são só sobre cuidar do que já está aqui, trocar água, reorganizar o espaço, garantir que cada flor continue bem enquanto espera o próximo destino. Comente aqui embaixo como está sendo seu domingo.","cta":"Comente como está seu domingo"},
+
+{"id":"d15","day":15,"week":3,"data":"31/08 · seg","formato":"Reel","pilar":"Prova social e recebimento","tema":"Depoimento sobre um arranjo Calmante","objetivo":"Reforçar a linha de arranjos com propósito através de relato real.","gancho":"Ela pediu um arranjo Calmante numa semana difícil. Isso foi o que ela escreveu depois.","visual":"Texto de depoimento (anonimizado ou com autorização) animado devagar na tela, fundo verde musgo, música instrumental discreta.","legenda":"O arranjo Calmante nasceu pra acompanhar semanas assim, quando tudo parece pedir mais do que a gente tem pra dar. Uma cliente recente escreveu contando que só de olhar pras flores na mesa já conseguia respirar diferente. Guardamos relatos assim porque eles confirmam o propósito por trás de cada arranjo que sai daqui. Comente aqui embaixo se uma semana assim também descreve o seu momento agora.","cta":"Comente se isso descreve seu momento"},
+
+{"id":"d16","day":16,"week":3,"data":"01/09 · ter","formato":"Carrossel","pilar":"Espécies da estação","tema":"Novo episódio da série espécies da estação","objetivo":"Manter a cadência educativa e sensorial da série.","gancho":"Espécies da estação: a flor que pede paciência pra florescer.","visual":"5 slides apresentando a espécie da semana, tempo de floração, cuidado necessário e o que ela representa dentro da filosofia da marca.","legenda":"Algumas flores pedem mais tempo do que outras pra abrir de verdade, seguindo o ritmo próprio de cada espécie, não um defeito. Respeitar esse tempo é parte do que diferencia uma curadoria feita com atenção de uma escolha qualquer. Guarde este carrossel pra conhecer melhor essa espécie antes do próximo pedido.","cta":"Guarde este carrossel"},
+
+{"id":"d17","day":17,"week":3,"data":"02/09 · qua","formato":"Estático","pilar":"Rituais","tema":"Chá como ritual de presença","objetivo":"Trazer mais um recorte da série Rituais em formato estático reflexivo.","gancho":"Respira. Sente o seu corpo. Este espaço é seu.","visual":"Arte estática com foto de xícara de chá com pétalas, fundo creme, tipografia leve e espaçada.","legenda":"Um chá preparado com pétalas que já cumpriram seu papel no arranjo é mais um jeito de levar esse cuidado adiante. Não é sobre a bebida em si, é sobre reservar um momento só seu, sem pressa, sem outra tarefa acontecendo ao mesmo tempo. Comente aqui embaixo a última vez que você separou um momento assim pra si mesma.","cta":"Comente a última vez que você fez uma pausa assim"},
+
+{"id":"d18","day":18,"week":3,"data":"03/09 · qui","formato":"Reel","pilar":"Ciclo completo da planta","tema":"Da flor seca ao ritual final","objetivo":"Mostrar visualmente a transformação completa da planta.","gancho":"Veja o caminho de uma flor, do vaso até o ritual que ela se torna.","visual":"Vídeo em timelapse ou sequência de fotos mostrando a mesma flor em diferentes estágios, viva, secando, transformada em ritual, tom contemplativo.","legenda":"Poucas pessoas acompanham o caminho inteiro de uma flor depois que ela sai do vaso. Aqui na Entre Encantos, esse caminho é parte da filosofia, não um detalhe esquecido. A flor viva enche o ambiente, a flor seca permanece, e o que sobra vira ritual de cuidado. Nada se perde, tudo muda de forma. Comente aqui embaixo o que esse ciclo desperta em você.","cta":"Comente o que esse ciclo desperta em você"},
+
+{"id":"d19","day":19,"week":3,"data":"04/09 · sex","formato":"Carrossel","pilar":"Gesto e presença","tema":"Como escolher um arranjo pra dizer o que as palavras não dão conta","objetivo":"Ajudar na decisão de compra com conteúdo educativo emocional.","gancho":"Nem sempre a palavra certa existe. Às vezes o arranjo certo resolve isso.","visual":"5 slides apresentando diferentes situações (agradecimento, consolo, celebração silenciosa, autocuidado) e o tipo de arranjo que combina com cada uma.","legenda":"Escolher um arranjo pode parecer simples, mas cada situação pede uma intenção diferente. Agradecer alguém pede um gesto diferente de consolar quem está passando por um momento difícil, e presentear a si mesma pede outra energia ainda. Esse carrossel existe pra ajudar você a escolher com mais clareza da próxima vez. Guarde pra consultar quando precisar.","cta":"Guarde este carrossel"},
+
+{"id":"d20","day":20,"week":3,"data":"05/09 · sab","formato":"Estático","pilar":"Bastidores reais","tema":"Reflexão da fundadora sobre o próprio trabalho","objetivo":"Reforçar a autenticidade da fundadora como voz viva da marca.","gancho":"Sinto frio na câmara fria todos os dias. Continuo escolhendo esse trabalho.","visual":"Arte estática com foto real da fundadora, fundo verde escuro, frase em destaque, tom sereno e reflexivo.","legenda":"Nem todo dia de trabalho tem glamour. Tem frio na câmara, mão cansada, madrugada cedo no mercado de flores. Ainda assim, escolho esse caminho porque encontro sentido em cada etapa dele, do início ao ritual final. Comente aqui embaixo o que sustenta você a continuar no trabalho que você faz.","cta":"Comente o que sustenta você no seu trabalho"},
+
+{"id":"d21","day":21,"week":3,"data":"06/09 · dom","formato":"Reel","pilar":"Espécies da estação","tema":"Episódio de fechamento da temporada","objetivo":"Fechar o ciclo sazonal da série com reflexão sobre mudança de estação.","gancho":"A estação muda, e as flores mudam com ela.","visual":"Vídeo reunindo rapidamente as espécies apresentadas na temporada, tom contemplativo, fechando com uma reflexão sobre o ciclo natural.","legenda":"Cada estação trouxe flores diferentes pra essa série, cada uma com seu próprio tempo de florescer. Acompanhar essa mudança é lembrar que nada em cultivo real é fixo, tudo segue um ciclo que se repete e se renova. Comente aqui embaixo qual foi a espécie que mais te marcou até agora.","cta":"Comente qual espécie mais te marcou"},
+
+{"id":"d22","day":22,"week":4,"data":"07/09 · seg","formato":"Reel","pilar":"Rituais","tema":"Terceiro ritual da série","objetivo":"Continuar a série Rituais com novo episódio de autocuidado.","gancho":"Mais um ritual pra fechar o ciclo do que a flor ainda tinha pra oferecer.","visual":"Vídeo mostrando preparo de um novo ritual da série, ambiente tranquilo, mãos trabalhando devagar, legendas discretas.","legenda":"Cada ritual dessa série nasce da mesma ideia: nada que é cultivado com cuidado precisa ser descartado assim que perde a forma original. Esse episódio fecha um novo capítulo dessa transformação, mostrando mais um jeito de levar presença pro corpo através do que sobrou da planta. Guarde este vídeo pra experimentar no seu próprio ritmo.","cta":"Guarde este ritual"},
+
+{"id":"d23","day":23,"week":4,"data":"08/09 · ter","formato":"Carrossel","pilar":"Ciclo completo da planta","tema":"Como cuidar do buquê pra prolongar sua vida","objetivo":"Entregar conteúdo prático de valor imediato pro público.","gancho":"Pequenos cuidados que fazem seu buquê durar mais tempo.","visual":"6 slides com dicas práticas (trocar água, cortar haste em ângulo, evitar luz direta, retirar folha submersa), com foto ilustrativa em cada slide.","legenda":"Alguns cuidados simples fazem diferença real no tempo de vida de um arranjo. Trocar a água a cada dois dias, cortar a ponta da haste em ângulo antes de recolocar no vaso, manter longe de luz direta e calor excessivo. Esses gestos pequenos prolongam a experiência que você já pagou pra ter em casa. Guarde este carrossel pro seu próximo arranjo.","cta":"Guarde este carrossel"},
+
+{"id":"d24","day":24,"week":4,"data":"09/09 · qua","formato":"Estático","pilar":"Gesto e presença","tema":"Presentear a si mesma","objetivo":"Ampliar a percepção de compra pra incluir autocuidado, não só presente pra terceiros.","gancho":"Você também pode ser a pessoa que recebe as flores.","visual":"Arte estática com foto de mulher recebendo ou segurando um arranjo pra si mesma, fundo creme, tipografia leve.","legenda":"É comum pensar em flor como algo que se dá pros outros, e quase nunca como algo que se permite receber. Mas o mesmo gesto de cuidado que você oferece pra alguém importante também cabe em você. Comente aqui embaixo a última vez que você comprou algo só pra si mesma, sem motivo especial.","cta":"Comente a última vez que você fez isso por si"},
+
+{"id":"d25","day":25,"week":4,"data":"10/09 · qui","formato":"Reel","pilar":"Bastidores reais","tema":"Do início ao fim, a montagem de um arranjo","objetivo":"Mostrar o processo completo de criação, reforçando o valor do trabalho artesanal.","gancho":"Do primeiro corte até o laço final, veja como um arranjo nasce.","visual":"Vídeo em timelapse ou sequência acelerada mostrando a montagem completa de um arranjo, do preparo das hastes até a finalização.","legenda":"Cada arranjo passa por várias mãos de decisão antes de chegar pronto até você. Escolha das flores, corte de cada haste, equilíbrio de cor e forma, até o laço final que fecha a composição. Esse processo inteiro é o que sustenta a diferença entre um arranjo feito com atenção e um buquê qualquer. Comente aqui embaixo o que mais chamou sua atenção nesse processo.","cta":"Comente o que mais chamou sua atenção"},
+
+{"id":"d26","day":26,"week":4,"data":"11/09 · sex","formato":"Carrossel","pilar":"Prova social e recebimento","tema":"Relatos reunidos de quem já recebeu um arranjo","objetivo":"Consolidar múltiplos relatos no mesmo tom poético da marca.","gancho":"Reunimos algumas palavras de quem já recebeu um arranjo da Entre Encantos.","visual":"5 slides, um relato por slide, fundo verde musgo, aspas discretas, tipografia leve.","legenda":"Cada relato que chega até nós confirma algo que já sentíamos ao montar cada arranjo: o efeito de uma flor escolhida com intenção vai muito além do vaso onde ela fica. Reunimos aqui algumas palavras recentes de quem já viveu essa experiência. Se você também já recebeu um arranjo daqui, comente aqui embaixo o que ficou com você depois.","cta":"Comente o que ficou com você"},
+
+{"id":"d27","day":27,"week":4,"data":"12/09 · sab","formato":"Estático","pilar":"Espécies da estação","tema":"Nova espécie da estação","objetivo":"Continuar a série com nova apresentação de flor.","gancho":"Espécies da estação: mais uma flor pra conhecer antes de escolher.","visual":"Arte estática com foto da flor em destaque, fundo neutro, tipografia serena, informação breve sobre a espécie.","legenda":"Toda flor carrega uma história de onde vem e do que precisa pra florescer bem. Conhecer um pouco dessa história muda a forma como você olha pro arranjo pronto na sua mesa. Guarde esta arte pra lembrar dessa espécie na próxima vez que for escolher um arranjo.","cta":"Guarde esta publicação"},
+
+{"id":"d28","day":28,"week":4,"data":"13/09 · dom","formato":"Reel","pilar":"Ciclo completo da planta","tema":"Reflexão de fechamento sobre permanência","objetivo":"Consolidar a filosofia central da marca antes do fechamento do mês.","gancho":"Nada que é cultivado com cuidado vai embora. Só muda de forma.","visual":"Vídeo contemplativo reunindo imagens do mês (flor viva, seca, ritual), tom sereno, sem cortes rápidos.","legenda":"Essa frase resume boa parte do que a Entre Encantos tenta lembrar em cada arranjo que sai daqui. A flor que enche o ambiente de cor não desaparece quando murcha, ela apenas segue outro caminho, seco, depois ritual, depois memória. Comente aqui embaixo o que essa ideia de permanência significa pra você.","cta":"Comente o que permanência significa pra você"},
+
+{"id":"d29","day":29,"week":5,"data":"14/09 · seg","formato":"Reel","pilar":"Gesto e presença","tema":"Recapitulando o mês sobre pausa e intenção","objetivo":"Consolidar a mensagem do mês e convidar ao próximo passo, sem pressa.","gancho":"Recapitulando um mês inteiro sobre pausa, intenção e cuidado.","visual":"Vídeo de recapitulação suave dos principais temas do mês, ritmo lento, fechando com convite ao contato, sem urgência.","legenda":"Esse mês passamos por vários momentos que sustentam a Entre Encantos: o bastidor da escolha de cada haste, o ciclo completo da planta, os rituais que nascem do que sobra da flor, e o convite constante à pausa em meio à rotina cheia. Se algo desse mês tocou você de verdade, o link pra fazer seu pedido está na bio, sem pressa, para quando fizer sentido.","cta":"Visite o link na bio quando fizer sentido"},
+
+{"id":"d30","day":30,"week":5,"data":"15/09 · ter","formato":"Carrossel","pilar":"Fechamento","tema":"Tudo que a Entre Encantos oferece","objetivo":"Fechar o ciclo de 30 dias com recapitulação completa e convite sereno.","gancho":"Do primeiro buquê ao ritual final, isso é o que a Entre Encantos oferece.","visual":"7 slides organizados por tema (arranjos com propósito, ciclo completo da planta, rituais de autocuidado, curadoria por estação), fechando com informações de contato.","legenda":"Fechando esse mês de conteúdo, reunimos aqui tudo que já faz parte da Entre Encantos hoje. Arranjos com propósito, como o Calmante e o Energizante. O ciclo completo da planta, da flor viva ao ritual final. E o convite constante a desacelerar em meio a uma rotina que raramente para sozinha. Se alguma parte desse mês fez sentido pra você, estamos aqui, no nosso tempo, prontos para o seu pedido.","cta":"Envie sua mensagem quando fizer sentido"}
+]
+;
+
+const container = document.getElementById('days-container');
+const progressFill = document.getElementById('progress-fill');
+const progressCount = document.getElementById('progress-count');
+const badgePill = document.getElementById('badge-pill');
+const toast = document.getElementById('save-toast');
+
+let state = {};
+
+function showToast(){
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>toast.classList.remove('show'), 1400);
+}
+
+function fmtClass(fmt){
+  if(fmt==='Reel') return 'reel';
+  if(fmt==='Carrossel') return 'carrossel';
+  return 'estatico';
+}
+
+function render(){
+  container.innerHTML = '';
+  let currentWeek = null;
+  CAL_DATA.forEach((d, idx)=>{
+    if(d.week !== currentWeek){
+      currentWeek = d.week;
+      const wl = document.createElement('div');
+      wl.className='week-label';
+      wl.textContent = 'Semana ' + d.week;
+      container.appendChild(wl);
+    }
+    const done = !!state[d.id];
+    const card = document.createElement('div');
+    card.className = 'day-card' + (done?' done':'');
+    card.id = 'card-'+d.id;
+    card.innerHTML = `
+      <div class="day-head" data-toggle="${d.id}">
+        <div class="day-num">D${d.day}</div>
+        <div class="day-meta">
+          <div class="d-top">
+            <span class="fmt-badge ${fmtClass(d.formato)}">${d.formato}</span>
+            <span class="date-label">${d.data}</span>
+          </div>
+          <div class="day-title">${d.tema}</div>
+        </div>
+        <button class="check-btn ${done?'checked':''}" data-check="${d.id}" aria-label="Marcar como feito">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="day-body">
+        <div class="day-body-inner">
+          <div class="field"><div class="f-label">Pilar · Objetivo estratégico</div><div class="f-value"><b>${d.pilar}</b> · ${d.objetivo}</div></div>
+          <div class="field"><div class="f-label">${d.formato==='Carrossel' ? 'Título do carrossel' : 'Gancho na tela'}</div><div class="f-value">${d.gancho}</div></div>
+          <div class="field"><div class="f-label">Sugestão visual</div><div class="f-value">${d.visual}</div></div>
+          <div class="field"><div class="f-label">Legenda</div><div class="f-value">${d.legenda}</div></div>
+          <div class="field"><div class="f-label">CTA</div><div class="f-value"><span class="cta-tag">${d.cta}</span></div></div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-check]')) return;
+      const card = document.getElementById('card-'+el.dataset.toggle);
+      card.classList.toggle('open');
+    });
+  });
+  container.querySelectorAll('[data-check]').forEach(el=>{
+    el.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const id = el.dataset.check;
+      state[id] = !state[id];
+      el.classList.toggle('checked', state[id]);
+      document.getElementById('card-'+id).classList.toggle('done', state[id]);
+      await persist(id, state[id]);
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = CAL_DATA.length;
+  const doneCount = Object.values(state).filter(Boolean).length;
+  const pct = Math.round((doneCount/total)*100);
+  progressFill.style.width = pct + '%';
+  progressCount.innerHTML = doneCount + '/' + total;
+  let badge = 'Bronze';
+  if(pct >= 90) badge = 'Ouro';
+  else if(pct >= 50) badge = 'Prata';
+  badgePill.textContent = badge;
+}
+
+async function persist(id, value){
+  try{
+    if(window.storage && window.storage.set){
+      await window.storage.set('day-'+id, JSON.stringify(value), false);
+      showToast();
+    }
+  }catch(err){
+    console.error('Erro ao salvar progresso', err);
+  }
+}
+
+async function loadState(){
+  state = {};
+  try{
+    if(window.storage && window.storage.list){
+      const listRes = await window.storage.list('day-', false);
+      const keys = (listRes && listRes.keys) ? listRes.keys : [];
+      for(const k of keys){
+        try{
+          const res = await window.storage.get(k, false);
+          if(res && res.value !== undefined){
+            const id = k.replace('day-','');
+            state[id] = JSON.parse(res.value);
+          }
+        }catch(e){}
+      }
+    }
+  }catch(err){
+    console.error('Erro ao carregar progresso', err);
+  }
+  render();
+}
+
+document.getElementById('reset-btn').addEventListener('click', async ()=>{
+  if(!confirm('Reiniciar todo o checklist do calendário?')) return;
+  try{
+    if(window.storage && window.storage.delete){
+      for(const d of CAL_DATA){
+        try{ await window.storage.delete('day-'+d.id, false); }catch(e){}
+      }
+    }
+  }catch(e){}
+  state = {};
+  render();
+});
+
+loadState();
+</script>
+
+</body>
+</html>
