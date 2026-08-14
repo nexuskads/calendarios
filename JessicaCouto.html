@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Estratégico & Calendário · @coutojessicamv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#07050c;
+    --bg-1:#0d0916;
+    --bg-2:#140f21;
+    --purple-900:#2b0f52;
+    --purple-700:#5b1fb8;
+    --purple-500:#8b3ff0;
+    --purple-400:#a855f7;
+    --purple-glow:#c084fc;
+    --ink-0:#f4f1fb;
+    --ink-1:#c9c2dc;
+    --ink-2:#8f88a8;
+    --line:rgba(168,85,247,0.18);
+    --card:rgba(255,255,255,0.03);
+    --gold:#e8c874;
+    --ok:#5fe3a1;
+    --radius:18px;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(60% 50% at 12% 0%, rgba(139,63,240,0.20), transparent 60%),
+      radial-gradient(50% 40% at 100% 10%, rgba(168,85,247,0.12), transparent 60%),
+      var(--bg-0);
+    color:var(--ink-1);
+    font-family:var(--body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--purple-500);color:#fff;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(7,5,12,0.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:34px;border-radius:9px;display:block;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.05;}
+  .brand-text b{font-family:var(--display);font-size:13px;letter-spacing:0.04em;color:var(--ink-0);}
+  .brand-text span{font-size:10px;color:var(--ink-2);letter-spacing:0.06em;}
+  nav{display:none;gap:22px;font-size:13px;}
+  nav a{color:var(--ink-2);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:.2s;}
+  nav a:hover{color:var(--ink-0);border-color:var(--purple-400);}
+  @media(min-width:860px){nav{display:flex;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:920px;margin:0 auto;padding:64px 24px 40px;text-align:left;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--purple-glow);
+    border:1px solid var(--line);
+    padding:6px 12px;border-radius:100px;
+    background:rgba(139,63,240,0.08);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple-glow);box-shadow:0 0 10px var(--purple-glow);}
+  h1{
+    font-family:var(--display);
+    font-size:clamp(30px,6vw,52px);
+    line-height:1.05;
+    color:var(--ink-0);
+    margin:0 0 18px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  h1 em{font-style:normal;color:transparent;background:linear-gradient(100deg,var(--purple-glow),var(--purple-400) 60%);-webkit-background-clip:text;background-clip:text;}
+  .hero p.lead{font-size:16px;color:var(--ink-1);max-width:640px;line-height:1.65;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .chip{font-size:12px;color:var(--ink-2);border:1px solid var(--line);padding:7px 13px;border-radius:100px;background:var(--card);}
+  .chip b{color:var(--ink-0);}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{max-width:920px;margin:0 auto;padding:70px 24px;border-top:1px solid var(--line);}
+  .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .kicker .num{font-family:var(--display);font-size:13px;color:var(--purple-glow);border:1px solid var(--line);width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;}
+  .kicker h2{font-family:var(--display);font-size:clamp(22px,4vw,32px);color:var(--ink-0);margin:0;font-weight:600;}
+  .section-intro{color:var(--ink-2);font-size:14.5px;line-height:1.7;max-width:680px;margin-bottom:34px;}
+
+  .grid2{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:720px){.grid2{grid-template-columns:1fr 1fr;}}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .card h3{font-family:var(--display);font-size:16px;color:var(--ink-0);margin:0 0 10px;font-weight:600;}
+  .card p{margin:0;font-size:13.8px;line-height:1.65;color:var(--ink-1);}
+  .card ul{margin:8px 0 0;padding-left:18px;}
+  .card li{font-size:13.8px;line-height:1.7;color:var(--ink-1);margin-bottom:4px;}
+
+  .tag{display:inline-block;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);background:rgba(139,63,240,0.1);border:1px solid var(--line);padding:4px 10px;border-radius:100px;margin-bottom:12px;}
+
+  .quote-block{border-left:2px solid var(--purple-500);padding:4px 0 4px 20px;margin:28px 0;font-family:var(--display);font-size:19px;color:var(--ink-0);line-height:1.5;font-weight:500;}
+
+  .objecoes{display:flex;flex-direction:column;gap:10px;}
+  .obj-item{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card);}
+  .obj-item .o-head{display:flex;justify-content:space-between;gap:12px;font-family:var(--display);color:var(--ink-0);font-size:14.5px;font-weight:600;margin-bottom:6px;}
+  .obj-item .o-num{color:var(--purple-glow);font-size:12px;}
+  .obj-item p{font-size:13.5px;color:var(--ink-1);line-height:1.6;margin:0;}
+
+  /* bio card */
+  .bio-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;background:linear-gradient(160deg,rgba(139,63,240,0.10),rgba(255,255,255,0.02));
+    margin-top:10px;
+  }
+  .bio-card .bio-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:10px;}
+  .bio-card pre{white-space:pre-wrap;font-family:var(--body);font-size:14.5px;color:var(--ink-0);line-height:1.75;margin:0;}
+
+  /* pillars grid */
+  .pillars{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.pillars{grid-template-columns:1fr 1fr;}}
+  .pillar{border:1px solid var(--line);border-radius:16px;padding:18px 20px;background:var(--card);position:relative;overflow:hidden;}
+  .pillar::before{content:attr(data-n);position:absolute;right:14px;top:6px;font-family:var(--display);font-size:44px;color:rgba(168,85,247,0.10);font-weight:700;}
+  .pillar h4{font-family:var(--display);font-size:15px;color:var(--ink-0);margin:0 0 6px;font-weight:600;}
+  .pillar p{font-size:13.3px;color:var(--ink-1);margin:0;line-height:1.6;}
+  .pillar .fun{display:inline-block;margin-top:10px;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);}
+
+  .rules{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:720px){.rules{grid-template-columns:1fr 1fr;}}
+  .rule-do,.rule-dont{border-radius:16px;padding:18px 20px;border:1px solid var(--line);}
+  .rule-do{background:rgba(95,227,161,0.06);}
+  .rule-dont{background:rgba(255,90,90,0.05);}
+  .rule-do h4{color:var(--ok);} .rule-dont h4{color:#ff8a8a;}
+  .rule-do h4,.rule-dont h4{font-family:var(--display);font-size:14px;margin:0 0 10px;}
+  .rule-do ul,.rule-dont ul{margin:0;padding-left:18px;}
+  .rule-do li,.rule-dont li{font-size:13.3px;color:var(--ink-1);margin-bottom:6px;line-height:1.55;}
+
+  .funnel-strip{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;}
+  @media(min-width:720px){.funnel-strip{grid-template-columns:1fr 1fr 1fr;}}
+  .funnel-col{border-radius:14px;padding:16px;border:1px solid var(--line);}
+  .funnel-col.topo{background:rgba(168,85,247,0.06);}
+  .funnel-col.meio{background:rgba(168,85,247,0.10);}
+  .funnel-col.fundo{background:rgba(168,85,247,0.16);}
+  .funnel-col h5{font-family:var(--display);font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--purple-glow);margin:0 0 8px;}
+  .funnel-col p{font-size:13px;margin:0;color:var(--ink-1);line-height:1.6;}
+
+  /* ---------- CALENDAR ---------- */
+  .progress-wrap{
+    position:sticky;top:63px;z-index:40;
+    background:rgba(13,9,22,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:14px 24px;
+  }
+  .progress-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:16px;}
+  .progress-track{flex:1;height:8px;border-radius:100px;background:rgba(255,255,255,0.06);overflow:hidden;}
+  .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--purple-700),var(--purple-glow));border-radius:100px;transition:width .5s ease;}
+  .progress-label{font-size:12px;color:var(--ink-2);white-space:nowrap;font-family:var(--display);}
+  .progress-label b{color:var(--ink-0);}
+  .badge-pill{font-size:11px;padding:5px 11px;border-radius:100px;border:1px solid var(--line);color:var(--gold);white-space:nowrap;background:rgba(232,200,116,0.06);}
+
+  .week-label{font-family:var(--display);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin:34px 0 14px;display:flex;align-items:center;gap:10px;}
+  .week-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  .day-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--card);
+    margin-bottom:12px;
+    overflow:hidden;
+    transition:border-color .2s;
+  }
+  .day-card.done{border-color:rgba(95,227,161,0.45);background:rgba(95,227,161,0.045);}
+  .day-head{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 18px;cursor:pointer;
+  }
+  .day-num{
+    font-family:var(--display);font-weight:700;font-size:15px;
+    width:42px;height:42px;border-radius:12px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(150deg,var(--purple-700),var(--purple-500));
+    color:#fff;
+  }
+  .day-card.done .day-num{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);}
+  .day-meta{flex:1;min-width:0;}
+  .day-meta .d-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:3px;}
+  .fmt-badge{font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line);color:var(--ink-2);}
+  .fmt-badge.reel{color:#ff9fd6;border-color:rgba(255,159,214,0.3);}
+  .fmt-badge.carrossel{color:#8fd0ff;border-color:rgba(143,208,255,0.3);}
+  .fmt-badge.estatico{color:var(--gold);border-color:rgba(232,200,116,0.3);}
+  .date-label{font-size:11.5px;color:var(--ink-2);}
+  .day-title{font-size:14.5px;color:var(--ink-0);font-weight:600;}
+  .chev{width:20px;height:20px;flex:none;color:var(--ink-2);transition:transform .25s;}
+  .day-card.open .chev{transform:rotate(180deg);}
+  .check-btn{
+    flex:none;width:26px;height:26px;border-radius:8px;
+    border:1.5px solid var(--line);background:transparent;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    color:transparent;transition:.2s;
+  }
+  .check-btn.checked{background:linear-gradient(150deg,#2f9d6d,#5fe3a1);border-color:transparent;color:#0a1a12;}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .day-card.open .day-body{max-height:1600px;}
+  .day-body-inner{padding:0 18px 20px;display:grid;gap:12px;}
+  .field{border-top:1px solid var(--line);padding-top:12px;}
+  .field .f-label{font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple-glow);margin-bottom:5px;}
+  .field .f-value{font-size:13.6px;color:var(--ink-1);line-height:1.6;}
+  .field .f-value b{color:var(--ink-0);}
+  .cta-tag{display:inline-block;margin-top:4px;font-size:11.5px;color:var(--gold);border:1px solid rgba(232,200,116,0.3);padding:4px 10px;border-radius:100px;}
+
+  .goal-card{
+    margin-top:40px;border-radius:var(--radius);
+    padding:28px;background:linear-gradient(150deg,rgba(139,63,240,0.18),rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+  }
+  .goal-card .tag{margin-bottom:14px;}
+  .goal-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px;}
+  @media(min-width:720px){.goal-grid{grid-template-columns:repeat(3,1fr);}}
+  .goal-item .g-num{font-family:var(--display);font-size:28px;color:var(--ink-0);font-weight:700;}
+  .goal-item .g-lbl{font-size:12px;color:var(--ink-2);margin-top:2px;}
+
+  footer{
+    margin-top:60px;padding:70px 24px 50px;text-align:center;
+    border-top:1px solid var(--line);
+    background:radial-gradient(60% 60% at 50% 0%, rgba(139,63,240,0.14), transparent 70%);
+  }
+  footer img{height:64px;width:64px;border-radius:16px;margin-bottom:18px;}
+  footer .f-title{font-family:var(--display);font-size:15px;color:var(--ink-0);margin-bottom:6px;}
+  footer .f-link{display:inline-block;margin-top:8px;font-size:14px;color:var(--purple-glow);text-decoration:none;border-bottom:1px solid rgba(168,85,247,0.4);padding-bottom:2px;}
+  footer .f-sub{font-size:11.5px;color:var(--ink-2);margin-top:22px;}
+
+  .reset-wrap{max-width:920px;margin:0 auto;padding:0 24px 10px;display:flex;justify-content:flex-end;}
+  .reset-btn{font-size:11.5px;color:var(--ink-2);background:none;border:1px solid var(--line);border-radius:100px;padding:6px 12px;cursor:pointer;}
+  .reset-btn:hover{color:var(--ink-0);border-color:var(--purple-400);}
+
+  .save-toast{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--bg-2);border:1px solid var(--line);color:var(--ink-0);
+    font-size:12.5px;padding:10px 18px;border-radius:100px;opacity:0;
+    transition:.3s;pointer-events:none;z-index:100;
+  }
+  .save-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img src="data:image/webp;base64,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" alt="NexusK Ads">
+    <div class="brand-text"><b>NEXUS K</b><span>AGÊNCIA DE MARKETING</span></div>
+  </div>
+  <nav>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#posicionamento">Posicionamento</a>
+    <a href="#editorial">Linha Editorial</a>
+    <a href="#calendario">Calendário</a>
+  </nav>
+</div>
+
+<div class="hero">
+  <span class="eyebrow">Portfólio estratégico · Instagram · 2026</span>
+  <h1>Diagnóstico completo e <em>calendário de 30 dias</em> para @coutojessicamv</h1>
+  <p class="lead">Este documento reúne a análise do perfil, o novo posicionamento de marca de Jessica Couto e o plano editorial completo para os próximos 30 dias. Cada card do calendário é interativo: marque o que já foi produzido e acompanhe o progresso em tempo real. Nos carrosséis, o texto de cada slide já vem pronto pra copiar e colar.</p>
+  <div class="hero-meta">
+    <span class="chip">Cliente <b>Jessica Couto · Medicina Veterinária Integrativa</b></span>
+    <span class="chip">Nicho <b>Nutrologia e cuidado integrativo pet</b></span>
+    <span class="chip">Perfil <b>@coutojessicamv</b></span>
+    <span class="chip">Período <b>30 dias · 2026</b></span>
+  </div>
+</div>
+
+<!-- ================= DIAGNÓSTICO ================= -->
+<section class="block" id="diagnostico">
+  <div class="kicker"><span class="num">01</span><h2>Diagnóstico brutal do perfil</h2></div>
+  <p class="section-intro">Análise sem filtro do que o perfil comunica hoje, com base no conteúdo publicado, na bio atual e no briefing enviado por Jessica.</p>
+
+  <div class="card" style="margin-bottom:16px;">
+    <span class="tag">Posicionamento atual</span>
+    <p>O briefing descreve um negócio bem definido: nutrologia e nutrição de cães, fisioterapia e ozonioterapia, pra tutores de ticket médio e alto que buscam qualidade de vida real pro pet. O perfil no Instagram conta outra história. A bio de exibição diz "Veterinária Integrativa & Psicanálise", os três primeiros itens da bio falam de comportamento, vínculo humano-animal e processos terapêuticos, e o grid mistura conteúdo de comportamento animal, uma consultoria de viagem pet que nem aparece no briefing, e uma quantidade grande de fotos pessoais. Quem chega até o perfil hoje dificilmente descobre, com facilidade, que Jessica é especialista em nutrologia e faz ozonioterapia e fisioterapia em pets.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:32px;">
+    <span class="tag">Pontos críticos de bloqueio</span>
+    <ul>
+      <li><b>Serviço principal invisível:</b> nutrologia, fisioterapia e ozonioterapia, os três serviços que o próprio briefing define como destaque, não aparecem na bio nem dominam o grid atual.</li>
+      <li><b>Psicanálise no mesmo nível de "Veterinária Integrativa":</b> o nome de exibição do perfil coloca as duas coisas lado a lado, mas o briefing descreve a psicanálise como algo que Jessica ainda está "tentando integrar em alguns atendimentos", não um serviço consolidado. Essa diferença de maturidade não fica clara pra quem lê a bio.</li>
+      <li><b>Terceira frente de negócio sem contexto:</b> a "Consultoria de viagem pet" aparece num post do grid, com microchip, vacina, documentação e transporte, mas não está no briefing nem conectada ao restante do posicionamento.</li>
+      <li><b>Ausência de destaques:</b> não existe nenhum destaque organizando o conteúdo por tema, o que obriga quem chega agora a rolar o grid inteiro pra entender o que Jessica realmente faz.</li>
+      <li><b>Alto volume de conteúdo pessoal:</b> festas, viagens, fotos de família e do dia a dia ocupam boa parte do grid recente, misturadas sem filtro com o conteúdo profissional, o que dilui a percepção de autoridade clínica pro público de ticket alto que o briefing declara como alvo.</li>
+      <li><b>Link de bio sem contexto:</b> "comeceporaqui" não indica se leva pra agendamento, pra loja ou pra outro conteúdo, e a pessoa só descobre depois de clicar.</li>
+    </ul>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Dores visíveis do público</span>
+      <ul>
+        <li>"Meu pet come ração e eu não sei se é o ideal pra saúde dele."</li>
+        <li>"Já tentei de tudo e o comportamento do meu pet não melhora."</li>
+        <li>"Meu pet está com dor nas articulações e não sei se cirurgia é a única saída."</li>
+        <li>"Não confio em veterinário que só passa remédio sem olhar o resto."</li>
+        <li>"Quero viajar com meu pet e não sei toda a documentação necessária."</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Dores ocultas do público</span>
+      <ul>
+        <li>Culpa de sentir que falhou quando o pet adoece.</li>
+        <li>Medo de estar alimentando o pet de forma errada sem perceber.</li>
+        <li>Ansiedade de não entender o que o comportamento do próprio animal está comunicando.</li>
+        <li>Insegurança de investir em tratamento integrativo sem saber se realmente funciona pro caso específico.</li>
+        <li>Receio de julgamento por cuidar do pet com o mesmo nível de atenção que um filho.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:32px;">
+    <div class="card">
+      <span class="tag">Desejos emocionais</span>
+      <ul>
+        <li>Sentir que está fazendo tudo o que pode pela saúde do pet.</li>
+        <li>Sentir-se acompanhada por alguém que olha o animal como indivíduo, não só como caso clínico.</li>
+        <li>Sentir alívio de entender o comportamento do pet, não só reagir a ele.</li>
+        <li>Sentir confiança de estar no caminho certo com a alimentação e o tratamento.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag">Desejos práticos</span>
+      <ul>
+        <li>Plano alimentar natural adequado pro pet específico, sem fórmula genérica.</li>
+        <li>Acompanhamento constante, não só uma consulta isolada.</li>
+        <li>Entender a causa do comportamento, não só controlar o sintoma.</li>
+        <li>Ter suporte completo e organizado pra qualquer necessidade do pet, inclusive viagem.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Objeções que seguram a decisão de contratar</span>
+  <div class="objecoes" style="margin-bottom:32px;">
+    <div class="obj-item">
+      <div class="o-head"><span>"Alimentação natural pra pet é cara e trabalhosa"</span><span class="o-num">01</span></div>
+      <p>A lógica por trás: acredita que dieta natural exige tempo e investimento inviáveis pra rotina real. Precisa ver que o plano é construído pra caber na vida do tutor.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Meu veterinário de sempre já cuida bem, não preciso de outro"</span><span class="o-num">02</span></div>
+      <p>A lógica por trás: não enxerga diferença clara entre veterinária convencional e abordagem integrativa. Precisa entender o que muda quando o pet é tratado como indivíduo inteiro.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Ozonioterapia e fisioterapia em pet, isso funciona mesmo?"</span><span class="o-num">03</span></div>
+      <p>A lógica por trás: desconhece ou desconfia de terapias integrativas menos convencionais. Precisa de explicação educativa clara sobre quando e como cada uma é indicada.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Não sei se a parte de psicanálise faz sentido pro meu caso"</span><span class="o-num">04</span></div>
+      <p>A lógica por trás: confusão sobre o que esse serviço realmente oferece, já que ele ainda está em fase de integração. Precisa de clareza sobre o que está e o que não está sendo oferecido hoje.</p>
+    </div>
+    <div class="obj-item">
+      <div class="o-head"><span>"Acompanhamento contínuo parece mais caro que uma consulta avulsa"</span><span class="o-num">05</span></div>
+      <p>A lógica por trás: compara o valor de uma consulta única com o de um plano de acompanhamento. Precisa ver o valor do cuidado contínuo pro resultado de longo prazo do pet.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Oportunidade de mercado</span>
+    <p>A maior parte da veterinária tradicional trata o sintoma isolado, sem olhar pro animal como indivíduo nem pro vínculo entre tutor e pet. Jessica já reúne uma combinação rara: nutrologia, fisioterapia, ozonioterapia, terapia neural, cromoterapia, aromaterapia, além de um acompanhamento semanal, quinzenal e mensal que já gera conexão genuína com os tutores, segundo relatos que ela mesma recebe. Esse conjunto é um diferencial forte pro público de ticket alto que já declara buscar profundidade e cuidado personalizado. Hoje esse diferencial está disperso entre comportamento, psicanálise, viagem pet e conteúdo pessoal, sem um eixo comercial claro amarrando tudo.</p>
+  </div>
+</section>
+
+<!-- ================= POSICIONAMENTO ================= -->
+<section class="block" id="posicionamento">
+  <div class="kicker"><span class="num">02</span><h2>Novo posicionamento de marca</h2></div>
+  <p class="section-intro">Um eixo central claro: tratar o pet como indivíduo inteiro, unindo nutrologia integrativa, corpo e comportamento.</p>
+
+  <div class="quote-block">"Tratar o pet como indivíduo inteiro muda o resultado do tratamento, não só o sintoma."</div>
+
+  <div class="grid2" style="margin-bottom:10px;">
+    <div class="card">
+      <h3>Território de marca</h3>
+      <p>Enquanto a veterinária tradicional trata o sintoma isolado, Jessica ocupa o território do cuidado integral: nutrologia, corpo e comportamento tratados como parte de um mesmo animal, não como frentes separadas. O nome comercial passa a ser sempre <b>Dra. Jessica Couto</b>, com nutrologia integrativa como eixo central, e comportamento, psicanálise e viagem pet posicionados como extensões desse cuidado completo, não como frentes concorrentes de atenção.</p>
+    </div>
+    <div class="card">
+      <h3>Arquétipo de marca</h3>
+      <p>Arquétipo principal: <b>a Cuidadora</b>, sustentado pelo acompanhamento próximo, semanal, quinzenal e mensal, que já gera conexão real com os tutores. Traço secundário: <b>a Sábia</b>, construído pela formação múltipla em nutrologia, fisioterapia, ozonioterapia, terapia neural, cromoterapia e aromaterapia. A comunicação equilibra acolhimento com profundidade técnica.</p>
+    </div>
+  </div>
+
+  <div class="bio-card">
+    <div class="bio-label">Nova bio estratégica</div>
+    <pre>🐾 Dra. Jessica Couto
+Nutrologia integrativa pra cães e gatos, olhando o pet como um todo
+🎯 Nutrição natural, fisioterapia e ozonioterapia
+👇 Comece por aqui</pre>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Frase de posicionamento</h3>
+    <p style="font-family:var(--display);font-size:17px;color:var(--ink-0);">"Tratar o pet como indivíduo inteiro muda o resultado do tratamento, não só o sintoma."</p>
+  </div>
+</section>
+
+<!-- ================= LINHA EDITORIAL ================= -->
+<section class="block" id="editorial">
+  <div class="kicker"><span class="num">03</span><h2>Linha editorial e comunicação</h2></div>
+  <p class="section-intro">Seis pilares sustentam o conteúdo mensal. Nenhum deles compete com o outro: eles se revezam pra cobrir identificação, autoridade, prova social e decisão ao longo do mês, sempre com a nutrologia integrativa como eixo central da comunicação.</p>
+
+  <div class="pillars" style="margin-bottom:36px;">
+    <div class="pillar" data-n="01"><h4>Nutrologia e alimentação natural</h4><p>O núcleo da autoridade da marca: nutrição individualizada como base do cuidado integral.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="02"><h4>Corpo e prática integrativa</h4><p>Fisioterapia e ozonioterapia explicadas de forma acessível, sempre conectadas ao cuidado completo.</p><span class="fun">Meio de funil</span></div>
+    <div class="pillar" data-n="03"><h4>Comportamento e vínculo</h4><p>O pilar que já performa bem no perfil, agora conectado ao eixo central, não como frente isolada.</p><span class="fun">Topo de funil</span></div>
+    <div class="pillar" data-n="04"><h4>Acompanhamento contínuo</h4><p>O diferencial de proximidade real, semanal, quinzenal e mensal, que já gera conexão genuína.</p><span class="fun">Fundo de funil</span></div>
+    <div class="pillar" data-n="05"><h4>Bastidores e prova social</h4><p>Relatos de tutores e rotina real de atendimento, sempre no tom acolhedor da marca.</p><span class="fun">Fundo de funil</span></div>
+    <div class="pillar" data-n="06"><h4>Quebra de objeção</h4><p>Desmistifica terapias integrativas e mostra a viabilidade real da alimentação natural.</p><span class="fun">Fundo de funil</span></div>
+  </div>
+
+  <span class="tag">Tom por formato</span>
+  <div class="grid2" style="margin:12px 0 32px;">
+    <div class="card"><h3>Reels</h3><p>Acolhedor e direto, sempre explicando o "porquê" por trás de cada indicação. Nunca alarmista.</p></div>
+    <div class="card"><h3>Carrossel</h3><p>Educativo, um raciocínio curto por slide, sempre fechando com convite de salvar ou comentar.</p></div>
+    <div class="card"><h3>Estático</h3><p>Frase reflexiva ou dado educativo, tom acolhedor, sem prometer cura ou resultado garantido.</p></div>
+    <div class="card"><h3>Stories</h3><p>Bastidor real de atendimento, enquete sobre rotina do pet, caixinha de dúvida.</p></div>
+  </div>
+
+  <div class="rules" style="margin-bottom:32px;">
+    <div class="rule-do">
+      <h4>Sempre fazer</h4>
+      <ul>
+        <li>Trazer nutrologia, fisioterapia ou ozonioterapia em pelo menos parte do conteúdo de cada semana.</li>
+        <li>Conectar comportamento, psicanálise e viagem pet ao eixo central de cuidado integral, nunca como frentes isoladas.</li>
+        <li>Organizar destaques por tema assim que houver volume suficiente de conteúdo publicado.</li>
+        <li>Manter tom acolhedor em qualquer conteúdo sobre doença, comportamento difícil ou culpa do tutor.</li>
+      </ul>
+    </div>
+    <div class="rule-dont">
+      <h4>Nunca fazer</h4>
+      <ul>
+        <li>Prometer cura ou resultado clínico garantido em qualquer peça de conteúdo.</li>
+        <li>Publicar conteúdo pessoal sem conexão nenhuma com o trabalho, no meio de uma sequência de conteúdo profissional.</li>
+        <li>Tratar a psicanálise como serviço consolidado enquanto ainda está em fase de integração aos atendimentos.</li>
+        <li>Reduzir ozonioterapia ou fisioterapia a solução universal sem explicar quando cada uma é indicada.</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Paleta de sentimentos por etapa de funil</span>
+  <div class="funnel-strip">
+    <div class="funnel-col topo"><h5>Topo</h5><p>Identificação com a dúvida sobre alimentação e comportamento do próprio pet.</p></div>
+    <div class="funnel-col meio"><h5>Meio</h5><p>Confiança na abordagem integrativa, clareza sobre quando cada terapia é indicada.</p></div>
+    <div class="funnel-col fundo"><h5>Fundo</h5><p>Segurança pra investir em acompanhamento contínuo, urgência real de cuidar do pet agora.</p></div>
+  </div>
+</section>
+
+<!-- ================= CALENDÁRIO ================= -->
+<section class="block" id="calendario" style="padding-bottom:0;">
+  <div class="kicker"><span class="num">04</span><h2>Calendário de 30 dias</h2></div>
+  <p class="section-intro">3 reels · 2 carrosséis · 2 estáticos por semana. Toque em cada card pra abrir o roteiro completo, e marque o check quando publicar. Nos carrosséis, o texto de cada slide já vem pronto pra copiar e colar. Seu progresso fica salvo automaticamente.</p>
+</section>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span class="progress-label">Progresso <b id="progress-count">0/30</b></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="badge-pill" id="badge-pill">Bronze</span>
+  </div>
+</div>
+
+<div class="reset-wrap">
+  <button class="reset-btn" id="reset-btn">Reiniciar checklist</button>
+</div>
+
+<section class="block" style="padding-top:20px;" id="days-container"></section>
+
+<div class="block" id="meta-mensal-wrap">
+  <div class="goal-card">
+    <span class="tag">Meta mensal</span>
+    <h3 style="font-family:var(--display);color:var(--ink-0);font-size:20px;margin:0 0 8px;">Meta de crescimento pra este ciclo de 30 dias</h3>
+    <p style="font-size:13.8px;color:var(--ink-1);line-height:1.65;max-width:640px;">Com 1.920 seguidores e um perfil hoje disperso entre três frentes de conteúdo, a meta deste ciclo é reposicionar a nutrologia integrativa como eixo central, sem apagar o comportamento animal que já performa bem. Publicando os 30 dias completos, o perfil passa a gerar contato qualificado de tutores de ticket médio e alto realmente alinhados com o cuidado integral que Jessica oferece.</p>
+    <div class="goal-grid">
+      <div class="goal-item"><div class="g-num">+20%</div><div class="g-lbl">alcance médio por publicação em 30 dias</div></div>
+      <div class="goal-item"><div class="g-num">20+</div><div class="g-lbl">contatos iniciados por WhatsApp ou direct</div></div>
+      <div class="goal-item"><div class="g-num">5+</div><div class="g-lbl">novos acompanhamentos fechados dentro do perfil declarado</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="data:image/webp;base64,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" alt="NexusK Ads">
+  <div class="f-title">Produzido por NexusK Ads</div>
+  <a class="f-link" href="https://www.instagram.com/nexusk.ads/" target="_blank" rel="noopener">@nexusk.ads</a>
+  <div class="f-sub">Estratégia · Criatividade · Conexão · Resultados</div>
+</footer>
+
+<div class="save-toast" id="save-toast">Progresso salvo</div>
+
+<script>
+const CAL_DATA = [
+{"id":"d01","day":1,"week":1,"data":"17/08 · seg","formato":"Reel","pilar":"Nutrologia e alimentação natural","tema":"Ração não é vilã, mas também não é tudo","objetivo":"Gerar identificação com a dúvida mais comum sobre alimentação e abrir o mês com o eixo central da marca.","gancho":"Ração não é vilã. Mas também não resolve tudo sozinha.","visual":"Jessica falando direto pra câmera, tom acolhedor, com pet ao fundo ou no colo, texto de apoio só no gancho inicial.","legenda":"Recebo bastante tutor achando que precisa escolher entre ração e alimentação natural, como se uma fosse certa e a outra errada. Na prática, o que faço é olhar pro pet específico, a rotina da família, o histórico de saúde, e a partir disso construir um plano que faz sentido pra aquele animal, não uma regra genérica que serve pra qualquer um. Comenta aqui embaixo como é a alimentação do seu pet hoje.","cta":"Comente sobre a alimentação do seu pet"},
+
+{"id":"d02","day":2,"week":1,"data":"18/08 · ter","formato":"Carrossel","pilar":"Nutrologia e alimentação natural","tema":"5 sinais de que a alimentação do seu pet pode estar pedindo ajuste","objetivo":"Ajudar o tutor a autodiagnosticar e gerar salvamento do conteúdo.","gancho":"5 sinais de que a alimentação do seu pet pode estar pedindo um ajuste.","visual":"6 slides no padrão da marca, um sinal por slide com ícone simples, último slide com CTA de agendamento.","slides":["Pelagem opaca ou queda de pelo fora do período normal de muda.","Gases ou fezes com consistência irregular com frequência.","Pouca disposição ou cansaço que não combina com a idade do pet.","Coceira ou alergia de pele recorrente sem causa clara.","Peso instável, seja ganhando ou perdendo sem motivo aparente.","Se você reconheceu algum desses sinais, comenta aqui embaixo qual deles."],"legenda":"Nenhum desses sinais aparece isolado por acaso, e juntos eles costumam apontar pra algum ajuste necessário na alimentação do pet. Nem sempre significa doença grave, às vezes é só um desequilíbrio nutricional que dá pra corrigir com acompanhamento adequado. Salva esse carrossel pra observar seu pet nos próximos dias com mais atenção.","cta":"Salve este carrossel"},
+
+{"id":"d03","day":3,"week":1,"data":"19/08 · qua","formato":"Estático","pilar":"Acompanhamento contínuo","tema":"Cuidado não é evento único","objetivo":"Reforçar o valor do acompanhamento contínuo em formato de frase.","gancho":"Saúde de verdade não se resolve numa consulta só.","visual":"Arte estática com foto de pet e tutor, tom acolhedor, tipografia clara sobre fundo suave.","legenda":"Uma consulta pontual ajuda a identificar um problema, mas raramente sustenta uma mudança real na saúde do pet. É o acompanhamento constante, semana após semana, que permite ajustar o plano conforme o animal responde, e é exatamente assim que conduzo cada caso que acompanho. Comenta aqui embaixo se você já sentiu diferença entre consulta avulsa e acompanhamento contínuo.","cta":"Comente sua experiência"},
+
+{"id":"d04","day":4,"week":1,"data":"20/08 · qui","formato":"Reel","pilar":"Comportamento e vínculo","tema":"A reatividade nem sempre começa no animal","objetivo":"Trazer profundidade sobre comportamento conectada ao cuidado integral, não como frente isolada.","gancho":"A reatividade do seu pet pode estar contando uma história que vai além dele.","visual":"Jessica explicando com exemplo prático de reatividade (latido excessivo, agitação), conectando a causas físicas e emocionais, tom didático.","legenda":"Quando um pet reage de forma exagerada a alguma situação, a primeira pergunta que faço vai além do comportamento isolado, passa pelo todo: como ele está se alimentando, se tem dor em algum lugar, como está o vínculo com a família. Corpo e comportamento conversam o tempo inteiro num animal, e tratar só um lado raramente resolve o problema por completo. Comenta aqui embaixo se seu pet tem algum comportamento que você nunca conseguiu entender direito.","cta":"Comente sobre o comportamento do seu pet"},
+
+{"id":"d05","day":5,"week":1,"data":"21/08 · sex","formato":"Carrossel","pilar":"Quebra de objeção","tema":"5 mitos sobre ozonioterapia em pets","objetivo":"Desmistificar uma terapia pouco conhecida e reduzir insegurança do tutor.","gancho":"5 mitos sobre ozonioterapia em pets que talvez estejam te afastando dessa opção.","visual":"6 slides, um mito por slide, com resposta curta desconstruindo cada um, tom educativo e acolhedor.","slides":["Mito 1: é um procedimento dolorido. Na prática, é bem tolerado pela maioria dos pets.","Mito 2: só serve pra caso grave. Também ajuda em cuidado preventivo e recuperação.","Mito 3: substitui todo o resto do tratamento. Ela entra como parte de um plano maior, não sozinha.","Mito 4: é procedimento experimental sem embasamento. Já é usada há anos dentro da medicina integrativa.","Mito 5: qualquer clínica pode aplicar do mesmo jeito. A indicação e a técnica fazem toda diferença no resultado.","Ficou com alguma dúvida sobre ozonioterapia? Comenta aqui embaixo."],"legenda":"Ozonioterapia ainda gera bastante dúvida por ser menos conhecida que um tratamento convencional, e boa parte dessa insegurança vem de informação incompleta ou desatualizada. Reuni aqui os mitos que mais ouço de tutores antes de entender como o procedimento realmente funciona. Salva esse carrossel se você já teve alguma dessas dúvidas.","cta":"Salve este carrossel"},
+
+{"id":"d06","day":6,"week":1,"data":"22/08 · sab","formato":"Estático","pilar":"Bastidores e prova social","tema":"Relato curto de tutora","objetivo":"Reforçar credibilidade com prova social breve e acolhedora.","gancho":"\"Pela primeira vez senti que alguém olhava pro meu pet inteiro, não só pro sintoma.\"","visual":"Arte estática simples, aspas grandes em destaque, fundo suave, sem foto de rosto (privacidade da tutora).","legenda":"Relatos assim chegam com frequência e resumem bem o que tento entregar em cada acompanhamento: olhar pro pet como um todo, não só tratar o que está visível no momento. Guardo cada mensagem assim porque ela confirma o propósito por trás de cada consulta. Se você já foi tutora ou tutor de um paciente meu e quer compartilhar sua experiência, comenta aqui embaixo.","cta":"Compartilhe sua experiência"},
+
+{"id":"d07","day":7,"week":1,"data":"23/08 · dom","formato":"Reel","pilar":"Corpo e prática integrativa","tema":"O que é fisioterapia pra cachorro, na prática","objetivo":"Educar sobre um serviço pouco compreendido de forma acessível.","gancho":"Fisioterapia pra cachorro não é só pra quem já fez cirurgia.","visual":"Jessica mostrando bastidor de uma sessão de fisioterapia (com autorização do tutor), movimentos simples sendo aplicados, tom didático.","legenda":"Fisioterapia em pet costuma ser lembrada só depois de uma cirurgia ortopédica, mas ela também ajuda em prevenção, em pets idosos com mais dificuldade de locomoção e em recuperação de pequenas lesões do dia a dia. O objetivo é sempre manter mobilidade e qualidade de vida pelo maior tempo possível. Comenta aqui embaixo se seu pet já precisou ou já fez fisioterapia alguma vez.","cta":"Comente sua experiência com fisioterapia pet"},
+
+{"id":"d08","day":8,"week":2,"data":"24/08 · seg","formato":"Reel","pilar":"Quebra de objeção","tema":"Alimentação natural é cara e trabalhosa?","objetivo":"Responder diretamente uma objeção comum sobre viabilidade.","gancho":"Alimentação natural não precisa virar um segundo emprego pra você.","visual":"Jessica explicando de forma prática como o plano alimentar é construído considerando a rotina real do tutor, tom acolhedor e direto.","legenda":"Uma das maiores dúvidas antes de migrar pra alimentação natural é sobre tempo e custo. A verdade é que cada plano que monto leva em conta a rotina real de quem vai preparar a comida, não uma receita complicada que ninguém consegue seguir depois da primeira semana. Existem formas de organizar isso que cabem até na rotina mais corrida. Comenta aqui embaixo se esse medo já te impediu de considerar a alimentação natural pro seu pet.","cta":"Comente seu receio sobre alimentação natural"},
+
+{"id":"d09","day":9,"week":2,"data":"25/08 · ter","formato":"Carrossel","pilar":"Comportamento e vínculo","tema":"O que o comportamento do seu pet está tentando te dizer","objetivo":"Aprofundar o pilar de comportamento já forte no perfil, conectado ao cuidado integral.","gancho":"O que o comportamento do seu pet está tentando te dizer, sem palavra nenhuma.","visual":"6 slides, cada um mostrando um comportamento comum e o que ele pode indicar, com foto de pet ilustrando cada situação.","slides":["Lamber as patas em excesso pode indicar ansiedade ou desconforto físico.","Evitar contato pode ser medo, dor ou simplesmente cansaço naquele momento.","Destruir objetos quando fica sozinho geralmente fala sobre ansiedade de separação.","Ficar grudado o tempo todo pode ser vínculo saudável ou insegurança, depende do contexto.","Rosnar não é sempre agressividade, muitas vezes é comunicação de limite.","Qual desses comportamentos o seu pet já teve? Comenta aqui embaixo."],"legenda":"Comportamento nunca é aleatório, ele sempre carrega uma mensagem, seja física ou emocional. Entender essa linguagem muda completamente a forma como o tutor se relaciona com o pet, porque para de reagir ao comportamento e passa a entender a origem dele. Salva esse carrossel pra observar seu pet com outro olhar essa semana.","cta":"Salve este carrossel"},
+
+{"id":"d10","day":10,"week":2,"data":"26/08 · qua","formato":"Estático","pilar":"Nutrologia e alimentação natural","tema":"Frase provocadora sobre nutrição","objetivo":"Reforçar autoridade técnica com frase de impacto.","gancho":"Cada pet come de um jeito diferente, mesmo comendo a mesma coisa.","visual":"Arte estática com tipografia forte, fundo suave, sem foto, frase centralizada.","legenda":"Dois pets podem comer exatamente o mesmo prato e absorver aquilo de formas completamente diferentes, porque metabolismo, idade, porte e histórico de saúde mudam tudo. É por isso que plano alimentar genérico raramente entrega o resultado que promete. Nutrologia individualizada existe justamente pra respeitar essa diferença. Comenta aqui embaixo se você já percebeu diferença assim entre pets da mesma casa.","cta":"Comente sua experiência"},
+
+{"id":"d11","day":11,"week":2,"data":"27/08 · qui","formato":"Reel","pilar":"Acompanhamento contínuo","tema":"Por que atendo semanal, quinzenal e mensal","objetivo":"Explicar a lógica por trás do modelo de acompanhamento contínuo.","gancho":"Cada pet tem um ritmo de acompanhamento diferente, e isso muda tudo no resultado.","visual":"Jessica explicando os diferentes ritmos de acompanhamento e quando cada um é indicado, tom didático e acolhedor.","legenda":"Nem todo caso pede o mesmo ritmo de acompanhamento. Um pet em tratamento mais intenso pode precisar de contato semanal no início, enquanto outro em fase de manutenção segue bem com encontro mensal. Definir esse ritmo junto com cada tutor é parte do que sustenta o resultado no longo prazo, porque o plano se ajusta à evolução real do pet, não a um calendário fixo. Comenta aqui embaixo qual seria o ritmo ideal pro momento do seu pet hoje.","cta":"Comente sobre o momento do seu pet"},
+
+{"id":"d12","day":12,"week":2,"data":"28/08 · sex","formato":"Carrossel","pilar":"Corpo e prática integrativa","tema":"Nutrologia, fisioterapia e ozonioterapia: quando cada uma entra","objetivo":"Esclarecer a diferença entre os três serviços principais e quando cada um é indicado.","gancho":"Nutrologia, fisioterapia e ozonioterapia: qual delas o seu pet precisa agora?","visual":"6 slides, dois por serviço (o que é e quando é indicado), fechando com resumo comparativo.","slides":["Nutrologia entra quando o objetivo é ajustar alimentação, peso ou sintomas ligados à dieta.","Ela também ajuda a prevenir problemas de saúde antes que apareçam sintomas visíveis.","Fisioterapia entra em recuperação pós-cirúrgica, dor articular ou perda de mobilidade.","Ela também ajuda pets idosos a manterem qualidade de vida por mais tempo.","Ozonioterapia entra como suporte em processos inflamatórios e de recuperação geral.","Muitos casos combinam mais de uma dessas frentes ao mesmo tempo, de forma integrada."],"legenda":"É comum o tutor não saber qual desses serviços faz sentido pro momento do próprio pet, e a resposta quase nunca é só um deles isolado. Boa parte dos casos que acompanho combina duas ou três dessas frentes ao mesmo tempo, sempre ajustadas ao que aquele animal específico precisa. Salva esse carrossel pra entender melhor qual frente pode fazer sentido pro seu pet agora.","cta":"Salve este carrossel"},
+
+{"id":"d13","day":13,"week":2,"data":"29/08 · sab","formato":"Estático","pilar":"Bastidores e prova social","tema":"Foto real com reflexão sobre o trabalho","objetivo":"Humanizar a marca com reflexão pessoal genuína.","gancho":"Cada consulta é sobre um pet, mas também sobre a pessoa que ama esse pet.","visual":"Arte estática com foto real de Jessica com um paciente (com autorização do tutor), frase em destaque, tom acolhedor.","legenda":"Com o tempo aprendi que cuidar de um pet nunca é só sobre o animal, é também sobre a pessoa do outro lado, que muitas vezes está ansiosa, preocupada, ou simplesmente querendo fazer o melhor possível por quem ama. Levar isso em conta em cada consulta faz parte de como conduzo meu trabalho. Comenta aqui embaixo o que você mais busca numa consulta veterinária.","cta":"Comente o que você mais busca numa consulta"},
+
+{"id":"d14","day":14,"week":2,"data":"30/08 · dom","formato":"Reel","pilar":"Nutrologia e alimentação natural","tema":"Quando o animal adoece, muitos tutores sentem que falharam","objetivo":"Acolher uma dor emocional real do público, conectando ao cuidado integral.","gancho":"Se o seu pet ficou doente, isso não significa que você falhou como tutor.","visual":"Jessica falando com tom sereno e acolhedor, sem produção pesada, texto de apoio só no gancho inicial.","legenda":"É muito comum um tutor sentir culpa assim que descobre que o pet está doente, como se isso fosse resultado de algo que deixou de fazer. Na maioria das vezes, a doença tem causas que vão muito além do controle do dia a dia, e o papel do tutor é buscar ajuda assim que percebe que algo está diferente, exatamente como você está fazendo ao acompanhar esse conteúdo, muito mais do que ser perfeito. Comenta aqui embaixo se você já sentiu essa culpa quando seu pet adoeceu.","cta":"Comente se você já sentiu essa culpa"},
+
+{"id":"d15","day":15,"week":3,"data":"31/08 · seg","formato":"Reel","pilar":"Quebra de objeção","tema":"Meu veterinário já cuida bem, pra que trocar?","objetivo":"Responder diretamente uma objeção de comparação com atendimento convencional.","gancho":"Você não precisa trocar de veterinário pra ter um olhar integrativo também.","visual":"Jessica explicando que o acompanhamento integrativo pode somar ao cuidado já existente, tom respeitoso e acolhedor.","legenda":"Não é sobre substituir quem já cuida bem do seu pet, é sobre somar um olhar diferente, focado em nutrição, corpo e comportamento de forma integrada. Muitos tutores que acompanho mantêm o veterinário de confiança pras questões clínicas gerais e me procuram especificamente pra nutrologia e cuidado integrativo. Comenta aqui embaixo se você já pensou em ter um acompanhamento assim, além do atendimento que já tem hoje.","cta":"Comente sua opinião"},
+
+{"id":"d16","day":16,"week":3,"data":"01/09 · ter","formato":"Carrossel","pilar":"Nutrologia e alimentação natural","tema":"Passo a passo pra migrar seu pet pra alimentação natural sem sofrimento","objetivo":"Entregar processo prático e reduzir barreira de mudança de dieta.","gancho":"Passo a passo pra migrar seu pet pra alimentação natural sem drama nenhum.","visual":"7 slides com o passo a passo (avaliação inicial, transição gradual, ajuste de porção, acompanhamento, entre outros), com ícone em cada slide.","slides":["Passo 1: avaliação completa do pet antes de qualquer mudança na dieta.","Passo 2: transição gradual, misturando o alimento novo aos poucos com o antigo.","Passo 3: observação da resposta do pet nas primeiras semanas, sem pressa.","Passo 4: ajuste fino de porção e ingrediente conforme o pet vai se adaptando.","Passo 5: acompanhamento contínuo pra manter o plano sempre atualizado.","Migrar não precisa ser radical. Comenta aqui embaixo em qual passo você está agora."],"legenda":"Trocar a alimentação do pet de forma abrupta costuma gerar problema digestivo e resistência do próprio animal. O processo que sigo é sempre gradual, respeitando o tempo de adaptação de cada pet, com acompanhamento em cada etapa pra garantir que a transição aconteça sem sofrimento pra ninguém, nem pet nem tutor. Salva esse carrossel se você está pensando em migrar a alimentação do seu pet.","cta":"Salve este carrossel"},
+
+{"id":"d17","day":17,"week":3,"data":"02/09 · qua","formato":"Estático","pilar":"Comportamento e vínculo","tema":"Frase sobre vínculo","objetivo":"Reforçar o pilar de comportamento conectado à filosofia central da marca.","gancho":"O vínculo entre você e seu pet também é parte do tratamento.","visual":"Arte estática com foto de tutor e pet juntos, tipografia leve, fundo suave.","legenda":"Nenhum plano de cuidado funciona isolado da relação entre tutor e pet. O jeito como vocês se comunicam, o nível de confiança construído no dia a dia, tudo isso influencia diretamente como o animal responde ao tratamento. Por isso olho pro vínculo com a mesma atenção que olho pra qualquer exame. Comenta aqui embaixo como é a relação entre você e seu pet hoje.","cta":"Comente sobre sua relação com seu pet"},
+
+{"id":"d18","day":18,"week":3,"data":"03/09 · qui","formato":"Reel","pilar":"Bastidores e prova social","tema":"Relato de tutora sobre o acompanhamento","objetivo":"Construir confiança usando relato real de mudança percebida.","gancho":"Ela chegou achando que o problema era só comportamento. Não era.","visual":"Texto de depoimento (anonimizado ou com autorização) animado na tela, fundo suave, música instrumental leve.","legenda":"Uma tutora me procurou achando que o pet só tinha um comportamento difícil de lidar, sem imaginar que boa parte daquilo estava conectada a um desconforto físico que ainda não tinha sido identificado. Depois de ajustar alimentação e incluir acompanhamento corporal, o comportamento mudou junto. Esse tipo de caso mostra por que olhar o pet como um todo faz tanta diferença. Comenta aqui embaixo se você já suspeitou de uma conexão parecida no seu pet.","cta":"Comente sua suspeita sobre seu pet"},
+
+{"id":"d19","day":19,"week":3,"data":"04/09 · sex","formato":"Carrossel","pilar":"Quebra de objeção","tema":"5 mitos sobre veterinária integrativa","objetivo":"Desconstruir crenças populares que atrasam a decisão de buscar acompanhamento.","gancho":"5 mitos sobre veterinária integrativa que talvez estejam te afastando desse cuidado.","visual":"6 slides, um mito por slide, com resposta curta desconstruindo cada um, tom educativo.","slides":["Mito 1: é só pra quem já esgotou o tratamento convencional. Pode entrar desde o início.","Mito 2: substitui completamente o veterinário de sempre. Na maioria dos casos, complementa.","Mito 3: é caro demais pra valer a pena. O plano é construído conforme a realidade de cada tutor.","Mito 4: não tem base científica nenhuma. Une conhecimento técnico com abordagem individualizada.","Mito 5: serve só pra pet já idoso ou doente. Também ajuda em prevenção desde filhote.","Alguma dessas dúvidas já te afastou da veterinária integrativa? Comenta aqui embaixo."],"legenda":"Veterinária integrativa carrega bastante mito que afasta justamente quem mais se beneficiaria dela. Reuni aqui os principais que ouço com frequência de tutores antes de entenderem como o acompanhamento realmente funciona na prática. Salva esse carrossel e compartilha com outro tutor que também tem essas dúvidas.","cta":"Salve e compartilhe"},
+
+{"id":"d20","day":20,"week":3,"data":"05/09 · sab","formato":"Estático","pilar":"Corpo e prática integrativa","tema":"Dado educativo sobre ozonioterapia","objetivo":"Entregar informação técnica em formato rápido e salvável.","gancho":"Ozonioterapia pode ser aplicada em diferentes fases do cuidado do pet, não só numa emergência.","visual":"Arte estática com informação simples sobre a aplicação da ozonioterapia, tom educativo, fundo suave.","legenda":"A ozonioterapia entra em diferentes momentos do cuidado, desde suporte em processo inflamatório até parte de um protocolo preventivo, sempre avaliada caso a caso. Não existe fórmula única, cada indicação depende do histórico e da necessidade específica daquele pet. Comenta aqui embaixo se você já tinha ouvido falar sobre esse tipo de aplicação antes.","cta":"Comente se você já conhecia"},
+
+{"id":"d21","day":21,"week":3,"data":"06/09 · dom","formato":"Reel","pilar":"Acompanhamento contínuo","tema":"Bastidor real de uma consulta","objetivo":"Mostrar o processo real do atendimento, reforçando transparência e proximidade.","gancho":"Assim é uma consulta real de acompanhamento aqui comigo.","visual":"Vídeo mostrando bastidor de uma consulta real (com autorização do tutor), avaliação do pet, conversa com o tutor, tom acolhedor.","legenda":"Cada consulta de acompanhamento passa por avaliação do pet, conversa aberta com o tutor sobre o que mudou desde o último encontro, e ajuste do plano conforme necessário. Não é uma consulta corrida, é um momento de escuta real, tanto do animal quanto de quem cuida dele. Comenta aqui embaixo o que você mais valoriza numa consulta veterinária.","cta":"Comente o que você mais valoriza"},
+
+{"id":"d22","day":22,"week":4,"data":"07/09 · seg","formato":"Reel","pilar":"Nutrologia e alimentação natural","tema":"3 sinais de que a dieta do seu pet precisa de ajuste","objetivo":"Reforçar o pilar central com conteúdo prático e direto.","gancho":"3 sinais rápidos de que a dieta do seu pet pode estar desequilibrada.","visual":"Jessica explicando três sinais práticos com exemplo visual de cada um, ritmo ágil, tom direto.","legenda":"Nem sempre um problema de alimentação aparece de forma óbvia. Alguns sinais mais sutis, como mau hálito persistente, mudança na textura do pelo ou variação de energia ao longo do dia, já podem indicar que vale a pena revisar o plano alimentar do pet. Comenta aqui embaixo se algum desses sinais soa familiar no seu pet.","cta":"Comente se algum sinal é familiar"},
+
+{"id":"d23","day":23,"week":4,"data":"08/09 · ter","formato":"Carrossel","pilar":"Bastidores e prova social","tema":"Relatos reunidos de tutores","objetivo":"Consolidar múltiplos relatos curtos pra reforçar credibilidade.","gancho":"Reunimos relatos reais de tutores que já passaram pelo acompanhamento.","visual":"6 slides, um relato por slide (anonimizado ou com autorização), fundo acolhedor, aspas em destaque.","slides":["\"Meu pet nunca teve tanta energia quanto depois do ajuste na alimentação.\"","\"Finalmente entendi por que ele se comportava daquele jeito.\"","\"O acompanhamento me deixou muito mais tranquila sobre a saúde dele.\"","\"Cada consulta parece feita só pro meu pet, não uma fórmula pronta.\"","\"A fisioterapia mudou a mobilidade da minha cadela idosa completamente.\"","Se você já viveu uma experiência parecida, comenta aqui embaixo."],"legenda":"Cada relato que recebo confirma o mesmo padrão: cuidado individualizado gera resultado diferente de fórmula genérica. Reuni aqui alguns relatos recentes de tutores em fases diferentes do acompanhamento. Se você também já passou por aqui e quer compartilhar sua experiência, comenta aqui embaixo ou manda mensagem.","cta":"Comente sua experiência"},
+
+{"id":"d24","day":24,"week":4,"data":"09/09 · qua","formato":"Estático","pilar":"Quebra de objeção","tema":"Frase de impacto sobre investimento em saúde do pet","objetivo":"Reposicionar a percepção de custo do acompanhamento contínuo.","gancho":"Investir em prevenção custa menos do que remediar depois.","visual":"Arte estática com tipografia forte, fundo suave, frase centralizada.","legenda":"Acompanhamento contínuo parece um investimento maior à primeira vista, mas costuma custar bem menos do que lidar com um problema de saúde já avançado, tanto financeiramente quanto emocionalmente. Prevenir com atenção constante é sempre mais leve do que remediar sob pressão. Comenta aqui embaixo se você já viveu essa diferença na prática.","cta":"Comente sua experiência"},
+
+{"id":"d25","day":25,"week":4,"data":"10/09 · qui","formato":"Reel","pilar":"Comportamento e vínculo","tema":"Por que ele não consegue ficar sozinho?","objetivo":"Aprofundar tema de comportamento já forte no perfil com conexão ao cuidado integral.","gancho":"Ansiedade de separação em pet tem explicação, e tem cuidado possível.","visual":"Jessica explicando o que é ansiedade de separação, sinais comuns e como o acompanhamento integrativo pode ajudar, tom acolhedor.","legenda":"Quando um pet não consegue ficar sozinho, isso costuma vir acompanhado de destruição de objeto, latido excessivo ou até desconforto físico visível. Entender a origem desse comportamento, seja emocional, física ou as duas juntas, é o primeiro passo pra construir um plano de cuidado que realmente ajude. Comenta aqui embaixo se seu pet tem dificuldade de ficar sozinho em casa.","cta":"Comente sobre seu pet"},
+
+{"id":"d26","day":26,"week":4,"data":"11/09 · sex","formato":"Carrossel","pilar":"Corpo e prática integrativa","tema":"O que esperar da primeira sessão de fisioterapia do seu pet","objetivo":"Reduzir insegurança sobre o processo, entregando expectativa clara.","gancho":"O que realmente acontece na primeira sessão de fisioterapia do seu pet.","visual":"5 slides descrevendo cada etapa da primeira sessão (avaliação, movimentos testados, plano inicial, orientação ao tutor), com foto ilustrativa.","slides":["Primeiro, uma avaliação completa de mobilidade e postura do pet.","Depois, testes de movimento leve pra identificar pontos de dor ou limitação.","Em seguida, um plano inicial de exercícios adequado ao caso específico.","Por fim, orientação pro tutor sobre cuidados em casa entre as sessões.","Nenhuma sessão é padronizada, tudo parte do que o pet mostra naquele dia."],"legenda":"Muita gente adia a primeira sessão de fisioterapia por não saber o que esperar, imaginando algo mais invasivo ou desconfortável pro pet do que realmente é. O processo começa sempre com avaliação cuidadosa e vai se ajustando ao ritmo do animal. Salva esse carrossel se você está pensando em agendar a primeira sessão do seu pet.","cta":"Salve este carrossel"},
+
+{"id":"d27","day":27,"week":4,"data":"12/09 · sab","formato":"Estático","pilar":"Acompanhamento contínuo","tema":"Frase reflexiva sobre cuidado ao longo do tempo","objetivo":"Reforçar filosofia de acompanhamento contínuo com tom sereno.","gancho":"Saúde do seu pet é construída dia após dia, não numa única consulta.","visual":"Arte estática com foto de pet em diferentes fases (filhote a adulto, se disponível), tipografia leve, fundo suave.","legenda":"É fácil pensar em saúde como algo que se resolve numa visita só, mas na prática ela se constrói no acompanhamento constante, na atenção que se repete semana após semana. Esse é o compromisso que sustento com cada pet que acompanho. Comenta aqui embaixo há quanto tempo você acompanha a saúde do seu pet de perto.","cta":"Comente há quanto tempo você acompanha seu pet"},
+
+{"id":"d28","day":28,"week":4,"data":"13/09 · dom","formato":"Reel","pilar":"Quebra de objeção","tema":"Perguntas rápidas sobre o acompanhamento","objetivo":"Reduzir barreira final de contato respondendo dúvidas práticas.","gancho":"As perguntas que mais recebo sobre o acompanhamento, respondidas rapidinho.","visual":"Vídeo em ritmo ágil, cada pergunta aparecendo na tela seguida de resposta curta (como funciona a primeira consulta, atende presencial e online, quanto tempo até ver mudança).","legenda":"Separei aqui as dúvidas que mais chegam até mim antes de começar um acompanhamento: como funciona a primeira consulta, se atendo presencial e online, e quanto tempo costuma levar até perceber mudança real no pet. Preferi responder direto aqui pra facilitar antes de você mandar mensagem. Se ainda ficou alguma dúvida, comenta aqui embaixo que eu respondo pessoalmente.","cta":"Comente sua dúvida"},
+
+{"id":"d29","day":29,"week":5,"data":"14/09 · seg","formato":"Reel","pilar":"Bastidores e prova social","tema":"Recapitulando o mês sobre cuidado integral do pet","objetivo":"Consolidar a mensagem do mês e converter interesse acumulado em contato direto.","gancho":"Recapitulando tudo que já mostrei esse mês sobre cuidar do pet como um todo.","visual":"Vídeo de recapitulação rápida dos principais temas do mês, ritmo acolhedor, fechando com CTA de WhatsApp.","legenda":"Esse mês passei por vários pontos que sustentam meu trabalho: nutrologia individualizada, fisioterapia, ozonioterapia, a conexão entre comportamento e corpo, e o valor do acompanhamento contínuo. Se em algum momento desse mês você se identificou com algum desses conteúdos, esse é o momento de dar o próximo passo. Manda mensagem no WhatsApp e vamos conversar sobre o momento do seu pet.","cta":"Manda mensagem no WhatsApp"},
+
+{"id":"d30","day":30,"week":5,"data":"15/09 · ter","formato":"Carrossel","pilar":"Fechamento","tema":"Tudo que você precisa saber sobre o acompanhamento com a Dra. Jessica","objetivo":"Fechar o ciclo de 30 dias com recapitulação completa e CTA forte.","gancho":"Isso é tudo que você precisa saber antes de começar o acompanhamento integrativo do seu pet.","visual":"7 slides organizados por tema (nutrologia, fisioterapia, ozonioterapia, comportamento, acompanhamento contínuo, como começar), fechando com CTA grande de WhatsApp.","slides":["Nutrologia individualizada, respeitando a rotina real de cada tutor.","Fisioterapia pra mobilidade, recuperação e qualidade de vida.","Ozonioterapia como suporte em diferentes fases do cuidado.","Comportamento e corpo tratados juntos, nunca separados.","Acompanhamento semanal, quinzenal ou mensal, no ritmo certo pro seu pet.","Tudo começa com uma conversa sem compromisso sobre o momento do seu pet."],"legenda":"Fechando esse mês de conteúdo, quis reunir num só lugar tudo que já faço hoje, porque muita gente ainda me conhece só por um lado do trabalho e não sabe da extensão real do cuidado que ofereço. Nutrologia, fisioterapia, ozonioterapia e comportamento caminham juntos em cada acompanhamento, sempre no ritmo que faz sentido pro seu pet. Se depois desse mês você sentiu que chegou a hora de cuidar do seu pet como um todo, manda mensagem. Eu leio e respondo pessoalmente.","cta":"Manda mensagem e agende sua consulta"}
+]
+;
+
+const container = document.getElementById('days-container');
+const progressFill = document.getElementById('progress-fill');
+const progressCount = document.getElementById('progress-count');
+const badgePill = document.getElementById('badge-pill');
+const toast = document.getElementById('save-toast');
+
+let state = {};
+
+function showToast(){
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>toast.classList.remove('show'), 1400);
+}
+
+function fmtClass(fmt){
+  if(fmt==='Reel') return 'reel';
+  if(fmt==='Carrossel') return 'carrossel';
+  return 'estatico';
+}
+
+function render(){
+  container.innerHTML = '';
+  let currentWeek = null;
+  CAL_DATA.forEach((d, idx)=>{
+    if(d.week !== currentWeek){
+      currentWeek = d.week;
+      const wl = document.createElement('div');
+      wl.className='week-label';
+      wl.textContent = 'Semana ' + d.week;
+      container.appendChild(wl);
+    }
+    const done = !!state[d.id];
+    const card = document.createElement('div');
+    card.className = 'day-card' + (done?' done':'');
+    card.id = 'card-'+d.id;
+    card.innerHTML = `
+      <div class="day-head" data-toggle="${d.id}">
+        <div class="day-num">D${d.day}</div>
+        <div class="day-meta">
+          <div class="d-top">
+            <span class="fmt-badge ${fmtClass(d.formato)}">${d.formato}</span>
+            <span class="date-label">${d.data}</span>
+          </div>
+          <div class="day-title">${d.tema}</div>
+        </div>
+        <button class="check-btn ${done?'checked':''}" data-check="${d.id}" aria-label="Marcar como feito">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="day-body">
+        <div class="day-body-inner">
+          <div class="field"><div class="f-label">Pilar · Objetivo estratégico</div><div class="f-value"><b>${d.pilar}</b> · ${d.objetivo}</div></div>
+          <div class="field"><div class="f-label">${d.formato==='Carrossel' ? 'Título do carrossel' : 'Gancho na tela'}</div><div class="f-value">${d.gancho}</div></div>
+          <div class="field"><div class="f-label">Sugestão visual</div><div class="f-value">${d.visual}</div></div>
+          ${(d.formato==='Carrossel' && Array.isArray(d.slides) && d.slides.length) ? `<div class="field"><div class="f-label">Texto de cada slide (copiar e colar)</div><div class="f-value">${d.slides.map((s,i)=>`<div style="margin-bottom:7px;"><b>Slide ${i+1}:</b> ${s}</div>`).join('')}</div></div>` : ''}
+          <div class="field"><div class="f-label">Legenda</div><div class="f-value">${d.legenda}</div></div>
+          <div class="field"><div class="f-label">CTA</div><div class="f-value"><span class="cta-tag">${d.cta}</span></div></div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.querySelectorAll('[data-toggle]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(e.target.closest('[data-check]')) return;
+      const card = document.getElementById('card-'+el.dataset.toggle);
+      card.classList.toggle('open');
+    });
+  });
+  container.querySelectorAll('[data-check]').forEach(el=>{
+    el.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const id = el.dataset.check;
+      state[id] = !state[id];
+      el.classList.toggle('checked', state[id]);
+      document.getElementById('card-'+id).classList.toggle('done', state[id]);
+      await persist(id, state[id]);
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = CAL_DATA.length;
+  const doneCount = Object.values(state).filter(Boolean).length;
+  const pct = Math.round((doneCount/total)*100);
+  progressFill.style.width = pct + '%';
+  progressCount.innerHTML = doneCount + '/' + total;
+  let badge = 'Bronze';
+  if(pct >= 90) badge = 'Ouro';
+  else if(pct >= 50) badge = 'Prata';
+  badgePill.textContent = badge;
+}
+
+async function persist(id, value){
+  try{
+    if(window.storage && window.storage.set){
+      await window.storage.set('day-'+id, JSON.stringify(value), false);
+      showToast();
+    }
+  }catch(err){
+    console.error('Erro ao salvar progresso', err);
+  }
+}
+
+async function loadState(){
+  state = {};
+  try{
+    if(window.storage && window.storage.list){
+      const listRes = await window.storage.list('day-', false);
+      const keys = (listRes && listRes.keys) ? listRes.keys : [];
+      for(const k of keys){
+        try{
+          const res = await window.storage.get(k, false);
+          if(res && res.value !== undefined){
+            const id = k.replace('day-','');
+            state[id] = JSON.parse(res.value);
+          }
+        }catch(e){}
+      }
+    }
+  }catch(err){
+    console.error('Erro ao carregar progresso', err);
+  }
+  render();
+}
+
+document.getElementById('reset-btn').addEventListener('click', async ()=>{
+  if(!confirm('Reiniciar todo o checklist do calendário?')) return;
+  try{
+    if(window.storage && window.storage.delete){
+      for(const d of CAL_DATA){
+        try{ await window.storage.delete('day-'+d.id, false); }catch(e){}
+      }
+    }
+  }catch(e){}
+  state = {};
+  render();
+});
+
+loadState();
+</script>
+
+</body>
+</html>
